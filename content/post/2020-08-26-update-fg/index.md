@@ -1,6 +1,6 @@
 ---
 title: 1.7.10のmodding環境構築方法
-author: 'あき'
+author: aki
 tags:
 - ja
 - minecraft

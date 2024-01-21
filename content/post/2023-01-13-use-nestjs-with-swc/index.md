@@ -3,7 +3,7 @@ title: Nest.jsでSWCを使う
 date: 2023-01-13
 categories:
 - 開発
-author: 'ゆぴ'
+author: yupix
 tags:
 - swc
 - nest.js

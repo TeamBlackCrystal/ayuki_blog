@@ -2,7 +2,7 @@
 title: Ayuskeyって何？
 categories:
 - Ayuskey
-author: 'あき'
+author: aki
 tags:
 - ja
 - Advent Calendar

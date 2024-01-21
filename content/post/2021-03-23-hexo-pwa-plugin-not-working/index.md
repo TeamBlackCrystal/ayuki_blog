@@ -2,7 +2,7 @@
 title: 'hexoのpwa化pluginが動かなかくなった話'
 categories:
 - 一般
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - ゆぴ

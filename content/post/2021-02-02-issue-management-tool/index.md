@@ -2,7 +2,7 @@
 title: '私的使ってみて便利なタスク管理ツール'
 categories:
 - 一般
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - ゆぴ

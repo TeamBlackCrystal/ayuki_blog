@@ -3,7 +3,7 @@ title: FMProjectEについて
 date: 2022-07-12
 categories:
 - dev
-author: 'あき'
+author: aki
 tags:
 - Dev
 - Minecraft

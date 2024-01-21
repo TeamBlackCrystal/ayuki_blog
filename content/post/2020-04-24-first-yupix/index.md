@@ -2,7 +2,7 @@
 title: 初めてのゆぴ
 categories:
 - 一般
-author: 'ゆぴ'
+author: yupix
 tags:
 - 自己紹介
 - ja

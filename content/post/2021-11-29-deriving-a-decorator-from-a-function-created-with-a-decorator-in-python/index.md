@@ -3,7 +3,7 @@ title: Pythonでデコレーターで作った関数からデコレーターを�
 date: 2021-11-29 21:42:46
 categories:
 - メモ
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - Zorin OS 16 Core

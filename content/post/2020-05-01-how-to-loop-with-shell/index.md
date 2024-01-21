@@ -2,7 +2,7 @@
 title: ShellScriptで処理をループさせる方法
 categories:
 - 解説
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - archlinux

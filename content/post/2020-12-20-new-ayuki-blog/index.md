@@ -2,7 +2,7 @@
 title: リニューアルのお知らせ
 categories:
 - お知らせ
-author: 'TeamPimcServer'
+author: 'yupix'
 tags:
 - ja
 - お知らせ

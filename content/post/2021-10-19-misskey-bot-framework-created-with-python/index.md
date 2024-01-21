@@ -2,7 +2,7 @@
 title: MisskeyのBotをPythonで開発できるライブラリを公開しました
 categories:
 - 開発
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - Python

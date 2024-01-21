@@ -1,6 +1,6 @@
 ---
 title: pythonでの文字列の扱い方1
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - archlinux

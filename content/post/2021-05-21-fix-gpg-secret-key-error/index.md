@@ -2,7 +2,7 @@
 title: 'gpgが動かなくなった話'
 categories:
 - 日記
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - ゆぴ

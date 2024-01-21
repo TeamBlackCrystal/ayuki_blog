@@ -2,7 +2,7 @@
 title: ArchLinuxにSteamをインストールする方法
 categories:
 - 解説
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - archlinux

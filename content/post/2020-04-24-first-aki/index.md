@@ -2,7 +2,7 @@
 title: 初めてのaki
 categories:
 - 一般
-author: 'あき'
+author: aki
 tags:
 - ja
 - 自己紹介

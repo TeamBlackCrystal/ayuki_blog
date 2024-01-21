@@ -2,7 +2,7 @@
 title: Hyper-V環境でBlueStacksを使う方法
 categories:
 - 解説
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - Windows10

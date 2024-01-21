@@ -3,7 +3,7 @@ title: Ayuskey v6 Changelog
 date: 2022-11-16
 categories:
 - dev
-author: 'ゆぴ'
+author: yupix
 tags:
 - Dev
 - Ayuskey

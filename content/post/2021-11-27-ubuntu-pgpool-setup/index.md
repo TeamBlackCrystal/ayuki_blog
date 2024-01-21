@@ -2,7 +2,7 @@
 title: Pgpool-IIを導入するだけ
 categories:
 - Ayuskey
-author: 'あき'
+author: aki
 tags:
 - ja
 - ubuntu

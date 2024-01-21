@@ -2,7 +2,7 @@
 title: qt5をbuildしてみる
 categories:
 - 解説
-author: 'あき'
+author: aki
 tags:
 - ja
 - windows

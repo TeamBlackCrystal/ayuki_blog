@@ -2,7 +2,7 @@
 title: 本ブログの更新内容
 categories:
 - お知らせ
-author: 'TeamPimcServer'
+author: 'yupix'
 tags:
 - ja
 - "あゆき's blog"

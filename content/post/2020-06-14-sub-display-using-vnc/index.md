@@ -2,7 +2,7 @@
 title: ArchLinuxにVNCを使ってサブディスプレイを作る
 categories:
 - 一般
-author: 'ゆぴ'
+author: yupix
 tags:
 - ja
 - archlinux

@@ -2,7 +2,7 @@
 title: Windowsの起動時とかの詳細メッセージを表示する
 categories:
 - 一般
-author: 'あき'
+author: aki
 tags:
 - ja
 - windows

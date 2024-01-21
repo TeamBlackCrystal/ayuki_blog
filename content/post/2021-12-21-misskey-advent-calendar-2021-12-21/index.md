@@ -3,7 +3,7 @@ title: PythonでMisskeyのBotFrameWorkを作ってみた
 date: 2021-12-21 17:41:26
 categories:
 - Misskeyアドベントカレンダー2021
-author: 'ゆぴ'
+author: yupix
 tags:
 - misskey
 - ゆぴ

@@ -3,7 +3,7 @@ title: Remixの流儀
 date: 2022-07-19
 categories:
 - dev
-author: 'ゆぴ'
+author: yupix
 tags:
 - Dev
 - Remix

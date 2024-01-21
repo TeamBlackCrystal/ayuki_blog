@@ -3,7 +3,7 @@ title: あけましておめでとうございます
 date: 2023-01-13
 categories:
 - 一般
-author: 'ゆぴ'
+author: yupix
 tags:
 - 新年
 comments: false
