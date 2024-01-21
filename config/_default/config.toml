@@ -3,6 +3,8 @@ languageCode = 'ja-JP'
 title = "あゆき's BLOG"
 theme = "hugo-theme-stack-starter"
 
+DefaultContentLanguage = "ja"
+
 [params.Sidebar]
     subtitle = "A STUDENT WITH IDEALS AND BELIEFS."
     avatar.src = "img/logo.webp"
