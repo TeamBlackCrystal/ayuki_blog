@@ -1,0 +1,293 @@
+<!doctype html><html lang=ja-jp dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="!!! info tip 欲しいときあるよね？
+はじめに Windowsにsudo1ほしいけどわからない！！とか、調べても本物に程遠い2のしか見つからない！！という人に向けて書いています。
+Q.使えるものはあるの？ A.あります
+使えるもの  gerardog/gsudo lukesampson/psutils(sudo.ps1)  どうやって入れるの？ めんどくさいのでパッケージマネージャーを使いましょう。
+使えるやつ *[choco]: 要administratorだが、少ない手間でたくさんのパッケージを入れられる。
+!!! info tip chocoのインストール手順は準備中です。 scoopのインストール方法は {%post_link 2020-05-01-install-scoop &amp;lsquo;こちら&amp;rsquo;%}
+ choco scoop  インストール 実際に入れてみましょう。
+gerardog/gsudoの場合（個人的なオススメ） 1 2 3 4 5  #非administratorでできるのでオススメ scoop install gsudo #要administrator choco install gsudo   lukesampson/psutils(sudo.ps1)の場合 1  scoop install sudo   chocoにも同名の物があるがこれは完成度低い3
+How to 1  sudo choco install windows-terminal   1 2  #hostsファイルが楽に編集できるよ！やったね！！ sudo notepad C:\Windows\System32\drivers\etc\hosts   !">
+<title>Windowsにsudoが欲しいかい？</title>
+<link rel=canonical href=https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/>
+<link rel=stylesheet href=/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css><meta property="og:title" content="Windowsにsudoが欲しいかい？">
+<meta property="og:description" content="!!! info tip 欲しいときあるよね？
+はじめに Windowsにsudo1ほしいけどわからない！！とか、調べても本物に程遠い2のしか見つからない！！という人に向けて書いています。
+Q.使えるものはあるの？ A.あります
+使えるもの  gerardog/gsudo lukesampson/psutils(sudo.ps1)  どうやって入れるの？ めんどくさいのでパッケージマネージャーを使いましょう。
+使えるやつ *[choco]: 要administratorだが、少ない手間でたくさんのパッケージを入れられる。
+!!! info tip chocoのインストール手順は準備中です。 scoopのインストール方法は {%post_link 2020-05-01-install-scoop &amp;lsquo;こちら&amp;rsquo;%}
+ choco scoop  インストール 実際に入れてみましょう。
+gerardog/gsudoの場合（個人的なオススメ） 1 2 3 4 5  #非administratorでできるのでオススメ scoop install gsudo #要administrator choco install gsudo   lukesampson/psutils(sudo.ps1)の場合 1  scoop install sudo   chocoにも同名の物があるがこれは完成度低い3
+How to 1  sudo choco install windows-terminal   1 2  #hostsファイルが楽に編集できるよ！やったね！！ sudo notepad C:\Windows\System32\drivers\etc\hosts   !">
+<meta property="og:url" content="https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/">
+<meta property="og:site_name" content="あゆき's BLOG">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="ja"><meta property="article:tag" content="windows"><meta property="article:tag" content="scoop"><meta property="article:tag" content="choco"><meta property="article:tag" content="sudo"><meta property="article:tag" content="解説"><meta property="article:published_time" content="2020-05-01T00:00:00+00:00"><meta property="article:modified_time" content="2020-05-01T00:00:00+00:00">
+<meta name=twitter:title content="Windowsにsudoが欲しいかい？">
+<meta name=twitter:description content="!!! info tip 欲しいときあるよね？
+はじめに Windowsにsudo1ほしいけどわからない！！とか、調べても本物に程遠い2のしか見つからない！！という人に向けて書いています。
+Q.使えるものはあるの？ A.あります
+使えるもの  gerardog/gsudo lukesampson/psutils(sudo.ps1)  どうやって入れるの？ めんどくさいのでパッケージマネージャーを使いましょう。
+使えるやつ *[choco]: 要administratorだが、少ない手間でたくさんのパッケージを入れられる。
+!!! info tip chocoのインストール手順は準備中です。 scoopのインストール方法は {%post_link 2020-05-01-install-scoop &amp;lsquo;こちら&amp;rsquo;%}
+ choco scoop  インストール 実際に入れてみましょう。
+gerardog/gsudoの場合（個人的なオススメ） 1 2 3 4 5  #非administratorでできるのでオススメ scoop install gsudo #要administrator choco install gsudo   lukesampson/psutils(sudo.ps1)の場合 1  scoop install sudo   chocoにも同名の物があるがこれは完成度低い3
+How to 1  sudo choco install windows-terminal   1 2  #hostsファイルが楽に編集できるよ！やったね！！ sudo notepad C:\Windows\System32\drivers\etc\hosts   !">
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<figure class=site-avatar>
+<a href=/>
+<img src=/img/logo_huf10592dd2822538256e070550f453dcf_3270_300x0_resize_q75_h2_box_2.webp width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a>
+</figure>
+<div class=site-meta>
+<h1 class=site-name><a href=/>あゆき's BLOG</a></h1>
+<h2 class=site-description>A STUDENT WITH IDEALS AND BELIEFS.</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/TeamBlackCrystal/ayuki_blog_next target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<div class=menu-bottom-section>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/%E8%A7%A3%E8%AA%AC/>
+解説
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/>Windowsにsudoが欲しいかい？</a>
+</h2>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>May 01, 2020</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+1 minute read
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>!!! info tip
+欲しいときあるよね？</p>
+<h2 id=はじめに>はじめに</h2>
+<p>Windowsにsudo<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>ほしいけどわからない！！とか、調べても本物に程遠い<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>のしか見つからない！！という人に向けて書いています。</p>
+<h2 id=q使えるものはあるの>Q.使えるものはあるの？</h2>
+<p>A.あります</p>
+<h3 id=使えるもの>使えるもの</h3>
+<ul>
+<li><a class=link href=https://github.com/gerardog/gsudo target=_blank rel=noopener>gerardog/gsudo</a></li>
+<li><a class=link href=https://github.com/lukesampson/psutils target=_blank rel=noopener>lukesampson/psutils(sudo.ps1)</a></li>
+</ul>
+<h2 id=どうやって入れるの>どうやって入れるの？</h2>
+<p>めんどくさいのでパッケージマネージャーを使いましょう。</p>
+<h3 id=使えるやつ>使えるやつ</h3>
+<p>*[choco]: 要administratorだが、少ない手間でたくさんのパッケージを入れられる。</p>
+<p>!!! info tip
+chocoのインストール手順は準備中です。
+scoopのインストール方法は {%post_link 2020-05-01-install-scoop &lsquo;こちら&rsquo;%}</p>
+<ul>
+<li>choco</li>
+<li>scoop</li>
+</ul>
+<h2 id=インストール>インストール</h2>
+<p>実際に入れてみましょう。</p>
+<h3 id=gerardoggsudoの場合個人的なオススメ>gerardog/gsudoの場合（個人的なオススメ）</h3>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=c>#非administratorでできるのでオススメ</span>
+<span class=n>scoop</span> <span class=n>install</span> <span class=n>gsudo</span>
+
+<span class=c>#要administrator</span>
+<span class=n>choco</span> <span class=n>install</span> <span class=n>gsudo</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=lukesampsonpsutilssudops1の場合>lukesampson/psutils(sudo.ps1)の場合</h3>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=n>scoop</span> <span class=n>install</span> <span class=n>sudo</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>chocoにも同名の物があるがこれは完成度低い<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></p>
+<h2 id=how-to>How to</h2>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=n>sudo</span> <span class=n>choco</span> <span class=n>install</span> <span class=nb>windows-terminal</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=c>#hostsファイルが楽に編集できるよ！やったね！！</span>
+<span class=n>sudo</span> <span class=n>notepad</span> <span class=n>C:</span><span class=p>\</span><span class=n>Windows</span><span class=p>\</span><span class=n>System32</span><span class=p>\</span><span class=n>drivers</span><span class=p>\</span><span class=n>etc</span><span class=p>\</span><span class=n>hosts</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>!!! warning
+何も気にせず乱用してはいけません。
+ウイルス等の感染の原因になります。</p>
+<p>!!! error danger
+<code>rm</code>や<code>rd</code>(及び<code>rmdir</code>)などのファイルを削除するコマンドに対して<code>C:\</code>や<code>/</code>を指定してはいけません。(OSや個人データをを破壊する可能性があります。)</p>
+<h2 id=最後に>最後に</h2>
+<p>管理者権限なので扱いには気をつけましょう。</p>
+<p>Linuxやmacを使っているあなたもですよ？rootの扱いには気をつけましょう。</p>
+<section class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1 role=doc-endnote>
+<p>Linuxやmacに存在するrootに昇格するコマンド。今回は、知っていることを前提としている。&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:2 role=doc-endnote>
+<p>日本語で検索するとよく出てくるやつは、別窓だったり、色が出なかったりと色々と問題がある。&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:3 role=doc-endnote>
+<p>別窓タイプ&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/ja/>ja</a>
+<a href=/tags/windows/>windows</a>
+<a href=/tags/scoop/>scoop</a>
+<a href=/tags/choco/>choco</a>
+<a href=/tags/sudo/>sudo</a>
+<a href=/tags/%E8%A7%A3%E8%AA%AC/>解説</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>Related content</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/>
+<div class=article-details>
+<h2 class=article-title>qt5をbuildしてみる</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/>
+<div class=article-details>
+<h2 class=article-title>scoopを入れよう！！</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/>
+<div class=article-details>
+<h2 class=article-title>ShellScriptで処理をループさせる方法</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/>
+<div class=article-details>
+<h2 class=article-title>ArchLinuxにSteamをインストールする方法</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/>
+<div class=article-details>
+<h2 class=article-title>Hyper-V環境でBlueStacksを使う方法</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2024 あゆき's BLOG
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.21.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

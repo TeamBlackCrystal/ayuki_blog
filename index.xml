@@ -1,0 +1,2452 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>あゆき's BLOG</title><link>https://example.org/</link><description>Recent content on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 13 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml"/><item><title>Nest.jsでSWCを使う</title><link>https://example.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://example.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</guid><description>&lt;h1 id="初めに">初めに&lt;/h1>
+&lt;p>この記事ではbuild, devでSWCを使うようにするという記事となっています。また、この記事ではパッケージ管理にpnpmを用いていますが、npm等をご利用の場合はpnpmをnpm等といった具合に置き換えてください。&lt;/p>
+&lt;h2 id="依存関係を追加する">依存関係を追加する&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># buildだけやる方&lt;/span>
+pnpm add -D @swc/cli @swc/core
+&lt;span class="c1"># build, devどちらもやる方&lt;/span>
+pnpm add -D @swc/cli @swc/core @swc/register chokidar
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="swcの設定を追加する">swcの設定を追加する&lt;/h2>
+&lt;p>プロジェクトルートに&lt;code>.swcrc&lt;/code>という名前で以下の内容を記載します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">{&lt;/span>
+&lt;span class="s2">&amp;#34;jsc&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;span class="s2">&amp;#34;parser&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;span class="s2">&amp;#34;syntax&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;typescript&amp;#34;&lt;/span>,
+&lt;span class="s2">&amp;#34;decorators&amp;#34;&lt;/span>: true,
+&lt;span class="o">}&lt;/span>,
+&lt;span class="s2">&amp;#34;target&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;es2020&amp;#34;&lt;/span>,
+&lt;span class="s2">&amp;#34;keepClassNames&amp;#34;&lt;/span>: true,
+&lt;span class="s2">&amp;#34;transform&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;span class="s2">&amp;#34;legacyDecorator&amp;#34;&lt;/span>: true,
+&lt;span class="s2">&amp;#34;decoratorMetadata&amp;#34;&lt;/span>: true,
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>,
+&lt;span class="s2">&amp;#34;module&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;commonjs&amp;#34;&lt;/span>,
+&lt;span class="s2">&amp;#34;noInterop&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="nest-clijsonを編集する">nest-cli.jsonを編集する&lt;/h2>
+&lt;p>sourceRootがあれば問題ないですが、一応全て載せておきます。（そもそも普通にプロジェクト作ったなら最初からあると思いますが）&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;$schema&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;https://json.schemastore.org/nest-cli&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;collection&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;@nestjs/schematics&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;sourceRoot&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;src&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;compilerOptions&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;plugins&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="devでホットリロードできるようにする">devでホットリロードできるようにする&lt;/h2>
+&lt;p>今回紹介する方法は以下のプロジェクトの方法です。ライセンスは&lt;code>MIT&lt;/code>です。作者の&lt;code>manuschillerdev&lt;/code>さんとcontributorの皆さんに感謝です！&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/manuschillerdev/nestjs-swc" target="_blank" rel="noopener"
+>https://github.com/manuschillerdev/nestjs-swc&lt;/a>&lt;/p>
+&lt;h3 id="maintsを編集する">main.tsを編集する&lt;/h3>
+&lt;p>まず初めにmain.tsで&lt;code>bootstrap&lt;/code>関数をexportするようにします。
+また、あとで作成するホットリロードのスクリプトから呼び出す関係上&lt;code>bootstrap()&lt;/code>という呼び出しを&lt;code>process.env.NODE_ENV&lt;/code>環境変数によって行うかどうか決めます。
+最後に重要なポイントとして&lt;code>bootstrap&lt;/code>関数で&lt;code>return app&lt;/code>するようにしてください。これはあとで作成するホットリロード部分で、nestを止める為に必要になります。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ts" data-lang="ts">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">NestFactory&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@nestjs/core&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">AppModule&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;./app.module&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">bootstrap() {&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">app&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">NestFactory&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">AppModule&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="nx">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">listen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3000&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">app&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">env&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">NODE_ENV&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s1">&amp;#39;development&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">bootstrap&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="hmrtsを作成する">hmr.tsを作成する&lt;/h3>
+&lt;p>&lt;code>src/hmr.ts&lt;/code>に作成します。
+ここでは、chokidarを用いてnestプロジェクトの変更を検知し、先ほどexportした&lt;code>bootstrap&lt;/code>を呼び出し、nestを起動します。また、変更が発生した場合は自動で&lt;code>bootstrap&lt;/code>の戻り値である&lt;code>app&lt;/code>を用いて、&lt;code>app.close()&lt;/code>を実行します。&lt;/p>
+&lt;p>import等を本家のプロジェクトから変更しています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ts" data-lang="ts">&lt;span class="kr">import&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="kr">as&lt;/span> &lt;span class="nx">chokidar&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s1">&amp;#39;chokidar&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">INestApplication&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Logger&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s1">&amp;#39;@nestjs/common&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="kr">as&lt;/span> &lt;span class="nx">path&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s1">&amp;#39;path&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="kr">as&lt;/span> &lt;span class="nx">nestCliConfig&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s1">&amp;#39;../nest-cli.json&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">SRC_PATH&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">path&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">nestCliConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">sourceRoot&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">MAIN_PATH&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">path&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">SRC_PATH&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;main.ts&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kr">class&lt;/span> &lt;span class="nx">HMR&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">private&lt;/span> &lt;span class="nx">app&lt;/span>: &lt;span class="kt">INestApplication&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">private&lt;/span> &lt;span class="nx">logger&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Logger&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;HMR&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kr">constructor&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">chokidar&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">watch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">SRC_PATH&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">/**/*.ts`&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;change&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">path&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`Detected changes in file: &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">path&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">reload&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="c1">// naive error handling - source maps should work
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;unhandledRejection&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">reason&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">reason&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">async&lt;/span> &lt;span class="nx">reload() {&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Starting HMR cycle&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">executeAndLogWithDuration&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Finished HMR cycle&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// delete all require caches for SRC_PATH
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// TODO: check how to handle node_modules
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">key&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="kr">require&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">cache&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">includes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">SRC_PATH&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="k">delete&lt;/span> &lt;span class="kr">require&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">cache&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="c1">// get fresh instance of main
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">bootstrap&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="kr">import&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">MAIN_PATH&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// close server if running
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">app&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">executeAndLogWithDuration&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Closed server&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">close&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// reinitialize server
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">executeAndLogWithDuration&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="s1">&amp;#39;Started Server&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="kr">async&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span>
+&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">app&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">bootstrap&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="k">catch&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">))),&lt;/span>
+&lt;span class="p">);&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">async&lt;/span> &lt;span class="nx">executeAndLogWithDuration&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">cb&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="nx">Promise&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">any&lt;/span>&lt;span class="p">&amp;gt;)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">start&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">performance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">now&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="nx">cb&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">duration&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Number&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">performance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">now&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">start&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">toFixed&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">msg&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb"> +&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">duration&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">ms`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">hmr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">HMR&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="nx">hmr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">reload&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="packagesjsonのscriptsを更新する">packages.jsonのscriptsを更新する&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;scripts&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;build&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;npx swc src -d dist -D&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;start:dev&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;NODE_ENV=&amp;#39;development&amp;#39; node -r @swc/register src/hmr.ts&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="参考にさせていただいた記事">参考にさせていただいた記事&lt;/h2>
+&lt;p>&lt;a class="link" href="https://zenn.dev/cohky/articles/use-swc-performance" target="_blank" rel="noopener"
+>https://zenn.dev/cohky/articles/use-swc-performance&lt;/a>&lt;/p></description></item><item><title>あけましておめでとうございます</title><link>https://example.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://example.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</guid><description>&lt;h1 id="挨拶">挨拶&lt;/h1>
+&lt;p>大分遅れてしまいましたが、あけましておめでとうございます！
+今年は昨年より良い記事を書けるよう精進するので、今年もよろしくお願いします！&lt;/p></description></item><item><title>Ayuskey v6 Changelog</title><link>https://example.org/p/ayuskey-v6-changelog/</link><pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/ayuskey-v6-changelog/</guid><description>&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>Ayuskeyって何？って方は{% post_link 2020-12-21-misskey-advent-calendar-2020-ayuskey こちら %}の記事を先にお読みください。&lt;/p>
+&lt;h2 id="注意事項">注意事項&lt;/h2>
+&lt;p>6.0.0以下のバージョンから更新する際はマイグレーションが必要です。&lt;/p>
+&lt;h3 id="機能の追加">機能の追加&lt;/h3>
+&lt;ul>
+&lt;li>引っ越し先をユーザーページに表示するように&lt;/li>
+&lt;li>投稿ページのURLで埋め込みプレイヤーを提供するように&lt;/li>
+&lt;li>Bull Dashboard を組み込み、ジョブキューの確認や操作を行えるように&lt;/li>
+&lt;li>welcome ページでcwが設定されている場合は 「もっと見る」ボタンを出すように &lt;a class="link" href="https://github.com/TeamBlackCrystal/misskey/issues/1813" target="_blank" rel="noopener"
+>TeamBlackCrystal/misskey#1813&lt;/a>&lt;/li>
+&lt;li>blurをoffにする設定を追加しました&lt;/li>
+&lt;li>toolsにアプリケーションを作るためのサンプルを追加 &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/30" target="_blank" rel="noopener"
+>#30&lt;/a>&lt;/li>
+&lt;li>ハイライトがない際は無いと表示する &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/120" target="_blank" rel="noopener"
+>#120&lt;/a>&lt;/li>
+&lt;li>パスワードリマインダー(パスワードリセット)&lt;/li>
+&lt;/ul>
+&lt;h3 id="破壊的変更">破壊的変更&lt;/h3>
+&lt;ul>
+&lt;li>node 12, 14をドロップしました。16または18に移行してください&lt;/li>
+&lt;/ul>
+&lt;h3 id="変更点">変更点&lt;/h3>
+&lt;ul>
+&lt;li>pnpmに変更&lt;/li>
+&lt;li>リバーシのグラデーションを変更 &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/71" target="_blank" rel="noopener"
+>#71&lt;/a>&lt;/li>
+&lt;li>メニューのアイコンの位置を統一 &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/68" target="_blank" rel="noopener"
+>#68&lt;/a>&lt;/li>
+&lt;li>renoteした際のHeaderの位置を変える &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/33" target="_blank" rel="noopener"
+>#33&lt;/a>&lt;/li>
+&lt;li>emojilist を更新&lt;/li>
+&lt;li>クエリの最適化&lt;/li>
+&lt;li>docker で node@18 を使用します&lt;/li>
+&lt;li>既存のファイルにsensitiveフラグが飛んできたときの挙動&lt;/li>
+&lt;li>CORSを調整&lt;/li>
+&lt;li>ビルド時の出力を調整&lt;/li>
+&lt;/ul>
+&lt;h3 id="非推奨">非推奨&lt;/h3>
+&lt;ul>
+&lt;li>Elasticsearchやsonicを利用した検索
+&lt;ul>
+&lt;li>これらを使用している場合は検索の修正は提供されていません&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="修正">修正&lt;/h3>
+&lt;p>デザインに関する修正が多いです&lt;/p>
+&lt;ul>
+&lt;li>channels/follow エンドポイントで既にfollowしてる物をfollowしようとするとdbのエラーが直接帰ってきてしまう &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/362" target="_blank" rel="noopener"
+>#362&lt;/a>&lt;/li>
+&lt;li>メンション時にアバターの比率が異なるとアバターのデザインが崩れる &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/164" target="_blank" rel="noopener"
+>#164&lt;/a>&lt;/li>
+&lt;li>メンション時アバターが取得できない &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/163" target="_blank" rel="noopener"
+>#163&lt;/a>&lt;/li>
+&lt;li>モバイル時にRenoteするとボーダーがうまく表示されない &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/31" target="_blank" rel="noopener"
+>#31&lt;/a>&lt;/li>
+&lt;li>アプリケーションの認証時、ログインしていないとテーマが白すぎる &lt;a class="link" href="https://github.com/TeamBlackCrystal/misskey/issues/477" target="_blank" rel="noopener"
+>TeamBlackCrystal/misskey#477&lt;/a>&lt;/li>
+&lt;li>リモートユーザーでも可能であれば誕生日と場所を表示&lt;/li>
+&lt;li>noteの検索が正常に動作しない&lt;/li>
+&lt;/ul>
+&lt;h3 id="セキュリティー">セキュリティー&lt;/h3>
+&lt;p>依存関係が更新されました。脆弱性が修正されている場合があります。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/advisories/GHSA-gp95-ppv5-3jc5" target="_blank" rel="noopener"
+>CVE-2022-29256&lt;/a> (sharp)&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/advisories/GHSA-pfrx-2q88-qq97" target="_blank" rel="noopener"
+>CVE-2022-33987&lt;/a> (got)&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/advisories/GHSA-wm7h-9275-46v2" target="_blank" rel="noopener"
+>CVE-2022-24434&lt;/a> (multer)&lt;/li>
+&lt;/ul>
+&lt;h2 id="目玉機能">目玉機能&lt;/h2>
+&lt;p>Bull Dashboardが組み込まれたのでジョブキューをご自分の目で今まで以上に身近に感じることができます。&lt;/p>
+&lt;h2 id="将来的な予定">将来的な予定&lt;/h2>
+&lt;p>APIに関してはジョブキュー周りで詰まっているのでv7で実装されるかは怪しいです。今後の更新にご期待ください！&lt;/p>
+&lt;ul>
+&lt;li>v2 APIの搭載(GETメソッド等が使用できる)&lt;/li>
+&lt;li>VuexからPiniaへの置き換え&lt;/li>
+&lt;/ul></description></item><item><title>Remixの流儀</title><link>https://example.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/</link><pubDate>Tue, 19 Jul 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/</guid><description>&lt;h1 id="概要">概要&lt;/h1>
+&lt;p>この記事では結構新しめなReactベースのフレームワークであるRemixについてご紹介します。&lt;/p>
+&lt;h2 id="初めに">初めに&lt;/h2>
+&lt;p>Remixってなんだよ！って人のために少しだけご紹介します。Remixはサーバーサイドレンダリング（SSR）の最近よく聞くSPAとは少し違ったアプローチをとっているフレームワークです。
+Remixの特徴は以下のような点にあります。
+コンポーネントでエラーが出ても、そのコンポーネントのみがエラーを出すこれにより、一部のコンポーネントがエラーを出してもページ全体がエラーで汚染されることが無くなり、原因が分かりやすくなっています。
+SSRなのでOGPなどが容易に設定できます。これに関しては後述しますが、取得したデータをもとにOGPを設定できて非常に便利です。
+他にも多くの機能がありますが、ここから先はあなたご自身の手でお試しください！では記事をどうぞ！&lt;/p>
+&lt;h2 id="データの取得">データの取得&lt;/h2>
+&lt;p>Remixには LoaderFunction という物があります。例として以下のように書くことができます。今回は例としてPrismaを用いたデータの取得を行ってみます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">loader&lt;/span>: &lt;span class="kt">LoaderFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">params&lt;/span>&lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">prisma&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">findFirst&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">where&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">id&lt;/span>: &lt;span class="kt">params.userId&lt;/span>&lt;span class="p">}}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">ShowUser() {&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">user&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useLoaderData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">Hello&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>この方法の素晴らしい点は&lt;code>loader&lt;/code>という名前の関数をexportしておくことで自動で実行できる点です。ただ、loaderは定義した場合必ず何か値を返す必要があります。返さないと&lt;code>loader&lt;/code>が定義されていますが、何も返されませんでしたみたいなエラーが出ると思います。&lt;/p>
+&lt;h2 id="データの取得上級">データの取得（上級）&lt;/h2>
+&lt;p>さて、先ほどのコードを書いていてTypeScriptを使っている皆さんはきっとこう思ったことでしょう。「これ、Prismaのincludeとか使ってリレーション入れた場合の型どうすればいいんだ?」とその回答はRemixの公式ドキュメントの&lt;a class="link" href="https://remix.run/docs/en/v1/guides/data-loading#databases" target="_blank" rel="noopener"
+>このセクション&lt;/a>にあります。ですが、一応見つけるのに苦労する方もいると思うのでここで紹介しておきます。コードはRemixのドキュメントからお借りしました。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">import&lt;/span> &lt;span class="kr">type&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">LoaderFunction&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@remix-run/node&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// or &amp;#34;@remix-run/cloudflare&amp;#34;
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">json&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@remix-run/node&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// or &amp;#34;@remix-run/cloudflare&amp;#34;
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useLoaderData&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@remix-run/react&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">db&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;~/db.server&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">type&lt;/span> &lt;span class="nx">LoaderData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Awaited&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ReturnType&lt;/span>&lt;span class="err">&amp;lt;&lt;/span>&lt;span class="na">typeof&lt;/span> &lt;span class="na">getLoaderData&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">getLoaderData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">productId&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">product&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">db&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">product&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">findUnique&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;span class="nx">where&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">id&lt;/span>: &lt;span class="kt">productId&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nx">select&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">id&lt;/span>: &lt;span class="kt">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">name&lt;/span>: &lt;span class="kt">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">imgSrc&lt;/span>: &lt;span class="kt">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">product&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">loader&lt;/span>: &lt;span class="kt">LoaderFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">({&lt;/span>
+&lt;span class="nx">params&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">LoaderData&lt;/span>&lt;span class="p">&amp;gt;(&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="nx">getLoaderData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">productId&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">);&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">Product() {&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">product&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useLoaderData&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">LoaderData&lt;/span>&lt;span class="p">&amp;gt;();&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">Product&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">product&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">}&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="cm">/* ... */&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>先ほどのデータの取得と何が違うのかというと&lt;code>getLoaderData&lt;/code>という関数を作成し、&lt;code>LoaderData&lt;/code>という定数に&lt;code>getLoaderData&lt;/code>の戻り値を型として取得し、&lt;code>useLoaderData&lt;/code>の型は&lt;code>LoaderData&lt;/code>だよ！と伝えています。いたって普通のことかもしれないですが、TypeScriptに慣れてないと案外出てこない考えでした。&lt;/p>
+&lt;h2 id="データの送信">データの送信&lt;/h2>
+&lt;p>データの送信はデータの取得と似た名前の関数 &lt;code>actionFunction&lt;/code> と &lt;code>useFetcher&lt;/code> を使用します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">action&lt;/span>: &lt;span class="kt">ActionFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">({&lt;/span> &lt;span class="nx">request&lt;/span> &lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">formData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">formData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">intent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;intent&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">intent&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;createUser&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">await&lt;/span> &lt;span class="nx">createUser&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">CreateUser() {&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">fetcher&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useFetcher&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// データに変更が生じた際に発火する
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">},&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">submitUserData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">submit&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">intent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;createUser&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;exampleUser&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">method&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;post&amp;#34;&lt;/span>&lt;span class="p">})&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">onClick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="nx">submitUserData&lt;/span>&lt;span class="p">()}/&amp;gt;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このコードではintentにどういうアクションを起こさせるかを渡しています。これは何故かというとactionはルーターごとに一つであり、Remixの公式Discordなどを見ていてもこの書き方が主流だと思っているからです。（他にいい方法あったら教えてください）また、 &lt;code>fetcher.data&lt;/code> はちゃんとuseEffectなどを用いて待機してあげる必要があります。いきなり使おうとするとundefinedになったりnullになったりするかもしれません（普通はそうなると思います）&lt;/p>
+&lt;h2 id="コンポーネントからデータの取得がしたい">コンポーネントからデータの取得がしたい&lt;/h2>
+&lt;p>正直私は気にしないのですが、デザインパターン的によくない場合もあるのかな?まあよくわかりませんが、ひとまずご紹介します。
+まず、前提として、コンポーネントにはloaderやactionは用意できない（すべきじゃない）です。これを解決する方法として先ほどのデータの送信を応用します。まず、ページにactionを作成しておき、そこにfetcherを用いてデータを送信します。
+私が実際に必要となった際の条件とどんなことをしたかを記載しておきます。&lt;/p>
+&lt;ul>
+&lt;li>データのIDがコンポーネントに来る&lt;/li>
+&lt;li>データのIDからアイテムのデータを取得してコンポーネントとして表示したい&lt;/li>
+&lt;/ul>
+&lt;h3 id="routesindextsx">routes/index.tsx&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">action&lt;/span>: &lt;span class="kt">ActionFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">request&lt;/span>&lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">formData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">formData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">intent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;intent&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Number&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;id&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">intent&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;getItemById&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">await&lt;/span> &lt;span class="nx">getItemById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="componentsitemtsx">components/item.tsx&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">Item&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">item&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setItem&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">fetcher&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useFetcher&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">submit&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">intent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;getItemById&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">id&lt;/span>: &lt;span class="kt">1234567890&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">method&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;post&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">action&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;/?index&amp;#34;&lt;/span>&lt;span class="p">})&lt;/span>
+&lt;span class="p">},&lt;/span> &lt;span class="p">[])&lt;/span>
+&lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">setItem&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">},&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">&amp;lt;&amp;gt;{&lt;/span>&lt;span class="nx">item&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">}&amp;lt;/&amp;gt;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>あくまでこのコードは例です。私がこういうコードを書く必要があったのはSupaBaseを用いてリアルタイム通信を行っていましたがリレーションは取得できない為（少なくとも私にはやり方がわからなかった）、prismaのリレーションを取得する必要があったためです。&lt;/p>
+&lt;p>あとindexとかに集中させるのは良くないと思うので適度分けるといいと思います。なんならapi/item.tsx みたいにしたほうがいいのかも? そこらへんは人によると思います。APIみたいにデータを触ることしかしないならそういうのでもいいのかなと個人的には思います。&lt;/p>
+&lt;h2 id="ogpの設定">OGPの設定&lt;/h2>
+&lt;p>OGP&amp;hellip;設定したいですよね?個人的にはアイテムの詳細ページとかを作るならぜひとも欲しいと思います。SPAだとちょっとめんどくさくてやる気になりませんでしたが、そう、Remixなら簡単です。&lt;/p>
+&lt;p>OGPの設定には &lt;code>MetaFunction&lt;/code> を使用します&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">type&lt;/span> &lt;span class="nx">LoaderData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Awaited&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ReturnType&lt;/span>&lt;span class="err">&amp;lt;&lt;/span>&lt;span class="na">typeof&lt;/span> &lt;span class="na">getLoaderData&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">meta&lt;/span>: &lt;span class="kt">MetaFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">({&lt;/span> &lt;span class="nx">data&lt;/span> &lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">let&lt;/span> &lt;span class="nx">_data&lt;/span>: &lt;span class="kt">LoaderData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">data&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">charset&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">title&lt;/span>: &lt;span class="kt">_data?.data.name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s2">&amp;#34;og:title&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">_data&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s2">&amp;#34;og:site_name&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;テスト&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s2">&amp;#34;og:image&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">_data&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">icon_url&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">getLoaderData() {&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;ゆぴ&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">image&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;リンク&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">loader&lt;/span>: &lt;span class="kt">LoaderFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">await&lt;/span> &lt;span class="nx">getLoaderData&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>こんな感じにloaderで取得したデータをmetaで使用することができます。loaderでparamsを取得してパラメータのIDを用いてデータベースからアイテム情報を取得、OGPに表示みたいなことが簡単にできます。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>正直fetcherに関しては2日ぐらい苦しんでいろいろとGitHubの数少ないリポジトリを探して、使い方が分かりました。fetcher.dataが空にしかならなくて、割とマジで苦しんだ覚えがあります&amp;hellip;記事とかでもfetcher使ってる人全くいなくて、大変でした。そういう方のお役に立てれば幸いです。最後にコードに関しては確認せず書いてるので少し間違ってたり、普通に動かないやつあるかもしれないので、見つけたら&lt;a class="link" href="https://github.com/TeamPimcServer/ayuki_blog/issues" target="_blank" rel="noopener"
+>ここ&lt;/a>とかに連絡ください。&lt;/p></description></item><item><title>FMProjectEについて</title><link>https://example.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid><description>&lt;h1 id="最近作った動画版">最近作った動画版&lt;/h1>
+&lt;script type="application/javascript" src="https://embed.nicovideo.jp/watch/sm40731600/script?w=640&amp;h=360">&lt;/script>&lt;noscript>&lt;a href="https://www.nicovideo.jp/watch/sm40731600">FMProjectEの紹介 [1.7.10]&lt;/a>&lt;/noscript>
+&lt;h2 id="要約">要約&lt;/h2>
+&lt;p>最近(2年前)作ったModです。1.12.2のProjectEからEMC上限変更を移植したModです。&lt;/p>
+&lt;h2 id="何を変えた">何を変えた？&lt;/h2>
+&lt;p>動画にある通り、EMC上限を&lt;code>Long.MAX_VALUE&lt;/code>にしました。&lt;/p>
+&lt;h2 id="breaking-change">BREAKING CHANGE💥&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>PEAA&lt;/code>と&lt;code>PEEX&lt;/code>と互換性が無いです。
+&lt;ul>
+&lt;li>&lt;code>PEAA&lt;/code>に関しては&lt;code>FMPEAA&lt;/code>として対応版を配布予定。&lt;/li>
+&lt;li>&lt;code>PEEX&lt;/code>はライセンス的にわからんし、なんか知らんけどデコンパイルがうまくできなかった記憶がある。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>ProjectE本体は消して入れてください。&lt;/li>
+&lt;/ul>
+&lt;h2 id="ダウンロード">ダウンロード&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.curseforge.com/minecraft/mc-mods/fmprojecte-fmpe" target="_blank" rel="noopener"
+>ここ&lt;/a>
+&lt;a class="link" href="https://lab.teamblackcrystal.com/aki/fmprojecte" target="_blank" rel="noopener"
+>src&lt;/a> (for developer)&lt;/p>
+&lt;h2 id="注意">注意&lt;/h2>
+&lt;p>何があっても責任は取りません。必ずバックアップしてください。
+本家にバグ報告を送らないでください。&lt;/p></description></item><item><title>PythonでMisskeyのBotFrameWorkを作ってみた</title><link>https://example.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Tue, 21 Dec 2021 17:41:26 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;p>これは &lt;a class="link" href="https://adventar.org/calendars/6273" target="_blank" rel="noopener"
+>Misskey Advent Calendar&lt;/a> 21日目の記事です。&lt;/p>
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>PythonでMisskeyのBotを作って見る際に第一に選択肢に出てくるのが、 YuzuRyo61さんの&lt;a class="link" href="https://github.com/YuzuRyo61/Misskey.py" target="_blank" rel="noopener"
+>Misskey.py&lt;/a> です。ですが、私はWebSocketを受信してリアルタイムにタイムラインや通知の情報を取得したかったため、このBotFrameWorkを作ってみました。&lt;/p>
+&lt;h2 id="使い方">使い方&lt;/h2>
+&lt;p>まず、今回作成したライブラリ &lt;a class="link" href="https://github.com/yupix/mi.py" target="_blank" rel="noopener"
+>Mi.py&lt;/a>をインストールします&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pip install mi.py
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>次に実際に実行するためのコードを書きます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">asyncio&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Note&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.ext&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">commands&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.router&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Router&lt;/span>
+&lt;span class="k">class&lt;/span> &lt;span class="nc">MyBot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">commands&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Bot&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cmd_prefix&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cmd_prefix&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ws&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="n">に接続しました&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="n">Router&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ws&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">connect_channel&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;global&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;main&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_message&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">note&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Note&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">note&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">author&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">note&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="n">uri&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;wss://example.com/streaming&amp;#34;&lt;/span>
+&lt;span class="n">token&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;This is your token&amp;#34;&lt;/span>
+&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">MyBot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;!&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">asyncio&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これで、グローバルタイムラインを受信する初期的なbotができました。&lt;/p>
+&lt;h2 id="投稿をしてみる">投稿をしてみる&lt;/h2>
+&lt;p>今度は投稿をしてみましょう、先程のコードを一部書き換えてみます&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">async def on_ready(self, ws):
+print(f&amp;#39;{self.i.username}&amp;#39; に接続しました)
+await Router(ws).connect_channel([&amp;#39;global&amp;#39;, &amp;#39;main&amp;#39;])
+&lt;span class="gi">+ res = await self.post_note(&amp;#39;hello~&amp;#39;)
+&lt;/span>&lt;span class="gi">+ print(res.author.username, res.content)
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このように、自分で投稿し、そのレスポンスをオブジェクトとして取得することが可能です。&lt;/p>
+&lt;h2 id="大変だったこと">大変だったこと&lt;/h2>
+&lt;p>今回のライブラリは絶賛開発中なのですが、Pythonの循環参照がとにかく最初の頃多く発生してとても大変でした。他には、非同期のwebsocketライブラリが少なかったことなど、色々とあり、作成にとても時間がかかりました。（まだできてないですけど）&lt;/p>
+&lt;h2 id="ドキュメントについて">ドキュメントについて&lt;/h2>
+&lt;p>!!! warning
+まだドキュメントは作成途中であり、一部のモデルが不足しています。&lt;/p>
+&lt;p>&lt;a class="link" href="https://yupix.github.io/Mi.py/mi.html" target="_blank" rel="noopener"
+>ここ&lt;/a> にcommitしたら自動で生成するようにしてあるドキュメントがあるので、何かわからないことがあれば参考にしてみてください。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>このプロジェクトは一応頑張って作っているつもりなので、もしよければ、使った感想などを &lt;a class="link" href="https://rn.akarinext.org/@yupix" target="_blank" rel="noopener"
+>私のMisskeyアカウント&lt;/a> に送ってくださるとモチベーションも上がってとても嬉しいです。
+あと、MIT Licenseで &lt;a class="link" href="https://github.com/yupix/Mi.py" target="_blank" rel="noopener"
+>GitHub&lt;/a> にて公開しています。 pull requestなども歓迎していますので、もしよければやってみてください。&lt;/p>
+&lt;p>最後になりますが、Misskeyは リアクションなどをインスタンスごとのカスタム絵文字で貰うことができ、自分のつぶやきにTwitterのようなハート以外のリアクションがほしいという方にも楽しめると思うので、Misskeyにご興味がある場合は &lt;a class="link" href="https://join.misskey.page" target="_blank" rel="noopener"
+>joinmisskey&lt;/a> をぜひご覧ください。&lt;/p>
+&lt;p>ここまでご覧頂きありがとうございました。&lt;/p></description></item><item><title>Pythonでデコレーターで作った関数からデコレーターを派生させる</title><link>https://example.org/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/</link><pubDate>Mon, 29 Nov 2021 21:42:46 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/</guid><description>&lt;h1 id="まずはじめに">まずはじめに&lt;/h1>
+&lt;p>タイトルで????となった方も多いでしょう。正直私の知識ではうまく言い表せないので変な違和感を覚えること請け合いです。
+実際にコードを見てもらいましょう。今回の例はDiscord.pyのCogなどを使用できる CommandFrameWorkを用いた際にできるサブコマンドの作り方です。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">
+&lt;span class="k">class&lt;/span> &lt;span class="err">(&lt;/span>&lt;span class="nc">commands&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Cog&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>
+&lt;span class="nd">@commands&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">pass&lt;/span>
+&lt;span class="nd">@main&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">sub&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">pass&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、いいたいことは伝わったでしょうか?ようは commands.group デコレーターをつけた main関数から main.commandデコレーターを作成する方法になります。&lt;/p>
+&lt;h2 id="どうやるの">どうやるの？&lt;/h2>
+&lt;p>では完成品からお見せします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nd">@classmethod&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">cls&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">test&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>では、完成品をお見せしたところでどのような原理になっているのかの解説です。&lt;/p>
+&lt;p>!!! warning
+ここからは完璧な私の独学によるもので、あっているのかいまいちわからない解説です。その点をご理解の上ご覧ください。&lt;/p>
+&lt;p>まず以下のコードをご覧ください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このコードは &lt;code>group&lt;/code> というデコレーターを作成している部分になるのですが、この時点で大事なところがあります。それは一番最初に引数で &lt;code>func&lt;/code> を受け取っていないことです。
+Googleなどで &lt;code>デコレーター 作り方&lt;/code> などと調べてみた際に一般的に出てくるデコレーターは以下のようなコードだと私は思っています&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">decorator&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">decorator&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>ではなぜ今回のコードでは、一番最初に &lt;code>name&lt;/code> を受け取っているのでしょうか。そこから解説します。&lt;br>
+今回のコードでは、2つのデコレーターを作成する必要があります、１つは &lt;code>group&lt;/code> 次に Command クラスにある &lt;code>command&lt;/code> デコレーターです。
+そして、 &lt;code>group&lt;/code> デコレーターでは今回の仕様上 Commandを呼び出す必要があります。そうしたら先程の検索で出てきたコードで再現してみましょう&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nd">@classmethod&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">cls&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">test&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">group&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="n">missing&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="n">required&lt;/span> &lt;span class="n">positional&lt;/span> &lt;span class="n">argument&lt;/span> &lt;span class="s1">&amp;#39;func&amp;#39;&lt;/span> &lt;span class="c1"># あっているかイマイチ覚えてません&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、実装してみました。おや？一番最後にエラーが出ていますね&amp;hellip;なぜでしょう。これは デコレーターを 呼び出す際に 関数として成り立つ都合上 func がなくなるからだと考えています。
+これを解決するにはどうしましょう、そうです、引数を最初に受け取ればいいですね、ではまた調べてみましょう。 &lt;code>python デコレーター 引数&lt;/code> そしたら出てくるコードはこんな感じでした。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">_group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">decorator&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">decorator&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">_group&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、すごいネストしてますね、これの何が問題かというとこれでは先程言った &lt;code>group&lt;/code> を呼び出す都合上 確かに &lt;code>_group&lt;/code> までは行きますが、 decorator が呼び出されなくなってしまいます。
+じゃあ、どうするかというと最初のコードに戻ることです。これを解決するのにとても時間がかかりました。これさえ乗り越えれば簡単です。&lt;/p>
+&lt;h3 id="なんで-command-クラスの-commandデコレーターは-classmethod">なんで Command クラスの commandデコレーターは classmethod?&lt;/h3>
+&lt;p>これはいくつかの理由があります、まず通常のクラスで作ると次に示す2つめのコードになります。
+これの何が問題なのでしょうか、これは実行してみるとよく分かることなのですが、&lt;code>@test.command()&lt;/code> の部分で selfが渡されていないと怒られてしまいます。
+そのため、classmethod にしています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nd">@classmethod&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">cls&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># 問題なく動く&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># selfが無いと怒られる&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="ラストに-testを実行">ラストに testを実行&lt;/h3>
+&lt;p>さて、これで終わりです。最後に &lt;code>test&lt;/code> 関数を追加しましょう！&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nd">@classmethod&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">cls&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">test&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>動きましたね！&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>何かわからない点があれば github の方に issueを建てていただけるとありがたいです！
+今回のは記事で見たことがなかったので一応書いてみました、既存のものがあったらごめんなさい！
+それではまた別の記事でお会いしましょう〜&lt;/p></description></item><item><title>Pgpool-IIを導入するだけ</title><link>https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</link><pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</guid><description>&lt;h3 id="はじめに">はじめに&lt;/h3>
+&lt;p>また、結構期間空いてしまいましたね・・・
+3ヶ月ぶりです。&lt;/p>
+&lt;p>さて、今回はMisskeyをPgpool-IIに載せたいと思います。レプリケーションは別の機会にやります。&lt;/p>
+&lt;h3 id="前提">前提&lt;/h3>
+&lt;ul>
+&lt;li>Ubuntu 20.4&lt;/li>
+&lt;li>PostgreSQL 13 (pgdg)&lt;/li>
+&lt;li>pgpool-II version 4.1.4&lt;/li>
+&lt;/ul>
+&lt;p>!!! info
+pgdgのリポジトリを事前に追加していることを想定しています。&lt;/p>
+&lt;h3 id="インストール">インストール&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo apt install pgpool2
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="設定">設定&lt;/h3>
+&lt;p>ここからが本番ですよ〜&lt;del>めんどくさい&lt;/del>&lt;/p>
+&lt;p>事前にpostgres本体のポートを変えておきましょう。(今回は&lt;code>60001&lt;/code>にします。)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff"># /etc/postgresql/13/main/postgresql.conf
+&lt;span class="gd">- port = 5432
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ port = 60001
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>/etc/pgpool2/pgpool.conf&lt;/code>を編集していきます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="gd">- port = 5433
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ port = 5432
+&lt;/span>&lt;span class="gi">&lt;/span>
+# 一応変えてある
+&lt;span class="gd">- backend_hostname0 = &amp;#39;localhost&amp;#39;
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ backend_hostname0 = &amp;#39;192.168.1.90&amp;#39;
+&lt;/span>&lt;span class="gi">&lt;/span>
+# 変更したpostgresのポートを書く
+&lt;span class="gd">- backend_port0 = 5432
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ backend_port0 = 60001
+&lt;/span>&lt;span class="gi">&lt;/span>
+# 今はデフォルトでok
+backend_weight0 = 1
+# 一応合わせてある
+&lt;span class="gd">- backend_data_directory0 = &amp;#39;/var/lib/pgsql/data&amp;#39;
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ backend_data_directory0 = &amp;#39;/var/lib/postgresql/13/main&amp;#39;
+&lt;/span>&lt;span class="gi">&lt;/span>
+# レプリケーション関係。今は触らないでok
+backend_flag0 = &amp;#39;ALLOW_TO_FAILOVER&amp;#39;
+# 一台なら多分適当でいい。デフォルトのまま
+backend_application_name0 = &amp;#39;server0&amp;#39;
+# パフォーマンス関係はお好みに
+# pgpool ubuntu [検索]
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>!!! error
+misskey用に使う場合、TLが壊れるなどの不具合が出るため&lt;strong>絶対に&lt;/strong>&lt;code>memory_cache_enabled&lt;/code>をonにしないこと&lt;/p>
+&lt;p>以上で設定はおしまい。&lt;/p>
+&lt;h3 id="最後に">最後に&lt;/h3>
+&lt;p>あとはpostgresとpgpoolを再起動しておしまい&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># 失敗する場合は再起動するといいらしい。&lt;/span>
+sudo systemctl restart postgresql
+sudo systemctl restart pgpool2
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>本ブログの更新内容</title><link>https://example.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</link><pubDate>Sun, 24 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</guid><description>&lt;!-- toc -->
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>更新内容を乗っけるのは今回が初めてとなります。実はひっそりとデザイン周りの調整などは多々やっていたのですが、機能面での改修を行ったのでご紹介します。
+今回も私ことゆぴが行った変更なのでどんどん魔改造化が進んでいきますね！&lt;/p>
+&lt;h2 id="何が変わったの">何が変わったの?&lt;/h2>
+&lt;p>ページネーションは元来元からありましたが、1つ目の画像から2,3個目の画像のように新しくなりました。&lt;/p>
+&lt;p>&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/old-pagination-mobile.png"
+loading="lazy"
+alt="old-pagination-desktop.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-desktop.png"
+loading="lazy"
+alt="new-pagination-desktop.png"
+>
+&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-mobile.png"
+loading="lazy"
+alt="new-pagination-mobile.png"
+>&lt;/p>
+&lt;p>デスクトップ版ではまだ少し改良の余地があるかもしれませんが、モバイル版は前より空白が減っていい感じになったんじゃないかなと満足してます。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>また今後も見た目に変更などがあり、変更点が多くなってきたらこういった場を設けたいと思っています。ご覧下さりありがとうございました。&lt;/p></description></item><item><title>MisskeyのBotをPythonで開発できるライブラリを公開しました</title><link>https://example.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/</guid><description>&lt;!-- toc -->
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>Misskeyって何?って人もいると思うのでまずMisskeyのご紹介から&lt;br>
+MisskeyはActivityPubというプロトコルを用いて作成された分散型SNSです。特徴として誰でもサーバーを作成し自分自身で運営することができます。
+義類のアプリではMastodonと言われるものもあります。今回はそんな分散型SNSのMisskeyでPythonを用いて開発ができるBotFrameWorkを開発したのでご紹介します。&lt;/p>
+&lt;h2 id="misskeypyってのがあるけど何が違うの">Misskey.pyってのがあるけど何が違うの?&lt;/h2>
+&lt;p>はい、Misskey.pyというライブラリが実はすでに存在します。ですが、これはあくまでWebSocketを用いない方法を使っており,これでBotを作るには自分でWebSocketの接続部分
+や帰ってきた情報を処理するパーサーを作成しないといけません。正直な話一度作ってしまえばいいだけですが、どうせやるなら使いまわしたいですよね。&lt;br>
+そんなこんなで開発したのが今回紹介するMi.pyです。&lt;/p>
+&lt;h2 id="mipyの主な特徴">Mi.pyの主な特徴&lt;/h2>
+&lt;ul>
+&lt;li>Discord.pyライクな文法&lt;/li>
+&lt;li>taskなどの定期実行に対応&lt;/li>
+&lt;li>cogシステムというファイルを分割して書くDiscord.pyの機能を搭載&lt;/li>
+&lt;li>コマンドを楽に作成可能&lt;/li>
+&lt;li>&lt;strong>バグが多い&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>はい、最後のバグが多いは事実です、悲しいですね。正直な話私一人で開発しているのでテストしてる人物が私しかいないという状況です。&lt;/p>
+&lt;h2 id="実際に使ってみる">実際に使ってみる&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pip install mi.py
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.ext.commands&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Bot&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.note&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Note&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.router&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Router&lt;/span>
+&lt;span class="n">uri&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ws://localhost:3300/streaming&amp;#39;&lt;/span>
+&lt;span class="n">token&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>
+&lt;span class="k">class&lt;/span> &lt;span class="nc">MyBot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Bot&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">command_prefix&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;!&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ws&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="n">Router&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ws&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">channels&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;home&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_message&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ctx&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Note&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">created_at&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1"> | &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">author&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1"> | &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">author&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">がノートしました: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">process_commands&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">MyBot&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">uri&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このようにある程度少ないコードでノートを受け取るだけのBotが作成できます。
+ノートの投稿をするには次のようなコードを用います。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">await&lt;/span> &lt;span class="n">Note&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;Hello Mi.py&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>もちろんファイルのアップロードにも対応しています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">res&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Drive&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">upload&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/home/example/example.png&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;example.png&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># ドライブに画像をアップロード&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これらを先程のノートに追加することでノートに画像を乗っけることもできます。&lt;/p>
+&lt;h2 id="ドキュメントなど">ドキュメントなど&lt;/h2>
+&lt;p>Mi.pyではなるべく多くの情報を皆さんに見ていただくためにSphinxを用いたドキュメントとMkDocsを用いた私自身が一つ一つ書いた2つのサイトがあります。
+この2つを用いることでより多くの情報を入手することが可能です。&lt;/p>
+&lt;p>&lt;a class="link" href="https://mipy.readthedocs.io/ja/latest/" target="_blank" rel="noopener"
+>APIドキュメント&lt;/a>
+&lt;a class="link" href="https://mipy-hub.readthedocs.io/ja/latest/" target="_blank" rel="noopener"
+>チュートリアルなど&lt;/a>&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>Mi.pyでは現状私が欲しい機能だけをちょこちょこと追加しています。そのため機能が少ないという問題があります。なので皆さんが実際に使ってみてこんな機能がほしい、
+こんなバグが有るなどと行った情報をくださると開発の励みになります。ぜひMi.pyを使ってみてください。&lt;/p>
+&lt;h2 id="バグ報告など">バグ報告など&lt;/h2>
+&lt;p>&lt;a class="link" href="https://ar.akarinext.org/@yupix" target="_blank" rel="noopener"
+>私のMisskeyアカウント&lt;/a>
+&lt;a class="link" href="https://github.com/yupix/Mi.py/issues" target="_blank" rel="noopener"
+>Mi.pyのIssues&lt;/a>
+&lt;a class="link" href="https://discord.gg/CcT997U" target="_blank" rel="noopener"
+>Discordサーバー&lt;/a>&lt;/p></description></item><item><title>Hyper-V環境でBlueStacksを使う方法</title><link>https://example.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- toc -->
+&lt;h2 id="hyper-v環境で動くandroidエミュレーター欲しくない">Hyper-V環境で動くAndroidエミュレーター欲しくない？&lt;/h2>
+&lt;p>Hyper-V環境で動くAndroidエミュレーターを求めて我々はジャングル（Google）の奥地へと向かった。&lt;/p>
+&lt;h2 id="bluestacks-hyper-v-beta">BlueStacks (Hyper-V) Beta&lt;/h2>
+&lt;p>さて、今回の本題であるBlueStacksですが、なんと公式がHyper-Vに対応しているものをBetaながら公開しています。
+公式サイトは&lt;a class="link" href="https://support.bluestacks.com/hc/ja/articles/360041390952-BlueStacks-Hyper-V%E7%89%88%E3%82%92%E5%88%A9%E7%94%A8%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95" target="_blank" rel="noopener"
+>こちら&lt;/a>&lt;/p>
+&lt;h2 id="インストールするだけじゃないの">インストールするだけじゃないの？&lt;/h2>
+&lt;p>ならそれ使えば終わりじゃん！お疲れ！とは行きません、確かにインストール直後ならそれでいいのかもしれませんが、2回目の起動後やPCを
+再起動すると途端に起動ができなくなってしまいます。&lt;/p>
+&lt;h2 id="解決策">解決策&lt;/h2>
+&lt;p>以下のコマンドを管理者プロンプトで実行することで修正が可能です&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">netsh advfirewall firewall add rule &lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;BlueStacks Service&amp;#34;&lt;/span> &lt;span class="nv">dir&lt;/span>&lt;span class="o">=&lt;/span>in &lt;span class="nv">action&lt;/span>&lt;span class="o">=&lt;/span>allow &lt;span class="nv">remoteip&lt;/span>&lt;span class="o">=&lt;/span>any &lt;span class="nv">localport&lt;/span>&lt;span class="o">=&lt;/span>2860-2892 &lt;span class="nv">protocol&lt;/span>&lt;span class="o">=&lt;/span>TCP &lt;span class="nv">enable&lt;/span>&lt;span class="o">=&lt;/span>yes
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.youtube.com/watch?v=A7USXXZ04eM" target="_blank" rel="noopener"
+>https://www.youtube.com/watch?v=A7USXXZ04eM&lt;/a>
+&lt;a class="link" href="https://markdevel.hatenablog.com/entry/2021/04/27/024314" target="_blank" rel="noopener"
+>https://markdevel.hatenablog.com/entry/2021/04/27/024314&lt;/a>&lt;/p></description></item><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>お久しぶりです。前回の記事から8ヶ月ぶりですね。&lt;/p>
+&lt;p>最近久しぶりにWindows ServerのVMを触ったら起動時とかの詳細メッセージを表示したくなったので調べてみました。
+次にWindows入れるときには絶対に忘れていそうなので、忘れてもいいようにメモしておきます。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>Windows11 (win2k以降)&lt;/li>
+&lt;/ul>
+&lt;h2 id="やり方">やり方&lt;/h2>
+&lt;h3 id="かんたん">かんたん&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-reg" data-lang="reg">Windows Registry Editor Version 5.00
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_LOCAL_MACHINE&lt;/span>&lt;span class="k">\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]&lt;/span>
+&lt;span class="na">&amp;#34;VerboseStatus&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">dword&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">00000001&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上のをわかりやすい名前(例: &lt;code>VerboseStatus.reg&lt;/code>)で保存します。
+その後ダブルクリックまたは、右クリック &amp;gt; 結合でレジストリエディターに許可を与えます。&lt;/p>
+&lt;h3 id="ローカル-グループポリシー-エディターを使う">ローカル グループポリシー エディターを使う&lt;/h3>
+&lt;p>コンピューターの構成 &amp;gt; システム &amp;gt; 詳細な状態メッセージを表示する&lt;/p>
+&lt;p>有効をオンにする。&lt;/p>
+&lt;h3 id="レジストリエディタを使う">レジストリエディタを使う&lt;/h3>
+&lt;p>&lt;code>regedit&lt;/code>を起動し、&lt;code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&lt;/code>へ移動する。
+&lt;code>VerboseStatus&lt;/code>をdwordで作成し、編集して&lt;code>1&lt;/code>をセットする。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>これで一度ログアウトしてログインし、正しく動作することを確認して完了です。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://news.mynavi.jp/article/windows-297/" target="_blank" rel="noopener"
+>Win 8/8.1編: サインアウト時などに詳細メッセージを表示する&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://admx.help/?Category=Windows_10_2016&amp;amp;Policy=Microsoft.Policies.WindowsLogon::VerboseStatus&amp;amp;Language=ja-jp" target="_blank" rel="noopener"
+>詳細な状態メッセージを表示する&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>gpgが動かなくなった話</title><link>https://example.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+&lt;h1 id="前置き">前置き&lt;/h1>
+&lt;p>久々にWindows10 Insidersになってみたら、いろいろとアプリとの相性が悪く、ブルスク吐きまくるわ、更新したらブルスク吐いて起動できなくなって結局巻き戻すわでキリがなかったので、クリーンインストールして、環境を作り直して、いざ開発に取り掛かろうと
+思いGitのGPG署名を有効にしようとしたところで今回の出来事は起きています（（&lt;/p>
+&lt;h2 id="何が起きたの">何が起きたの?&lt;/h2>
+&lt;p>以下のようにシークレットキーが使用できないといった感じのエラーが出ました。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">gpg: skipped &amp;#34;*******&amp;#34;: secret key not available
+gpg: signing failed: secret key not available
+error: gpg failed to sign the data
+fatal: failed to write commit object
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="解決策">解決策&lt;/h2>
+&lt;p>まあ、これはいたって単純で、gpgがどこにいるのか認識できていないので、以下のようにコマンドを打つと修正されます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c"># gpgがC:\Program Files (x86)\GnuPGにインストールされている場合&lt;/span>
+&lt;span class="n">git&lt;/span> &lt;span class="n">config&lt;/span> &lt;span class="p">-&lt;/span>&lt;span class="n">-global&lt;/span> &lt;span class="n">gpg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">program&lt;/span> &lt;span class="s2">&amp;#34;C:\Program Files (x86)\GnuPG\bin\gpg.exe&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これでもう一度コミットを行ってみると無事にコミットできました！&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>最近はほんとに忙しくて開発事とかあんまりできないけど、環境だけは整えていつでも開発できるようにしときたいから、今後の後学のためにも残しておきます！それではまたこんど！&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available" target="_blank" rel="noopener"
+>https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available&lt;/a>&lt;/p></description></item><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>まず初めに、このサイトはhexoというprojectを用いて作成されているのですが、そのhexoには&lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a>
+という物があり、これを使うことで簡単にpwaに対応することができます、ですが大本が既に更新されていない状態になっており2020/12月頃には既に動作しなかった覚えがありますが、
+私はそのforkである&lt;a class="link" href="https://github.com/marcofranssen/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a> を使わせていただいていました。ですが少し前に&lt;a class="link" href="https://github.com/hexojs/hexo/releases/tag/5.4.0" target="_blank" rel="noopener"
+>hexo v5.4.0&lt;/a>
+がリリースされました。これには依存関係の更新として&lt;code>js-yaml&lt;/code>という物が含まれていました。そしてjs-yamlの更新でsafeloadがデフォルトで使用されるようになった
+というのが今回の問題点です。そちらを理解しつつご覧ください。&lt;/p>
+&lt;h2 id="直し方">直し方&lt;/h2>
+&lt;p>はじめにでも言った通り、今回の不具合というかは&lt;code>js-yaml&lt;/code>にはsafeloadという機能があり、hexo-pwaではそれを使用していました。READMEのconfigの書き方を引用してみましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>&lt;span class="nt">routes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/hm.baidu.com/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkOnly&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/.*\.(js|css|jpg|jpeg|png|gif)$/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cacheFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/\//&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>引用元: &lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
+>https://github.com/lavas-project/hexo-pwa&lt;/a>&lt;/p>
+&lt;p>このように書かれているわけですが、引用したymlにもある&lt;code>!!js/regexp&lt;/code>という部分がsafeloadを使うという明言です、そして最初にも言った通り、safeloadはjs-yamlの更新で
+&lt;strong>デフォルトで使用するようになったわけです&lt;/strong>つまり、これは既にjs-yamlでは存在しないtagになったわけです、そしてエラーでは存在しないtagだという事を示唆しています。
+なので&lt;code>!!js/regexp&lt;/code>を削除し、以下のようにすると正常に動作します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>&lt;span class="nt">routes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/hm.baidu.com/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkOnly&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/.*\.(js|css|jpg|jpeg|png|gif)$/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cacheFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/\//&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これらの点を変更し、依存関係を更新したforkを作成したので是非使ってみてください。 &lt;a class="link" href="https://github.com/yupix/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a>&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>hexoはとても軽量で、便利な物ですが、plugin等の多くは更新されていない事が多いです。他にもwordpressの用に多機能なpluginは少なく、
+自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item><item><title>私的使ってみて便利なタスク管理ツール</title><link>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</link><pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</guid><description>&lt;!-- toc -->
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>この記事で紹介するツール、サイトの評価は私個人の考えであり、使っている方々を批判するものではありません。また、この記事は随時更新です。&lt;/p>
+&lt;h2 id="clickup">ClickUp&lt;/h2>
+&lt;p>URL: &lt;a class="link" href="https://clickup.com/" target="_blank" rel="noopener"
+>https://clickup.com/&lt;/a>&lt;/p>
+&lt;p>こちらは実際に私が現在使っているタスク管理ツールとなります。&lt;/p>
+&lt;h3 id="おすすめする点">おすすめする点&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>特別なことをしない限り無料&lt;/strong>&lt;/li>
+&lt;li>テーマがとても奇麗で使いやすい&lt;/li>
+&lt;li>Githubと連携が可能(Commitの関連付けなどをGithub Issuesみたいに行える)&lt;/li>
+&lt;li>カンバンやリスト、カレンダーなどの表示が使える&lt;/li>
+&lt;li>作業している間の時間を測ることができてモチベーションが少し上がる(個人的に)&lt;/li>
+&lt;li>プロジェクトの関連付けが簡単にできる&lt;/li>
+&lt;li>プロジェクトの優先度が簡単にわかる&lt;/li>
+&lt;li>Chromeに拡張機能があり、作業するとなった際にすぐに利用できる。&lt;/li>
+&lt;li>スマホ版がある&lt;/li>
+&lt;li>他にも多くの機能がある&lt;/li>
+&lt;/ul>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>この記事は随時更新なので、今はまだデメリット等そういったものを書いていませんが、今後使っていくうえで不便だと感じるところがあれば更新していきます。&lt;/p></description></item><item><title>Ayuskeyって何？</title><link>https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</link><pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</guid><description>&lt;p>&lt;strong>&lt;a class="link" href="https://adventar.org/calendars/5026" target="_blank" rel="noopener"
+>Misskey Advent Calendar 2020&lt;/a>の21日目の記事です。&lt;/strong>&lt;/p>
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>多分多くの人が初めてだと思います。&lt;a class="link" href="https://kr.akirin.xyz/@aki" target="_blank" rel="noopener"
+>aki&lt;/a>といいます。
+今回は私と&lt;a class="link" href="https://kr.akirin.xyz/@yupix@ne.akarinext.org" target="_blank" rel="noopener"
+>@yupix@ne.akarinext.org&lt;/a>氏で作っているAyuskeyについてお話させていただきたいと思います。&lt;/p>
+&lt;h3 id="名前の由来について">名前の由来について&lt;/h3>
+&lt;p>名前の由来は、&lt;strong>a&lt;/strong>kiと&lt;strong>yu&lt;/strong>pixからとってAyuとなっています。(このブログも同じ)
+なお、初期の頃は私一人で開発していたのでReiskeyという名前をつけておりました。その頃の名残として、バージョンに&lt;code>rei0784&lt;/code>をつけるのを継承しています。&lt;/p>
+&lt;h2 id="技術的なあれこれ">技術的なあれこれ&lt;/h2>
+&lt;p>現在もパッケージ更新などのメンテナンスがされている&lt;a class="link" href="https://github.com/mei23/misskey-v11" target="_blank" rel="noopener"
+>mei23/misskey-v11&lt;/a>をベースに開発しています。
+また、筆頭となる&lt;a class="link" href="https://kr.akirin.xyz" target="_blank" rel="noopener"
+>私のインスタンス&lt;/a>と&lt;a class="link" href="https://ne.akarinext.org" target="_blank" rel="noopener"
+>yupix氏のインスタンス&lt;/a>は、Raspberry Pi 4で運用しているため、arm64で動かしやすいようにDockerfile等が調整されていたりします。&lt;/p>
+&lt;p>動かなかったり、ビルドができなかったりした場合は気軽に&lt;a class="link" href="https://kr.akirin.xyz/@aki" target="_blank" rel="noopener"
+>@aki&lt;/a>までご連絡ください。&lt;/p>
+&lt;h2 id="鯖缶にやさしく">鯖缶にやさしく&lt;/h2>
+&lt;p>全文検索で重いElasticsearchを使う必要がなくなりました！！
+本流にある&lt;del>放置されていそうな&lt;/del>&lt;a class="link" href="https://github.com/syuilo/misskey/pull/5138" target="_blank" rel="noopener"
+>#5138&lt;/a>をマージしてsonicという検索エンジンを使えるようにしました。とても軽く、Raspberry Pi 4であっても軽快に動作します。実際に、私のインスタンスで使用しております。(ただ、短い単語とかだと精度が終わってるので、要調整)&lt;/p>
+&lt;p>他の鯖にある絵文字をコピーしたいときありますよね？
+本流のapiを移植してできるようにしました！！
+現在はapiを直接叩くのが1番安定していますが、GUIでのコピーができるように作業中です。&lt;/p>
+&lt;h3 id="より高機能を目指して">より高機能を目指して&lt;/h3>
+&lt;p>本来のmisskey v11にはあまりぼかし(blur)や透明度がついていないのですが、より近代的な見た目を目指しています。現在は未実装ですが重い環境では&lt;code>インスタンスのurl/flags&lt;/code>(例:&lt;a class="link" href="https://kr.akirin.xyz/flags" target="_blank" rel="noopener"
+>kr.akirin.xyz/flags&lt;/a>)から無効化できるようにする予定です。最終的には他の設定と同じ場所に配置されます。&lt;/p>
+&lt;h3 id="mfmの拡張">MFMの拡張&lt;/h3>
+&lt;p>基本的に文法はm544と互換性があります。&lt;a class="link" href="https://ti.akirin.xyz/mfm-cheat-sheet" target="_blank" rel="noopener"
+>チートシート&lt;/a>(私のm544インスタンスに飛びます)
+&lt;code>:@aki:&lt;/code>や&lt;code>:@rei_k@misskey.io:&lt;/code>でアバター絵文字が使えます。なお、一部の場所(こことか)だと動きませんが、普通にノートを投稿する分には問題なく使えます。&lt;/p>
+&lt;style>
+@keyframes mfm-rainbow {
+0% {
+filter: hue-rotate(0deg);
+}
+100% {
+filter: hue-rotate(360deg);
+}
+}
+&lt;/style>
+&lt;p>Groundpolisからも一部取り入れさせて頂いている文法があります。
+&lt;code>[rainbow kr更新しようぜ]&lt;/code>&lt;/p>
+&lt;p style="color: #99CC00; animation: mfm-rainbow 1s linear infinite both;">kr更新しようぜ&lt;/p>
+&lt;p>&lt;code>[font.size=20px,color=#86b300 みすきーぐりーん]&lt;/code>&lt;/p>
+&lt;p style="font-size: 20px; color: #86b300">みすきーぐりーん&lt;/p>
+&lt;p>ただ、Ayuskey同士だと正常に表示できていますが、他の実装からだとうまく表示されないことが多いです。(逆は回転速度とかの指定に&lt;code>ms&lt;/code>を使わないようにすればだいたいいけそう)&lt;/p>
+&lt;h3 id="独自機能">独自機能&lt;/h3>
+&lt;p>他のMisskeyには存在しない独自の機能としてbotであることを宣言するのと同じようにお嬢様(Lady)であることを宣言できます。しっかりと連合できるように作ってあります。&lt;/p>
+&lt;p>ブラーのところで書きましたが、実験的な機能を&lt;code>/flags&lt;/code>で有効化できます。&lt;del>まあ、これ書いてる時点だとどれも今は機能しないんですけど&lt;/del>&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>読んでいただきありがとうございます。
+もしよろしければ&lt;a class="link" href="https://kr.akirin.xyz" target="_blank" rel="noopener"
+>私のインスタンス&lt;/a>に登録していただけると幸いです。&lt;/p>
+&lt;h2 id="おまけ">おまけ&lt;/h2>
+&lt;h3 id="既知のバグ">既知のバグ&lt;/h3>
+&lt;p>トークの読み込みが終わらない=&amp;gt;&lt;del>原因調査中&amp;hellip;&lt;/del>&lt;a class="link" href="https://github.com/TeamOrangeServer/misskey/issues/61" target="_blank" rel="noopener"
+>#61&lt;/a> =&amp;gt; &lt;a class="link" href="https://github.com/TeamOrangeServer/misskey/releases/tag/11.37.1-rei0784-5.0.0-rc.10" target="_blank" rel="noopener"
+>5.0.0-rc.10&lt;/a>で解決
+モバイルで引用RNできない=&amp;gt;原因調査中&amp;hellip;&lt;/p>
+&lt;h3 id="夢は大きく-今後の目標">夢は大きく 〜今後の目標〜&lt;/h3>
+&lt;p>独自にVue3対応=&amp;gt;v12と根本的に作りが違うのでほとんどバックポートで対応できないので、少なくともinitはほとんど書き直しです。
+それと、BootstrapVueの対応ができたら少しずつやってみたいと思います。&lt;/p>
+&lt;h3 id="xeの終了に伴う記事の移植">XEの終了に伴う記事の移植&lt;/h3>
+&lt;p>最初はXE(私の旧インスタンス)のpagesで書いていたのですが、諸事情でKrに移行することになったのでここのブログに移植することにしました。MFM周りは実際のAyuskeyのcssを引っ張ってMarkdownに書いて実現しているため、疲れました・・・&lt;/p></description></item><item><title>リニューアルのお知らせ</title><link>https://example.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</link><pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>まず、あゆき&amp;rsquo;s BLOGをご覧にいただき誠にありがとうございます。更新頻度はほとんどのブログに比べ低く、それをどうするという気力もありませんでした。
+しかし、今回から「Hexo」を使ったブログに生まれ変わります。&lt;del>今までありがとう「vuepress」&lt;/del>&lt;/p>
+&lt;h2 id="このテーマに関して">このテーマに関して&lt;/h2>
+&lt;p>このテーマはMITライセンスで配布されている&lt;a class="link" href="https://github.com/qiaobug/hexo-theme-quiet" target="_blank" rel="noopener"
+>Quiet&lt;/a>を魔改造して使用している形となります。(そんなに魔改造でもないかも&lt;/p>
+&lt;h3 id="本家との変更点">本家との変更点&lt;/h3>
+&lt;ul>
+&lt;li>メニューが記事までスクロールすると隠れるバグ?の修正&lt;/li>
+&lt;li>記事のauthorが一人しか指定できない不自由さを解消&lt;/li>
+&lt;li>記事にアイコンを使用できるように&lt;/li>
+&lt;li>読むのにかかる時間を表示&lt;/li>
+&lt;li>ホームに記事の作者アイコンと名前を表示&lt;/li>
+&lt;li>ロードに時間がかかる画像系を廃止&lt;/li>
+&lt;li>言語の変更&lt;/li>
+&lt;/ul>
+&lt;p>このテーマはとてもきれいですごくやる気が湧いて、かなり私にしてはいじった気がします。&lt;/p>
+&lt;h2 id="今後について">今後について&lt;/h2>
+&lt;p>今後も更新は続けます。（&lt;del>じゃないとリニューアルした意味がないし&lt;/del>）しかし、更新頻度に関しては期待しないでください。前まで通りとても気ままに投稿していくと思いますので、今後もあゆき&amp;rsquo;s BLOGをよろしくおねがいします。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>今後についてでほとんど言ってしまった気がしますが、最後まで読んでいただき感激です。ブログの改修は今回「ゆぴ」こと私だけでやったのですが、とても楽しかったです。
+今後も様々な分野に手を出しつつ、このブログも改修を続けていきたいと思っています。それではまた今度！&lt;/p></description></item><item><title>pythonでの文字列の扱い方2</title><link>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>前回の&lt;a class="link" href="2020-09-20-handling-strings-in-python.md" >python での文字列の扱い方&lt;/a>の続きとなります。前回同様、ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。
+初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい&lt;/p>
+&lt;p>今回は主に文字列の置き換えに関することを紹介します。
+正規表現に関してはまだ自信がないため、しばらくしたら追加します(´・ω・｀)&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>ArchLinux&lt;/li>
+&lt;li>python 3.8.5&lt;/li>
+&lt;/ul>
+&lt;h2 id="一般的な文字列の置き換え">一般的な文字列の置き換え&lt;/h2>
+&lt;h3 id="特定の文字列を全て置き換える">特定の文字列を全て置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;yupix&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: yupixだよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>しかし、このままでは「ゆぴ」という単語があるたびに「yupix」に置き換えられてしまいます。
+そこで使用するのが第三引数の&lt;code>count&lt;/code>です&lt;/p>
+&lt;h3 id="指定した数だけ特定の文字列を置き換える">指定した数だけ特定の文字列を置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;あるところにゆぴという青年がいました。ゆぴはパソコンゲームが大好きです！そんなところにあきがやってきて、ゆぴにこう言いました[一緒にゲームを作ってみないかい?]&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;yupix&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: あるところにyupixという青年がいました。yupixはパソコンゲームが大好きです！そんなところにあきがやってきて、ゆぴにこう言いました[一緒にゲームを作ってみないかい?]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>今回は 2 回指定した為、最初の方に見つかった「ゆぴ」が 2 つ「yupix」に置き換えられました。&lt;/p>
+&lt;h3 id="複数の文字列を置き換える">複数の文字列を置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;amp;あきだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;hoge&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;あき&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;age&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: hoge&amp;amp;ageだよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このように「ゆぴ」と「あき」をそれぞれ指定した単語に置き換えることに成功しました。&lt;/p>
+&lt;h2 id="応用">応用&lt;/h2>
+&lt;h3 id="指定した文字列を削除する">指定した文字列を削除する&lt;/h3>
+&lt;p>これは replace の応用で消したい文字を指定し、置き換え後の文字を空にすることで文字列を削除しています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: だよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このように、「ゆぴ」という単語が削除されおかしな文を作ることに成功しました（？）&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>最後まで読んでくださりありがとうございました。一応動作テストはしていますが、私の知識に誤りがあった際は教えていただけると幸いです。
+次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>pythonでの文字列の扱い方1</title><link>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B91/</link><pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B91/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。
+初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい&lt;/p>
+&lt;p>今回は主に文字列の出力の際の変数の展開などを紹介します。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>ArchLinux&lt;/li>
+&lt;li>python 3.8.5&lt;/li>
+&lt;/ul>
+&lt;h2 id="一般的な文字列の出力">一般的な文字列の出力&lt;/h2>
+&lt;h3 id="変数を使わない文字列出力">変数を使わない文字列出力&lt;/h3>
+&lt;p>ごく普通の文字列出力です&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちは&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="変数を使った文字列出力">変数を使った文字列出力&lt;/h3>
+&lt;p>変数に出力したい文字列を入れてそれを print に入れて出力しています&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">hoge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;こんにちは&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちは&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="文字列の中で変数を展開する方法">文字列の中で変数を展開する方法&lt;/h2>
+&lt;p>基本的に文字列の中（シングルクォートかダブルクォート）の中で変数を展開する方法です&lt;/p>
+&lt;h3 id="f-strings-を使った方法">F-strings を使った方法&lt;/h3>
+&lt;p>個人的にはシンプルでとても使いやすいと思っています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">hoge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">さん&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちはゆぴさん&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="format-を使った方法">format を使った方法&lt;/h3>
+&lt;p>format に hoge 変数を私、{0}の場所に展開しています。&lt;/p>
+&lt;h4 id="ひとつだけ展開する場合">ひとつだけ展開する場合&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">hoge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&lt;/span>&lt;span class="si">{0}&lt;/span>&lt;span class="s1">さん&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="複数展開する場合">複数展開する場合&lt;/h4>
+&lt;p>数字を{}に入れない場合も紹介していますが、繰り返し使う際などには不便になる可能性があるため、format の引数にあった数字を入れることをおすすめします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">hoge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>
+&lt;span class="n">piyo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;あき&amp;#39;&lt;/span>
+&lt;span class="c1"># 数字を{}に入れない場合&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s1">と&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s1">さん&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">piyo&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちはゆぴとあきさん&lt;/span>
+&lt;span class="c1"># {}に数字を入れてformatの順番にそって使う方法&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&lt;/span>&lt;span class="si">{0}&lt;/span>&lt;span class="s1">と&lt;/span>&lt;span class="si">{1}&lt;/span>&lt;span class="s1">さん&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">piyo&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちはゆぴとあきさん&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>最後まで読んでくださりありがとうございました。一応動作テストはしていますが、私の知識に誤りがあった際は教えていただけると幸いです。
+次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>1.7.10のmodding環境構築方法</title><link>https://example.org/p/1.7.10%E3%81%AEmodding%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%96%B9%E6%B3%95/</link><pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/1.7.10%E3%81%AEmodding%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! warning
+現在この方法ではセットアップすることができません。かわりに&lt;a class="link" href="https://github.com/GTNewHorizons/lwjgl3ify/issues/20#issuecomment-1441396877" target="_blank" rel="noopener"
+>ここ&lt;/a>の2つの方法のいずれかを行ってください。&lt;/p>
+&lt;p>!!! info tip
+https使えないのは・・・&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>Forge 1.7.10で環境構築ができないので、色々調べてみたのでその結果をまとめてみる。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>IDEA Community&lt;/li>
+&lt;li>java 8&lt;/li>
+&lt;/ul>
+&lt;h2 id="どうやるの">どうやるの？&lt;/h2>
+&lt;p>方法は大きく分けて2つあります。&lt;/p>
+&lt;ol>
+&lt;li>gradleのバージョンを上げる&lt;/li>
+&lt;li>改造版のForgeGradleを使う&lt;/li>
+&lt;/ol>
+&lt;p>どちらがいいかは好みの問題です。&lt;/p>
+&lt;h3 id="gradleのバージョンを上げる">gradleのバージョンを上げる&lt;/h3>
+&lt;p>デフォルトのForgeGradleは実は4.4.1辺りまで対応しているので、HTTPSに対応した2.1以降にするだけです。&lt;/p>
+&lt;p>&lt;code>gradle/wrapper/gradle-wrapper.properties&lt;/code>を編集します&lt;/p>
+&lt;p>2.1にする場合&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="nv">distributionBase&lt;/span>&lt;span class="o">=&lt;/span>GRADLE_USER_HOME
+&lt;span class="nv">distributionPath&lt;/span>&lt;span class="o">=&lt;/span>wrapper/dists
+&lt;span class="nv">zipStoreBase&lt;/span>&lt;span class="o">=&lt;/span>GRADLE_USER_HOME
+&lt;span class="nv">zipStorePath&lt;/span>&lt;span class="o">=&lt;/span>wrapper/dists
+&lt;span class="nv">distributionUrl&lt;/span>&lt;span class="o">=&lt;/span>https&lt;span class="se">\:&lt;/span>//services.gradle.org/distributions/gradle-2.1-bin.zip
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>4.4.1にする場合&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="nv">distributionBase&lt;/span>&lt;span class="o">=&lt;/span>GRADLE_USER_HOME
+&lt;span class="nv">distributionPath&lt;/span>&lt;span class="o">=&lt;/span>wrapper/dists
+&lt;span class="nv">zipStoreBase&lt;/span>&lt;span class="o">=&lt;/span>GRADLE_USER_HOME
+&lt;span class="nv">zipStorePath&lt;/span>&lt;span class="o">=&lt;/span>wrapper/dists
+&lt;span class="nv">distributionUrl&lt;/span>&lt;span class="o">=&lt;/span>https&lt;span class="se">\:&lt;/span>//services.gradle.org/distributions/gradle-4.4.1-bin.zip
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="改造版のforgegradleを使う">改造版のForgeGradleを使う&lt;/h3>
+&lt;p>公式からsrcをダウンロードする代わりに、&lt;a class="link" href="https://github.com/anatawa12/ForgeGradle-example" target="_blank" rel="noopener"
+>anatawa12/ForgeGradle-1.2&lt;/a>から&lt;code>code&lt;/code>ボタンを押して&lt;code>Download ZIP&lt;/code>を押してダウンロードするか、git cloneし通常どうりに使用します。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>実は3つ目に既存のbuild.gradleを書き換えて対応させる方法もありますが、それは&lt;a class="link" href="https://github.com/anatawa12/ForgeGradle-example#how-to-replace-forgegradle-12-with-anatawa12s-fork" target="_blank" rel="noopener"
+>ここ&lt;/a>に書いてあるので、頑張ってみてください！！&lt;/p></description></item><item><title>qt5をbuildしてみる</title><link>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! info tip
+chocoにもscoop&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>にもねぇ&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>なぜか知らんが、mozcをwindowsでbuildしたくなったが、qtがないのでbuildしてみる。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>git&lt;/li>
+&lt;li>python2.7&lt;/li>
+&lt;li>perl&lt;/li>
+&lt;li>make (いるのこれ？)&lt;/li>
+&lt;/ul>
+&lt;p>!!! info tip
+追加でvsを準備してください。C関係が必要です。&lt;/p>
+&lt;h3 id="どうやって入れるの">どうやって入れるの？&lt;/h3>
+&lt;p>めんどくさいのでパッケージマネージャーを使いましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">scoop&lt;/span> &lt;span class="n">bucket&lt;/span> &lt;span class="n">add&lt;/span> &lt;span class="n">versions&lt;/span>
+&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">git&lt;/span> &lt;span class="n">python27&lt;/span> &lt;span class="n">perl&lt;/span> &lt;span class="n">make&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="下準備">下準備&lt;/h2>
+&lt;p>!!! info tip
+&lt;code>~/work&lt;/code>を作業場所として想定しています。&lt;/p>
+&lt;p>まずは、git cloneをしましょう。これをしないと始まらないもんね。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git clone git://code.qt.io/qt/qt5.git
+&lt;span class="c1">#リポジトリ内に移動&lt;/span>
+&lt;span class="nb">cd&lt;/span> qt5
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このままでもいいのですが、ときが進みqt6が出たときに問題が発生しそうなので、しっかりとcheckoutしましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git checkout v5.15.0
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このままだと、準備が完璧ではないので、仕上げに次のものを実行します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">perl init-repository --module-subset&lt;span class="o">=&lt;/span>qtbase
+&lt;span class="c1">#エラーが出たら &amp;#34;-f&amp;#34; をつけましょう。&lt;/span>
+&lt;span class="c1">#~/work直下に移動&lt;/span>
+&lt;span class="nb">cd&lt;/span> ..
+mkdir qt5_build
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="build-start">build start!!!&lt;/h2>
+&lt;p>!!! info tip
+スタートメニューから&lt;code>x64 Native Tools Command Prompt for VS 2019&lt;/code>を探して実行しましょう。(2019は環境によっては、2017や2015)
+windowがおかしくなる場合は&lt;code>x64 Native Tools Command Prompt for VS 2019&lt;/code>の実態のbatファイルをwindows-terminal等で動いたcmdで実行することができます。
+例:&lt;code>H:\VisualStudio\2019\Community\VC\Auxiliary\Build\vcvars64.bat&lt;/code>&lt;/p>
+&lt;p>いざ、びるど&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#~/work/qt5_build&lt;/span>
+..&lt;span class="se">\q&lt;/span>t5&lt;span class="se">\c&lt;/span>onfigure -developer-build -opensource -nomake examples -nomake tests
+nmake
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>&lt;del>これを書いてる時点では結果が出てないけど、多分動くと思う。&lt;/del>
+32bitでビルドしないと、mozc用としては使えないの忘れてた・・・&lt;/p>
+&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>古いのはあるがないのと同じ&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item><item><title>ArchLinuxにVNCを使ってサブディスプレイを作る</title><link>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>Ubuntu などのメジャーなディストリビューションでは多くの記事がすでに出回っています。
+そこで、ArchLinux だとパッケージが変わっていたり個人的によく忘れてしまうので備忘録として残しておきます。&lt;/p>
+&lt;h2 id="やりかた">やりかた&lt;/h2>
+&lt;h3 id="パッケージのインストール">パッケージのインストール&lt;/h3>
+&lt;p>以下の 2 つのパッケージが必要です。&lt;/p>
+&lt;ul>
+&lt;li>tigervnc（公式パッケージ）&lt;/li>
+&lt;li>x2vnc-no-xinerama（AUR）&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S tigervnc
+yay -S x2vnc-no-xinerama
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="サーバー側の準備">サーバー側の準備&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ vncserver :1
+You will require a password to access your desktops.
+Password: ******
+Verify: ******
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="android側の準備">Android　側の準備&lt;/h3>
+&lt;p>クライアント側では Android で&lt;a class="link" href="https://play.google.com/store/apps/details?id=com.realvnc.viewer.android&amp;amp;hl=ja" target="_blank" rel="noopener"
+>VNC Viewer - Remote Desktop&lt;/a>を今回は使用します。
+その他にも私の環境では&lt;a class="link" href="https://play.google.com/store/apps/details?id=nine.viewer&amp;amp;hl=ja" target="_blank" rel="noopener"
+>VNC Viewer&lt;/a>での動作も確認しています。&lt;/p>
+&lt;h3 id="マウスの行き来の準備">マウスの行き来の準備&lt;/h3>
+&lt;p>ここで使用するパスワードはさきほど&lt;a class="link" href="#%e3%82%b5%e3%83%bc%e3%83%90%e3%83%bc%e5%81%b4%e3%81%ae%e6%ba%96%e5%82%99" >サーバーの準備&lt;/a>で設定したパスワードを入力します&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ x2vnc -shared -west localhost:1
+x2vnc: VNC server supports protocol version 3.8 &lt;span class="o">(&lt;/span>viewer 3.3&lt;span class="o">)&lt;/span>
+Password: ******
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これでマウスが行き来できるようになりました。&lt;/p>
+&lt;p>!!! warning
+注意点として、ウィンドウをサブディスプレイに持っていく事などはできません（その逆もしかり）&lt;/p>
+&lt;h3 id="起動">起動&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ vncserver :1 -geometry 1280x800 -alwaysshared
+$ x2vnc -shared -west localhost:1
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="x2vncのオプションについて">x2vncのオプションについて&lt;/h4>
+&lt;p>-westなどはマウスカーソルをどの向きに持っていった際サブディスプレイに移動するかを設定するものです。
+以下がその一覧です&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>オプション名&lt;/th>
+&lt;th>使い方&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>-north&lt;/td>
+&lt;td>&lt;strong>北&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-east&lt;/td>
+&lt;td>&lt;strong>東&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-south&lt;/td>
+&lt;td>&lt;strong>南&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-west&lt;/td>
+&lt;td>&lt;strong>西&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="xstartupの編集">xstartupの編集&lt;/h3>
+&lt;p>xstartupとはVNCのデスクトップ環境設定ファイルです。
+デフォルトではおそらく&lt;br>
+~/.vnc/xstartup&lt;br>
+にファイルが存在します&lt;/p>
+&lt;p>このファイルを編集します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ nano ~/.vnc/xstartup
+&lt;span class="c1">#元からあった行を...で表しています&lt;/span>
+...
+&lt;span class="c1">#⬇を追加&lt;/span>
+&lt;span class="nb">exec&lt;/span> cinnamon &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>今回の場合はcinnamonがvncserverに接続すると表示されるはずです。
+ここを自分のすでに入れてあるデスクトップ環境のコマンドに書き換えることで変更が可能です。&lt;/p>
+&lt;h2 id="謝辞">謝辞&lt;/h2>
+&lt;p>この記事は&lt;strong>ともの技術メモ&lt;/strong>様の記事を見てArchLinuxで実際にできるのか
+パッケージ名などが違う為忘れないように書かせていただきました。
+内容の多くが&lt;strong>ともの技術メモ&lt;/strong>様の内容と被ってしまっている事をここで謝罪します。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>全般コマンド&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>ともの技術メモ
+&lt;cite>&lt;a class="link" href="https://tomono.tokyo/2016/08/09/6228/" target="_blank" rel="noopener"
+>https://tomono.tokyo/2016/08/09/6228/&lt;/a>&lt;/cite>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>xstartupの意味&lt;br>
+&lt;a class="link" href="http://www.obenri.com/_vnc/vnc_server1.html" target="_blank" rel="noopener"
+>お便利サーバー.com&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>ShellScriptで変数に値があるかどうかを判断する方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! note
+AND　ORを使う際の変数の値のチェックには気をつけよう!
+※ORの場合片方だけがあるだけで&lt;strong>真&lt;/strong>になったり。。。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>ShellScriptで変数に値がある場合だけ動かしたい処理などは多くあるはずです。&lt;/p>
+&lt;h2 id="やりかた">やりかた&lt;/h2>
+&lt;h3 id="変数が空の場合">変数が空の場合&lt;/h3>
+&lt;p>今回はtestという変数を使ってテストします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数がないよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-zを使うことで変数がある場合は&lt;strong>真&lt;/strong>となります&lt;/p>
+&lt;h3 id="変数がある場合">変数がある場合&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#変数を定義&lt;/span>
+&lt;span class="nv">test&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -n &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数があるよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-nを使うことで変数がない場合&lt;strong>真&lt;/strong>となります。&lt;/p>
+&lt;h3 id="1つで確認する方法">1つで確認する方法&lt;/h3>
+&lt;p>ifの使い方をある程度知ってる場合は当たり前のような話ですが
+一応書いておきます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#変数を定義(elseで動作)&lt;/span>
+&lt;span class="nv">test&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数がないよ!&amp;#34;&lt;/span>
+&lt;span class="k">else&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数があるよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-zで変数がない場合&lt;strong>真&lt;/strong>となるため、elseを使うことで変数がある場合の動作を作ることができます。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>ShellScriptは楽しいので、今後もこういった事を書いていく予定です。
+あと、昔作った記事で書きかけのやつとかは今度書きます。
+最後に更新が遅くなってしまったのは純粋無為に何も書くようなことが無かったからです&lt;/p></description></item><item><title>scoopを入れよう！！</title><link>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! info tip
+scoopって知ってる？便利だよ～&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>sudo回で使ってる&lt;code>scoop&lt;/code>を入れます。&lt;del>投稿順序逆だね&lt;/del>&lt;/p>
+&lt;h2 id="前提環境">前提環境&lt;/h2>
+&lt;ul>
+&lt;li>PowerShell (^5) または　PowerShell Core&lt;/li>
+&lt;li>.Net Framework (^4.5)&lt;/li>
+&lt;/ul>
+&lt;p>!!! info tip
+サポート中のWindowsなら問題ないはずです。&lt;/p>
+&lt;h2 id="インストール">インストール&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#非administrator&lt;/span>
+&lt;span class="nb">iwr &lt;/span>&lt;span class="n">-useb&lt;/span> &lt;span class="n">get&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">scoop&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sh&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="nb">iex
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上記のコマンドを実行した際以下のようなエラーが発生した場合は、次のコマンドを実行した後に再度上記のコマンドを実行してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#エラー内容&lt;/span>
+&lt;span class="n">PowerShell&lt;/span> &lt;span class="n">requires&lt;/span> &lt;span class="n">an&lt;/span> &lt;span class="n">execution&lt;/span> &lt;span class="n">policy&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="no">[Unrestricted, RemoteSigned, ByPass]&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="n">Scoop&lt;/span>&lt;span class="p">.&lt;/span>
+&lt;span class="k">For&lt;/span> &lt;span class="n">example&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="nb">set &lt;/span>&lt;span class="n">the&lt;/span> &lt;span class="n">execution&lt;/span> &lt;span class="n">policy&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="s1">&amp;#39;RemoteSigned&amp;#39;&lt;/span> &lt;span class="n">please&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="err">:&lt;/span>
+&lt;span class="s1">&amp;#39;Set-ExecutionPolicy RemoteSigned -scope CurrentUser&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="nb">Set-ExecutionPolicy&lt;/span> &lt;span class="n">RemoteSigned&lt;/span> &lt;span class="n">-scope&lt;/span> &lt;span class="n">CurrentUser&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="how-to">How to&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">git&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>便利でしょ？
+追加でjavaやphpなどのbucket（scoopでのリポジトリ）もあるので追加することが可能です。&lt;/p>
+&lt;p>じゃんじゃん使っていこうね～&lt;/p>
+&lt;p>!!! info tip
+もしかすると、応用編も出るかもしれません。&lt;/p>
+&lt;p>&lt;del>&lt;div v-twemoji>投稿順序はGitHub行かないと基本的にはバレない:thinking:&lt;/div>&lt;/del>&lt;/p></description></item><item><title>ShellScriptで処理をループさせる方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! warning
+この解説ではbashを使用することを前提としています。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>ShellScriptで処理を複数回、または永続的にループさせたい、と思う方は多いはずです。今回はそんなときに役に立つテクニックを紹介します。&lt;/p>
+&lt;h2 id="どんな書き方があるの">どんな書き方があるの？&lt;/h2>
+&lt;p>まず、ShellScriptで多く知られている手段としてはいかが挙げられます。&lt;/p>
+&lt;ul>
+&lt;li>for&lt;/li>
+&lt;li>while&lt;/li>
+&lt;/ul>
+&lt;p>大体はこの2つだけで簡単に処理のループが行えます。&lt;/p>
+&lt;h2 id="whileを使った無限ループ">whileを使った無限ループ&lt;/h2>
+&lt;p>ではさっそく、while文を使用して処理をループさせてみましょう。
+whileの書き方は以下のとおりです。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="k">while&lt;/span> :&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>
+sleep &lt;span class="m">1&lt;/span>
+&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さてまず、1行目から解説です。
+while :; doを解説しましょう。
+ifには[]で条件をつけることができるのは皆様ご存知でしょうか？
+今回の場合:となっている部分を[]にする事で条件をつけることが可能です。
+次に2行目、言わずもがなechoですね。
+次に3行目、あまりにも早いと迷惑なので、sleepで間隔を空けています。
+最後に4行目はwhileの閉じタグの様なものです。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
+&lt;h2 id="サポート">サポート&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>Windowsにsudoが欲しいかい？</title><link>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
+&lt;p>!!! info tip
+欲しいときあるよね？&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>Windowsにsudo&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>ほしいけどわからない！！とか、調べても本物に程遠い&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>のしか見つからない！！という人に向けて書いています。&lt;/p>
+&lt;h2 id="q使えるものはあるの">Q.使えるものはあるの？&lt;/h2>
+&lt;p>A.あります&lt;/p>
+&lt;h3 id="使えるもの">使えるもの&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/gerardog/gsudo" target="_blank" rel="noopener"
+>gerardog/gsudo&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/lukesampson/psutils" target="_blank" rel="noopener"
+>lukesampson/psutils(sudo.ps1)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="どうやって入れるの">どうやって入れるの？&lt;/h2>
+&lt;p>めんどくさいのでパッケージマネージャーを使いましょう。&lt;/p>
+&lt;h3 id="使えるやつ">使えるやつ&lt;/h3>
+&lt;p>*[choco]: 要administratorだが、少ない手間でたくさんのパッケージを入れられる。&lt;/p>
+&lt;p>!!! info tip
+chocoのインストール手順は準備中です。
+scoopのインストール方法は {%post_link 2020-05-01-install-scoop &amp;lsquo;こちら&amp;rsquo;%}&lt;/p>
+&lt;ul>
+&lt;li>choco&lt;/li>
+&lt;li>scoop&lt;/li>
+&lt;/ul>
+&lt;h2 id="インストール">インストール&lt;/h2>
+&lt;p>実際に入れてみましょう。&lt;/p>
+&lt;h3 id="gerardoggsudoの場合個人的なオススメ">gerardog/gsudoの場合（個人的なオススメ）&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#非administratorでできるのでオススメ&lt;/span>
+&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">gsudo&lt;/span>
+&lt;span class="c">#要administrator&lt;/span>
+&lt;span class="n">choco&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">gsudo&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="lukesampsonpsutilssudops1の場合">lukesampson/psutils(sudo.ps1)の場合&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">sudo&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>chocoにも同名の物があるがこれは完成度低い&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>&lt;/p>
+&lt;h2 id="how-to">How to&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">sudo&lt;/span> &lt;span class="n">choco&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="nb">windows-terminal&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#hostsファイルが楽に編集できるよ！やったね！！&lt;/span>
+&lt;span class="n">sudo&lt;/span> &lt;span class="n">notepad&lt;/span> &lt;span class="n">C:&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">Windows&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">System32&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">drivers&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">hosts&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>!!! warning
+何も気にせず乱用してはいけません。
+ウイルス等の感染の原因になります。&lt;/p>
+&lt;p>!!! error danger
+&lt;code>rm&lt;/code>や&lt;code>rd&lt;/code>(及び&lt;code>rmdir&lt;/code>)などのファイルを削除するコマンドに対して&lt;code>C:\&lt;/code>や&lt;code>/&lt;/code>を指定してはいけません。(OSや個人データをを破壊する可能性があります。)&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>管理者権限なので扱いには気をつけましょう。&lt;/p>
+&lt;p>Linuxやmacを使っているあなたもですよ？rootの扱いには気をつけましょう。&lt;/p>
+&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>Linuxやmacに存在するrootに昇格するコマンド。今回は、知っていることを前提としている。&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2" role="doc-endnote">
+&lt;p>日本語で検索するとよく出てくるやつは、別窓だったり、色が出なかったりと色々と問題がある。&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3" role="doc-endnote">
+&lt;p>別窓タイプ&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item><item><title>ArchLinuxにSteamをインストールする方法</title><link>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! note
+この解説ではGitなどのコマンドがすでに使用できることを前提としています。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>ArchLinuxを入れてよし、いざゲームするぞー！と意気込んで
+sudo pacman -S steam
+をやろうとした人は少なからずいるはずです。しかし、ArchLinuxはデフォルトで32bitパッケージが無効化されている為、有効化した後にインストールしてもコアダンプが発生します。今回は32bitの有効化、コアダンプの修正を解説します。&lt;/p>
+&lt;h2 id="32bitパッケージの有効化">32bitパッケージの有効化&lt;/h2>
+&lt;p>さて、こんな辺境の地のblogを見てる時点で大体の方はご存知でしょうが、
+一応解説をArchLinuxでは32bitパッケージがデフォルトでは無効になっています。
+なので、最初にいきなり&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S steam
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>とコンソールに打ってもパッケージが見当たらないよ！と言われてしまいます。
+ということで本題です。ArchLinuxでは無効になっているだけで、32bitは有効化できます。なので、手動で有効化する方法が以下の手順です。&lt;/p>
+&lt;p>&lt;strong>/etc/pacman.conf&lt;/strong> に以下のような行が存在します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">#[multilib]
+#Include = /etc/pacman.d/mirrorlist
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>見てわかるとおり、これらの行は#でコメントアウトされています。
+そこで、そのコメントアウトを外しましょう&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">[multilib]
+Include = /etc/pacman.d/mirrorlist
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>この様に先頭についていた#を外すことによりパッケージの有効化ができます。
+しかしながら、このままだとパッケージリストが更新されていないため、以下のコマンドを実行して、パッケージリストを最新の状態にしましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -Syy
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="steamのインストール--パッケージのインストール">Steamのインストール &amp;amp; パッケージのインストール&lt;/h2>
+&lt;p>さて、ここまで来ればフィニッシュに近いです。
+ではいよいよSteamをインストールしましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S steam
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>よし、インストールに成功した！ここで喜びに浸るのはまだ早いです。
+大きな落とし穴として、ArchLinuxではSteamをインストールするだけだと、コアダンプを起こし、起動することができません。&lt;br>
+&lt;strong>そこで追加するのが32bitのnvidia driverです&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S lib32-nvidia-utils
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、これで遂にSteamが起動できると思います。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
+&lt;h2 id="サポート">サポート&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>初めてのaki</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! tip
+はじめまして（?）&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="名前">名前&lt;/h2>
+&lt;p>akiやsousuke0422などそんな感じの名前で活動している人です。&lt;/p>
+&lt;h2 id="何してるの">何してるの？&lt;/h2>
+&lt;p>Windowsでよく、ゲームしてます。
+UbuntuやArch Linuxを主な開発環境として使ってます。
+&lt;del>mac?ナニソレ、オイシイノ？&lt;/del>&lt;/p>
+&lt;h2 id="活動場所">活動場所&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/TeamOrangeServer" target="_blank" rel="noopener"
+>TeamOrangeServer&lt;/a>や、&lt;a class="link" href="https://github.com/TeamPimcServer" target="_blank" rel="noopener"
+>TeamPimcServer&lt;/a>が主なGitHubでの活動地帯です。
+&lt;a class="link" href="https://discord.gg/3F4r97p" target="_blank" rel="noopener"
+>Discord(Orange)&lt;/a>&lt;/p>
+&lt;h2 id="その他">その他&lt;/h2>
+&lt;p>随時追加します。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
+&lt;p>yupixやゆぴなどの名前で活動しています。&lt;/p>
+&lt;h2 id="何してるの">何してるの？&lt;/h2>
+&lt;p>主にArchLinuxでShellScriptを使って遊んでいます。
+その他にも、Minecraftのサーバー運営などを行っています。&lt;/p>
+&lt;h2 id="活動場所">活動場所&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/TeamOrangeServer" target="_blank" rel="noopener"
+>TeamOrangeServer&lt;/a>や、&lt;a class="link" href="https://github.com/TeamPimcServer" target="_blank" rel="noopener"
+>TeamPimcServer&lt;/a>が主なGitHubでの活動地帯です。
+&lt;a class="link" href="https://discord.gg/gsjcMQe" target="_blank" rel="noopener"
+>Discord(AKARINEXT)&lt;/a>&lt;/p></description></item></channel></rss>

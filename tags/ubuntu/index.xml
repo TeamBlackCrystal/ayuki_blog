@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ubuntu on あゆき's BLOG</title><link>https://example.org/tags/ubuntu/</link><description>Recent content in ubuntu on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sat, 27 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>Pgpool-IIを導入するだけ</title><link>https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</link><pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</guid><description>&lt;h3 id="はじめに">はじめに&lt;/h3>
+&lt;p>また、結構期間空いてしまいましたね・・・
+3ヶ月ぶりです。&lt;/p>
+&lt;p>さて、今回はMisskeyをPgpool-IIに載せたいと思います。レプリケーションは別の機会にやります。&lt;/p>
+&lt;h3 id="前提">前提&lt;/h3>
+&lt;ul>
+&lt;li>Ubuntu 20.4&lt;/li>
+&lt;li>PostgreSQL 13 (pgdg)&lt;/li>
+&lt;li>pgpool-II version 4.1.4&lt;/li>
+&lt;/ul>
+&lt;p>!!! info
+pgdgのリポジトリを事前に追加していることを想定しています。&lt;/p>
+&lt;h3 id="インストール">インストール&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo apt install pgpool2
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="設定">設定&lt;/h3>
+&lt;p>ここからが本番ですよ〜&lt;del>めんどくさい&lt;/del>&lt;/p>
+&lt;p>事前にpostgres本体のポートを変えておきましょう。(今回は&lt;code>60001&lt;/code>にします。)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff"># /etc/postgresql/13/main/postgresql.conf
+&lt;span class="gd">- port = 5432
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ port = 60001
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>/etc/pgpool2/pgpool.conf&lt;/code>を編集していきます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="gd">- port = 5433
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ port = 5432
+&lt;/span>&lt;span class="gi">&lt;/span>
+# 一応変えてある
+&lt;span class="gd">- backend_hostname0 = &amp;#39;localhost&amp;#39;
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ backend_hostname0 = &amp;#39;192.168.1.90&amp;#39;
+&lt;/span>&lt;span class="gi">&lt;/span>
+# 変更したpostgresのポートを書く
+&lt;span class="gd">- backend_port0 = 5432
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ backend_port0 = 60001
+&lt;/span>&lt;span class="gi">&lt;/span>
+# 今はデフォルトでok
+backend_weight0 = 1
+# 一応合わせてある
+&lt;span class="gd">- backend_data_directory0 = &amp;#39;/var/lib/pgsql/data&amp;#39;
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ backend_data_directory0 = &amp;#39;/var/lib/postgresql/13/main&amp;#39;
+&lt;/span>&lt;span class="gi">&lt;/span>
+# レプリケーション関係。今は触らないでok
+backend_flag0 = &amp;#39;ALLOW_TO_FAILOVER&amp;#39;
+# 一台なら多分適当でいい。デフォルトのまま
+backend_application_name0 = &amp;#39;server0&amp;#39;
+# パフォーマンス関係はお好みに
+# pgpool ubuntu [検索]
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>!!! error
+misskey用に使う場合、TLが壊れるなどの不具合が出るため&lt;strong>絶対に&lt;/strong>&lt;code>memory_cache_enabled&lt;/code>をonにしないこと&lt;/p>
+&lt;p>以上で設定はおしまい。&lt;/p>
+&lt;h3 id="最後に">最後に&lt;/h3>
+&lt;p>あとはpostgresとpgpoolを再起動しておしまい&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># 失敗する場合は再起動するといいらしい。&lt;/span>
+sudo systemctl restart postgresql
+sudo systemctl restart pgpool2
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

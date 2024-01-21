@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Misskeyアドベントカレンダー2021 on あゆき's BLOG</title><link>https://example.org/categories/misskey%E3%82%A2%E3%83%89%E3%83%99%E3%83%B3%E3%83%88%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC2021/</link><description>Recent content in Misskeyアドベントカレンダー2021 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Tue, 21 Dec 2021 17:41:26 +0000</lastBuildDate><atom:link href="https://example.org/categories/misskey%E3%82%A2%E3%83%89%E3%83%99%E3%83%B3%E3%83%88%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC2021/index.xml" rel="self" type="application/rss+xml"/><item><title>PythonでMisskeyのBotFrameWorkを作ってみた</title><link>https://example.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Tue, 21 Dec 2021 17:41:26 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;p>これは &lt;a class="link" href="https://adventar.org/calendars/6273" target="_blank" rel="noopener"
+>Misskey Advent Calendar&lt;/a> 21日目の記事です。&lt;/p>
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>PythonでMisskeyのBotを作って見る際に第一に選択肢に出てくるのが、 YuzuRyo61さんの&lt;a class="link" href="https://github.com/YuzuRyo61/Misskey.py" target="_blank" rel="noopener"
+>Misskey.py&lt;/a> です。ですが、私はWebSocketを受信してリアルタイムにタイムラインや通知の情報を取得したかったため、このBotFrameWorkを作ってみました。&lt;/p>
+&lt;h2 id="使い方">使い方&lt;/h2>
+&lt;p>まず、今回作成したライブラリ &lt;a class="link" href="https://github.com/yupix/mi.py" target="_blank" rel="noopener"
+>Mi.py&lt;/a>をインストールします&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pip install mi.py
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>次に実際に実行するためのコードを書きます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">asyncio&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Note&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.ext&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">commands&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.router&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Router&lt;/span>
+&lt;span class="k">class&lt;/span> &lt;span class="nc">MyBot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">commands&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Bot&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cmd_prefix&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cmd_prefix&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ws&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="n">に接続しました&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="n">Router&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ws&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">connect_channel&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;global&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;main&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_message&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">note&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Note&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">note&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">author&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">note&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="n">uri&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;wss://example.com/streaming&amp;#34;&lt;/span>
+&lt;span class="n">token&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;This is your token&amp;#34;&lt;/span>
+&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">MyBot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;!&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">asyncio&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これで、グローバルタイムラインを受信する初期的なbotができました。&lt;/p>
+&lt;h2 id="投稿をしてみる">投稿をしてみる&lt;/h2>
+&lt;p>今度は投稿をしてみましょう、先程のコードを一部書き換えてみます&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">async def on_ready(self, ws):
+print(f&amp;#39;{self.i.username}&amp;#39; に接続しました)
+await Router(ws).connect_channel([&amp;#39;global&amp;#39;, &amp;#39;main&amp;#39;])
+&lt;span class="gi">+ res = await self.post_note(&amp;#39;hello~&amp;#39;)
+&lt;/span>&lt;span class="gi">+ print(res.author.username, res.content)
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このように、自分で投稿し、そのレスポンスをオブジェクトとして取得することが可能です。&lt;/p>
+&lt;h2 id="大変だったこと">大変だったこと&lt;/h2>
+&lt;p>今回のライブラリは絶賛開発中なのですが、Pythonの循環参照がとにかく最初の頃多く発生してとても大変でした。他には、非同期のwebsocketライブラリが少なかったことなど、色々とあり、作成にとても時間がかかりました。（まだできてないですけど）&lt;/p>
+&lt;h2 id="ドキュメントについて">ドキュメントについて&lt;/h2>
+&lt;p>!!! warning
+まだドキュメントは作成途中であり、一部のモデルが不足しています。&lt;/p>
+&lt;p>&lt;a class="link" href="https://yupix.github.io/Mi.py/mi.html" target="_blank" rel="noopener"
+>ここ&lt;/a> にcommitしたら自動で生成するようにしてあるドキュメントがあるので、何かわからないことがあれば参考にしてみてください。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>このプロジェクトは一応頑張って作っているつもりなので、もしよければ、使った感想などを &lt;a class="link" href="https://rn.akarinext.org/@yupix" target="_blank" rel="noopener"
+>私のMisskeyアカウント&lt;/a> に送ってくださるとモチベーションも上がってとても嬉しいです。
+あと、MIT Licenseで &lt;a class="link" href="https://github.com/yupix/Mi.py" target="_blank" rel="noopener"
+>GitHub&lt;/a> にて公開しています。 pull requestなども歓迎していますので、もしよければやってみてください。&lt;/p>
+&lt;p>最後になりますが、Misskeyは リアクションなどをインスタンスごとのカスタム絵文字で貰うことができ、自分のつぶやきにTwitterのようなハート以外のリアクションがほしいという方にも楽しめると思うので、Misskeyにご興味がある場合は &lt;a class="link" href="https://join.misskey.page" target="_blank" rel="noopener"
+>joinmisskey&lt;/a> をぜひご覧ください。&lt;/p>
+&lt;p>ここまでご覧頂きありがとうございました。&lt;/p></description></item></channel></rss>

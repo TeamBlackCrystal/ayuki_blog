@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Advent Calendar 2020 on あゆき's BLOG</title><link>https://example.org/tags/advent-calendar-2020/</link><description>Recent content in Advent Calendar 2020 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Mon, 21 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/advent-calendar-2020/index.xml" rel="self" type="application/rss+xml"/><item><title>Ayuskeyって何？</title><link>https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</link><pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</guid><description>&lt;p>&lt;strong>&lt;a class="link" href="https://adventar.org/calendars/5026" target="_blank" rel="noopener"
+>Misskey Advent Calendar 2020&lt;/a>の21日目の記事です。&lt;/strong>&lt;/p>
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>多分多くの人が初めてだと思います。&lt;a class="link" href="https://kr.akirin.xyz/@aki" target="_blank" rel="noopener"
+>aki&lt;/a>といいます。
+今回は私と&lt;a class="link" href="https://kr.akirin.xyz/@yupix@ne.akarinext.org" target="_blank" rel="noopener"
+>@yupix@ne.akarinext.org&lt;/a>氏で作っているAyuskeyについてお話させていただきたいと思います。&lt;/p>
+&lt;h3 id="名前の由来について">名前の由来について&lt;/h3>
+&lt;p>名前の由来は、&lt;strong>a&lt;/strong>kiと&lt;strong>yu&lt;/strong>pixからとってAyuとなっています。(このブログも同じ)
+なお、初期の頃は私一人で開発していたのでReiskeyという名前をつけておりました。その頃の名残として、バージョンに&lt;code>rei0784&lt;/code>をつけるのを継承しています。&lt;/p>
+&lt;h2 id="技術的なあれこれ">技術的なあれこれ&lt;/h2>
+&lt;p>現在もパッケージ更新などのメンテナンスがされている&lt;a class="link" href="https://github.com/mei23/misskey-v11" target="_blank" rel="noopener"
+>mei23/misskey-v11&lt;/a>をベースに開発しています。
+また、筆頭となる&lt;a class="link" href="https://kr.akirin.xyz" target="_blank" rel="noopener"
+>私のインスタンス&lt;/a>と&lt;a class="link" href="https://ne.akarinext.org" target="_blank" rel="noopener"
+>yupix氏のインスタンス&lt;/a>は、Raspberry Pi 4で運用しているため、arm64で動かしやすいようにDockerfile等が調整されていたりします。&lt;/p>
+&lt;p>動かなかったり、ビルドができなかったりした場合は気軽に&lt;a class="link" href="https://kr.akirin.xyz/@aki" target="_blank" rel="noopener"
+>@aki&lt;/a>までご連絡ください。&lt;/p>
+&lt;h2 id="鯖缶にやさしく">鯖缶にやさしく&lt;/h2>
+&lt;p>全文検索で重いElasticsearchを使う必要がなくなりました！！
+本流にある&lt;del>放置されていそうな&lt;/del>&lt;a class="link" href="https://github.com/syuilo/misskey/pull/5138" target="_blank" rel="noopener"
+>#5138&lt;/a>をマージしてsonicという検索エンジンを使えるようにしました。とても軽く、Raspberry Pi 4であっても軽快に動作します。実際に、私のインスタンスで使用しております。(ただ、短い単語とかだと精度が終わってるので、要調整)&lt;/p>
+&lt;p>他の鯖にある絵文字をコピーしたいときありますよね？
+本流のapiを移植してできるようにしました！！
+現在はapiを直接叩くのが1番安定していますが、GUIでのコピーができるように作業中です。&lt;/p>
+&lt;h3 id="より高機能を目指して">より高機能を目指して&lt;/h3>
+&lt;p>本来のmisskey v11にはあまりぼかし(blur)や透明度がついていないのですが、より近代的な見た目を目指しています。現在は未実装ですが重い環境では&lt;code>インスタンスのurl/flags&lt;/code>(例:&lt;a class="link" href="https://kr.akirin.xyz/flags" target="_blank" rel="noopener"
+>kr.akirin.xyz/flags&lt;/a>)から無効化できるようにする予定です。最終的には他の設定と同じ場所に配置されます。&lt;/p>
+&lt;h3 id="mfmの拡張">MFMの拡張&lt;/h3>
+&lt;p>基本的に文法はm544と互換性があります。&lt;a class="link" href="https://ti.akirin.xyz/mfm-cheat-sheet" target="_blank" rel="noopener"
+>チートシート&lt;/a>(私のm544インスタンスに飛びます)
+&lt;code>:@aki:&lt;/code>や&lt;code>:@rei_k@misskey.io:&lt;/code>でアバター絵文字が使えます。なお、一部の場所(こことか)だと動きませんが、普通にノートを投稿する分には問題なく使えます。&lt;/p>
+&lt;style>
+@keyframes mfm-rainbow {
+0% {
+filter: hue-rotate(0deg);
+}
+100% {
+filter: hue-rotate(360deg);
+}
+}
+&lt;/style>
+&lt;p>Groundpolisからも一部取り入れさせて頂いている文法があります。
+&lt;code>[rainbow kr更新しようぜ]&lt;/code>&lt;/p>
+&lt;p style="color: #99CC00; animation: mfm-rainbow 1s linear infinite both;">kr更新しようぜ&lt;/p>
+&lt;p>&lt;code>[font.size=20px,color=#86b300 みすきーぐりーん]&lt;/code>&lt;/p>
+&lt;p style="font-size: 20px; color: #86b300">みすきーぐりーん&lt;/p>
+&lt;p>ただ、Ayuskey同士だと正常に表示できていますが、他の実装からだとうまく表示されないことが多いです。(逆は回転速度とかの指定に&lt;code>ms&lt;/code>を使わないようにすればだいたいいけそう)&lt;/p>
+&lt;h3 id="独自機能">独自機能&lt;/h3>
+&lt;p>他のMisskeyには存在しない独自の機能としてbotであることを宣言するのと同じようにお嬢様(Lady)であることを宣言できます。しっかりと連合できるように作ってあります。&lt;/p>
+&lt;p>ブラーのところで書きましたが、実験的な機能を&lt;code>/flags&lt;/code>で有効化できます。&lt;del>まあ、これ書いてる時点だとどれも今は機能しないんですけど&lt;/del>&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>読んでいただきありがとうございます。
+もしよろしければ&lt;a class="link" href="https://kr.akirin.xyz" target="_blank" rel="noopener"
+>私のインスタンス&lt;/a>に登録していただけると幸いです。&lt;/p>
+&lt;h2 id="おまけ">おまけ&lt;/h2>
+&lt;h3 id="既知のバグ">既知のバグ&lt;/h3>
+&lt;p>トークの読み込みが終わらない=&amp;gt;&lt;del>原因調査中&amp;hellip;&lt;/del>&lt;a class="link" href="https://github.com/TeamOrangeServer/misskey/issues/61" target="_blank" rel="noopener"
+>#61&lt;/a> =&amp;gt; &lt;a class="link" href="https://github.com/TeamOrangeServer/misskey/releases/tag/11.37.1-rei0784-5.0.0-rc.10" target="_blank" rel="noopener"
+>5.0.0-rc.10&lt;/a>で解決
+モバイルで引用RNできない=&amp;gt;原因調査中&amp;hellip;&lt;/p>
+&lt;h3 id="夢は大きく-今後の目標">夢は大きく 〜今後の目標〜&lt;/h3>
+&lt;p>独自にVue3対応=&amp;gt;v12と根本的に作りが違うのでほとんどバックポートで対応できないので、少なくともinitはほとんど書き直しです。
+それと、BootstrapVueの対応ができたら少しずつやってみたいと思います。&lt;/p>
+&lt;h3 id="xeの終了に伴う記事の移植">XEの終了に伴う記事の移植&lt;/h3>
+&lt;p>最初はXE(私の旧インスタンス)のpagesで書いていたのですが、諸事情でKrに移行することになったのでここのブログに移植することにしました。MFM周りは実際のAyuskeyのcssを引っ張ってMarkdownに書いて実現しているため、疲れました・・・&lt;/p></description></item></channel></rss>

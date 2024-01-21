@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dev on あゆき's BLOG</title><link>https://example.org/tags/dev/</link><description>Recent content in Dev on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Wed, 16 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Ayuskey v6 Changelog</title><link>https://example.org/p/ayuskey-v6-changelog/</link><pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/ayuskey-v6-changelog/</guid><description>&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>Ayuskeyって何？って方は{% post_link 2020-12-21-misskey-advent-calendar-2020-ayuskey こちら %}の記事を先にお読みください。&lt;/p>
+&lt;h2 id="注意事項">注意事項&lt;/h2>
+&lt;p>6.0.0以下のバージョンから更新する際はマイグレーションが必要です。&lt;/p>
+&lt;h3 id="機能の追加">機能の追加&lt;/h3>
+&lt;ul>
+&lt;li>引っ越し先をユーザーページに表示するように&lt;/li>
+&lt;li>投稿ページのURLで埋め込みプレイヤーを提供するように&lt;/li>
+&lt;li>Bull Dashboard を組み込み、ジョブキューの確認や操作を行えるように&lt;/li>
+&lt;li>welcome ページでcwが設定されている場合は 「もっと見る」ボタンを出すように &lt;a class="link" href="https://github.com/TeamBlackCrystal/misskey/issues/1813" target="_blank" rel="noopener"
+>TeamBlackCrystal/misskey#1813&lt;/a>&lt;/li>
+&lt;li>blurをoffにする設定を追加しました&lt;/li>
+&lt;li>toolsにアプリケーションを作るためのサンプルを追加 &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/30" target="_blank" rel="noopener"
+>#30&lt;/a>&lt;/li>
+&lt;li>ハイライトがない際は無いと表示する &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/120" target="_blank" rel="noopener"
+>#120&lt;/a>&lt;/li>
+&lt;li>パスワードリマインダー(パスワードリセット)&lt;/li>
+&lt;/ul>
+&lt;h3 id="破壊的変更">破壊的変更&lt;/h3>
+&lt;ul>
+&lt;li>node 12, 14をドロップしました。16または18に移行してください&lt;/li>
+&lt;/ul>
+&lt;h3 id="変更点">変更点&lt;/h3>
+&lt;ul>
+&lt;li>pnpmに変更&lt;/li>
+&lt;li>リバーシのグラデーションを変更 &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/71" target="_blank" rel="noopener"
+>#71&lt;/a>&lt;/li>
+&lt;li>メニューのアイコンの位置を統一 &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/68" target="_blank" rel="noopener"
+>#68&lt;/a>&lt;/li>
+&lt;li>renoteした際のHeaderの位置を変える &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/33" target="_blank" rel="noopener"
+>#33&lt;/a>&lt;/li>
+&lt;li>emojilist を更新&lt;/li>
+&lt;li>クエリの最適化&lt;/li>
+&lt;li>docker で node@18 を使用します&lt;/li>
+&lt;li>既存のファイルにsensitiveフラグが飛んできたときの挙動&lt;/li>
+&lt;li>CORSを調整&lt;/li>
+&lt;li>ビルド時の出力を調整&lt;/li>
+&lt;/ul>
+&lt;h3 id="非推奨">非推奨&lt;/h3>
+&lt;ul>
+&lt;li>Elasticsearchやsonicを利用した検索
+&lt;ul>
+&lt;li>これらを使用している場合は検索の修正は提供されていません&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="修正">修正&lt;/h3>
+&lt;p>デザインに関する修正が多いです&lt;/p>
+&lt;ul>
+&lt;li>channels/follow エンドポイントで既にfollowしてる物をfollowしようとするとdbのエラーが直接帰ってきてしまう &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/362" target="_blank" rel="noopener"
+>#362&lt;/a>&lt;/li>
+&lt;li>メンション時にアバターの比率が異なるとアバターのデザインが崩れる &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/164" target="_blank" rel="noopener"
+>#164&lt;/a>&lt;/li>
+&lt;li>メンション時アバターが取得できない &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/163" target="_blank" rel="noopener"
+>#163&lt;/a>&lt;/li>
+&lt;li>モバイル時にRenoteするとボーダーがうまく表示されない &lt;a class="link" href="https://github.com/TeamBlackCrystal/ayuskey/issues/31" target="_blank" rel="noopener"
+>#31&lt;/a>&lt;/li>
+&lt;li>アプリケーションの認証時、ログインしていないとテーマが白すぎる &lt;a class="link" href="https://github.com/TeamBlackCrystal/misskey/issues/477" target="_blank" rel="noopener"
+>TeamBlackCrystal/misskey#477&lt;/a>&lt;/li>
+&lt;li>リモートユーザーでも可能であれば誕生日と場所を表示&lt;/li>
+&lt;li>noteの検索が正常に動作しない&lt;/li>
+&lt;/ul>
+&lt;h3 id="セキュリティー">セキュリティー&lt;/h3>
+&lt;p>依存関係が更新されました。脆弱性が修正されている場合があります。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/advisories/GHSA-gp95-ppv5-3jc5" target="_blank" rel="noopener"
+>CVE-2022-29256&lt;/a> (sharp)&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/advisories/GHSA-pfrx-2q88-qq97" target="_blank" rel="noopener"
+>CVE-2022-33987&lt;/a> (got)&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/advisories/GHSA-wm7h-9275-46v2" target="_blank" rel="noopener"
+>CVE-2022-24434&lt;/a> (multer)&lt;/li>
+&lt;/ul>
+&lt;h2 id="目玉機能">目玉機能&lt;/h2>
+&lt;p>Bull Dashboardが組み込まれたのでジョブキューをご自分の目で今まで以上に身近に感じることができます。&lt;/p>
+&lt;h2 id="将来的な予定">将来的な予定&lt;/h2>
+&lt;p>APIに関してはジョブキュー周りで詰まっているのでv7で実装されるかは怪しいです。今後の更新にご期待ください！&lt;/p>
+&lt;ul>
+&lt;li>v2 APIの搭載(GETメソッド等が使用できる)&lt;/li>
+&lt;li>VuexからPiniaへの置き換え&lt;/li>
+&lt;/ul></description></item><item><title>Remixの流儀</title><link>https://example.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/</link><pubDate>Tue, 19 Jul 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/</guid><description>&lt;h1 id="概要">概要&lt;/h1>
+&lt;p>この記事では結構新しめなReactベースのフレームワークであるRemixについてご紹介します。&lt;/p>
+&lt;h2 id="初めに">初めに&lt;/h2>
+&lt;p>Remixってなんだよ！って人のために少しだけご紹介します。Remixはサーバーサイドレンダリング（SSR）の最近よく聞くSPAとは少し違ったアプローチをとっているフレームワークです。
+Remixの特徴は以下のような点にあります。
+コンポーネントでエラーが出ても、そのコンポーネントのみがエラーを出すこれにより、一部のコンポーネントがエラーを出してもページ全体がエラーで汚染されることが無くなり、原因が分かりやすくなっています。
+SSRなのでOGPなどが容易に設定できます。これに関しては後述しますが、取得したデータをもとにOGPを設定できて非常に便利です。
+他にも多くの機能がありますが、ここから先はあなたご自身の手でお試しください！では記事をどうぞ！&lt;/p>
+&lt;h2 id="データの取得">データの取得&lt;/h2>
+&lt;p>Remixには LoaderFunction という物があります。例として以下のように書くことができます。今回は例としてPrismaを用いたデータの取得を行ってみます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">loader&lt;/span>: &lt;span class="kt">LoaderFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">params&lt;/span>&lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">prisma&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">findFirst&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">where&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">id&lt;/span>: &lt;span class="kt">params.userId&lt;/span>&lt;span class="p">}}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">ShowUser() {&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">user&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useLoaderData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">Hello&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>この方法の素晴らしい点は&lt;code>loader&lt;/code>という名前の関数をexportしておくことで自動で実行できる点です。ただ、loaderは定義した場合必ず何か値を返す必要があります。返さないと&lt;code>loader&lt;/code>が定義されていますが、何も返されませんでしたみたいなエラーが出ると思います。&lt;/p>
+&lt;h2 id="データの取得上級">データの取得（上級）&lt;/h2>
+&lt;p>さて、先ほどのコードを書いていてTypeScriptを使っている皆さんはきっとこう思ったことでしょう。「これ、Prismaのincludeとか使ってリレーション入れた場合の型どうすればいいんだ?」とその回答はRemixの公式ドキュメントの&lt;a class="link" href="https://remix.run/docs/en/v1/guides/data-loading#databases" target="_blank" rel="noopener"
+>このセクション&lt;/a>にあります。ですが、一応見つけるのに苦労する方もいると思うのでここで紹介しておきます。コードはRemixのドキュメントからお借りしました。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">import&lt;/span> &lt;span class="kr">type&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">LoaderFunction&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@remix-run/node&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// or &amp;#34;@remix-run/cloudflare&amp;#34;
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">json&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@remix-run/node&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// or &amp;#34;@remix-run/cloudflare&amp;#34;
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useLoaderData&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@remix-run/react&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">db&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;~/db.server&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">type&lt;/span> &lt;span class="nx">LoaderData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Awaited&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ReturnType&lt;/span>&lt;span class="err">&amp;lt;&lt;/span>&lt;span class="na">typeof&lt;/span> &lt;span class="na">getLoaderData&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">getLoaderData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">productId&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">product&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">db&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">product&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">findUnique&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;span class="nx">where&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">id&lt;/span>: &lt;span class="kt">productId&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nx">select&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">id&lt;/span>: &lt;span class="kt">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">name&lt;/span>: &lt;span class="kt">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">imgSrc&lt;/span>: &lt;span class="kt">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">product&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">loader&lt;/span>: &lt;span class="kt">LoaderFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">({&lt;/span>
+&lt;span class="nx">params&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">LoaderData&lt;/span>&lt;span class="p">&amp;gt;(&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="nx">getLoaderData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">productId&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">);&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">Product() {&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">product&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useLoaderData&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">LoaderData&lt;/span>&lt;span class="p">&amp;gt;();&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">Product&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">product&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">}&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="cm">/* ... */&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>先ほどのデータの取得と何が違うのかというと&lt;code>getLoaderData&lt;/code>という関数を作成し、&lt;code>LoaderData&lt;/code>という定数に&lt;code>getLoaderData&lt;/code>の戻り値を型として取得し、&lt;code>useLoaderData&lt;/code>の型は&lt;code>LoaderData&lt;/code>だよ！と伝えています。いたって普通のことかもしれないですが、TypeScriptに慣れてないと案外出てこない考えでした。&lt;/p>
+&lt;h2 id="データの送信">データの送信&lt;/h2>
+&lt;p>データの送信はデータの取得と似た名前の関数 &lt;code>actionFunction&lt;/code> と &lt;code>useFetcher&lt;/code> を使用します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">action&lt;/span>: &lt;span class="kt">ActionFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">({&lt;/span> &lt;span class="nx">request&lt;/span> &lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">formData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">formData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">intent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;intent&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">intent&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;createUser&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">await&lt;/span> &lt;span class="nx">createUser&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">CreateUser() {&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">fetcher&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useFetcher&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// データに変更が生じた際に発火する
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">},&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">submitUserData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">submit&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">intent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;createUser&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;exampleUser&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">method&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;post&amp;#34;&lt;/span>&lt;span class="p">})&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">onClick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="nx">submitUserData&lt;/span>&lt;span class="p">()}/&amp;gt;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このコードではintentにどういうアクションを起こさせるかを渡しています。これは何故かというとactionはルーターごとに一つであり、Remixの公式Discordなどを見ていてもこの書き方が主流だと思っているからです。（他にいい方法あったら教えてください）また、 &lt;code>fetcher.data&lt;/code> はちゃんとuseEffectなどを用いて待機してあげる必要があります。いきなり使おうとするとundefinedになったりnullになったりするかもしれません（普通はそうなると思います）&lt;/p>
+&lt;h2 id="コンポーネントからデータの取得がしたい">コンポーネントからデータの取得がしたい&lt;/h2>
+&lt;p>正直私は気にしないのですが、デザインパターン的によくない場合もあるのかな?まあよくわかりませんが、ひとまずご紹介します。
+まず、前提として、コンポーネントにはloaderやactionは用意できない（すべきじゃない）です。これを解決する方法として先ほどのデータの送信を応用します。まず、ページにactionを作成しておき、そこにfetcherを用いてデータを送信します。
+私が実際に必要となった際の条件とどんなことをしたかを記載しておきます。&lt;/p>
+&lt;ul>
+&lt;li>データのIDがコンポーネントに来る&lt;/li>
+&lt;li>データのIDからアイテムのデータを取得してコンポーネントとして表示したい&lt;/li>
+&lt;/ul>
+&lt;h3 id="routesindextsx">routes/index.tsx&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">action&lt;/span>: &lt;span class="kt">ActionFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">request&lt;/span>&lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">formData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">formData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">intent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;intent&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Number&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;id&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">intent&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;getItemById&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">await&lt;/span> &lt;span class="nx">getItemById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="componentsitemtsx">components/item.tsx&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">Item&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">item&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setItem&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">fetcher&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useFetcher&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">submit&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">intent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;getItemById&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">id&lt;/span>: &lt;span class="kt">1234567890&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">method&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;post&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">action&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;/?index&amp;#34;&lt;/span>&lt;span class="p">})&lt;/span>
+&lt;span class="p">},&lt;/span> &lt;span class="p">[])&lt;/span>
+&lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">setItem&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">},&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">fetcher&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">&amp;lt;&amp;gt;{&lt;/span>&lt;span class="nx">item&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">}&amp;lt;/&amp;gt;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>あくまでこのコードは例です。私がこういうコードを書く必要があったのはSupaBaseを用いてリアルタイム通信を行っていましたがリレーションは取得できない為（少なくとも私にはやり方がわからなかった）、prismaのリレーションを取得する必要があったためです。&lt;/p>
+&lt;p>あとindexとかに集中させるのは良くないと思うので適度分けるといいと思います。なんならapi/item.tsx みたいにしたほうがいいのかも? そこらへんは人によると思います。APIみたいにデータを触ることしかしないならそういうのでもいいのかなと個人的には思います。&lt;/p>
+&lt;h2 id="ogpの設定">OGPの設定&lt;/h2>
+&lt;p>OGP&amp;hellip;設定したいですよね?個人的にはアイテムの詳細ページとかを作るならぜひとも欲しいと思います。SPAだとちょっとめんどくさくてやる気になりませんでしたが、そう、Remixなら簡単です。&lt;/p>
+&lt;p>OGPの設定には &lt;code>MetaFunction&lt;/code> を使用します&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-tsx" data-lang="tsx">&lt;span class="kr">type&lt;/span> &lt;span class="nx">LoaderData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Awaited&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ReturnType&lt;/span>&lt;span class="err">&amp;lt;&lt;/span>&lt;span class="na">typeof&lt;/span> &lt;span class="na">getLoaderData&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">meta&lt;/span>: &lt;span class="kt">MetaFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">({&lt;/span> &lt;span class="nx">data&lt;/span> &lt;span class="p">})&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">let&lt;/span> &lt;span class="nx">_data&lt;/span>: &lt;span class="kt">LoaderData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">data&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">charset&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">title&lt;/span>: &lt;span class="kt">_data?.data.name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s2">&amp;#34;og:title&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">_data&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s2">&amp;#34;og:site_name&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;テスト&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s2">&amp;#34;og:image&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">_data&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">icon_url&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">getLoaderData() {&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;ゆぴ&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">image&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;リンク&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">loader&lt;/span>: &lt;span class="kt">LoaderFunction&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">await&lt;/span> &lt;span class="nx">getLoaderData&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>こんな感じにloaderで取得したデータをmetaで使用することができます。loaderでparamsを取得してパラメータのIDを用いてデータベースからアイテム情報を取得、OGPに表示みたいなことが簡単にできます。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>正直fetcherに関しては2日ぐらい苦しんでいろいろとGitHubの数少ないリポジトリを探して、使い方が分かりました。fetcher.dataが空にしかならなくて、割とマジで苦しんだ覚えがあります&amp;hellip;記事とかでもfetcher使ってる人全くいなくて、大変でした。そういう方のお役に立てれば幸いです。最後にコードに関しては確認せず書いてるので少し間違ってたり、普通に動かないやつあるかもしれないので、見つけたら&lt;a class="link" href="https://github.com/TeamPimcServer/ayuki_blog/issues" target="_blank" rel="noopener"
+>ここ&lt;/a>とかに連絡ください。&lt;/p></description></item><item><title>FMProjectEについて</title><link>https://example.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid><description>&lt;h1 id="最近作った動画版">最近作った動画版&lt;/h1>
+&lt;script type="application/javascript" src="https://embed.nicovideo.jp/watch/sm40731600/script?w=640&amp;h=360">&lt;/script>&lt;noscript>&lt;a href="https://www.nicovideo.jp/watch/sm40731600">FMProjectEの紹介 [1.7.10]&lt;/a>&lt;/noscript>
+&lt;h2 id="要約">要約&lt;/h2>
+&lt;p>最近(2年前)作ったModです。1.12.2のProjectEからEMC上限変更を移植したModです。&lt;/p>
+&lt;h2 id="何を変えた">何を変えた？&lt;/h2>
+&lt;p>動画にある通り、EMC上限を&lt;code>Long.MAX_VALUE&lt;/code>にしました。&lt;/p>
+&lt;h2 id="breaking-change">BREAKING CHANGE💥&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>PEAA&lt;/code>と&lt;code>PEEX&lt;/code>と互換性が無いです。
+&lt;ul>
+&lt;li>&lt;code>PEAA&lt;/code>に関しては&lt;code>FMPEAA&lt;/code>として対応版を配布予定。&lt;/li>
+&lt;li>&lt;code>PEEX&lt;/code>はライセンス的にわからんし、なんか知らんけどデコンパイルがうまくできなかった記憶がある。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>ProjectE本体は消して入れてください。&lt;/li>
+&lt;/ul>
+&lt;h2 id="ダウンロード">ダウンロード&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.curseforge.com/minecraft/mc-mods/fmprojecte-fmpe" target="_blank" rel="noopener"
+>ここ&lt;/a>
+&lt;a class="link" href="https://lab.teamblackcrystal.com/aki/fmprojecte" target="_blank" rel="noopener"
+>src&lt;/a> (for developer)&lt;/p>
+&lt;h2 id="注意">注意&lt;/h2>
+&lt;p>何があっても責任は取りません。必ずバックアップしてください。
+本家にバグ報告を送らないでください。&lt;/p></description></item></channel></rss>

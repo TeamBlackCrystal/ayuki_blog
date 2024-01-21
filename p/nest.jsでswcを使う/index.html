@@ -1,0 +1,421 @@
+<!doctype html><html lang=ja-jp dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="初めに この記事ではbuild, devでSWCを使うようにするという記事となっています。また、この記事ではパッケージ管理にpnpmを用いていますが、npm等をご利用の場合はpnpmをnpm等といった具合に置き換えてください。
+依存関係を追加する 1 2 3 4 5  # buildだけやる方 pnpm add -D @swc/cli @swc/core # build, devどちらもやる方 pnpm add -D @swc/cli @swc/core @swc/register chokidar   swcの設定を追加する プロジェクトルートに.swcrcという名前で以下の内容を記載します。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  { &amp;#34;jsc&amp;#34;: { &amp;#34;parser&amp;#34;: { &amp;#34;syntax&amp;#34;: &amp;#34;typescript&amp;#34;, &amp;#34;decorators&amp;#34;: true, }, &amp;#34;target&amp;#34;: &amp;#34;es2020&amp;#34;, &amp;#34;keepClassNames&amp;#34;: true, &amp;#34;transform&amp;#34;: { &amp;#34;legacyDecorator&amp;#34;: true, &amp;#34;decoratorMetadata&amp;#34;: true, } }, &amp;#34;module&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;commonjs&amp;#34;, &amp;#34;noInterop&amp;#34;: true } }   nest-cli.">
+<title>Nest.jsでSWCを使う</title>
+<link rel=canonical href=https://example.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/>
+<link rel=stylesheet href=/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css><meta property="og:title" content="Nest.jsでSWCを使う">
+<meta property="og:description" content="初めに この記事ではbuild, devでSWCを使うようにするという記事となっています。また、この記事ではパッケージ管理にpnpmを用いていますが、npm等をご利用の場合はpnpmをnpm等といった具合に置き換えてください。
+依存関係を追加する 1 2 3 4 5  # buildだけやる方 pnpm add -D @swc/cli @swc/core # build, devどちらもやる方 pnpm add -D @swc/cli @swc/core @swc/register chokidar   swcの設定を追加する プロジェクトルートに.swcrcという名前で以下の内容を記載します。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  { &amp;#34;jsc&amp;#34;: { &amp;#34;parser&amp;#34;: { &amp;#34;syntax&amp;#34;: &amp;#34;typescript&amp;#34;, &amp;#34;decorators&amp;#34;: true, }, &amp;#34;target&amp;#34;: &amp;#34;es2020&amp;#34;, &amp;#34;keepClassNames&amp;#34;: true, &amp;#34;transform&amp;#34;: { &amp;#34;legacyDecorator&amp;#34;: true, &amp;#34;decoratorMetadata&amp;#34;: true, } }, &amp;#34;module&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;commonjs&amp;#34;, &amp;#34;noInterop&amp;#34;: true } }   nest-cli.">
+<meta property="og:url" content="https://example.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/">
+<meta property="og:site_name" content="あゆき's BLOG">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="swc"><meta property="article:tag" content="nest.js"><meta property="article:tag" content="node.js"><meta property="article:published_time" content="2023-01-13T00:00:00+00:00"><meta property="article:modified_time" content="2023-01-13T00:00:00+00:00">
+<meta name=twitter:title content="Nest.jsでSWCを使う">
+<meta name=twitter:description content="初めに この記事ではbuild, devでSWCを使うようにするという記事となっています。また、この記事ではパッケージ管理にpnpmを用いていますが、npm等をご利用の場合はpnpmをnpm等といった具合に置き換えてください。
+依存関係を追加する 1 2 3 4 5  # buildだけやる方 pnpm add -D @swc/cli @swc/core # build, devどちらもやる方 pnpm add -D @swc/cli @swc/core @swc/register chokidar   swcの設定を追加する プロジェクトルートに.swcrcという名前で以下の内容を記載します。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  { &amp;#34;jsc&amp;#34;: { &amp;#34;parser&amp;#34;: { &amp;#34;syntax&amp;#34;: &amp;#34;typescript&amp;#34;, &amp;#34;decorators&amp;#34;: true, }, &amp;#34;target&amp;#34;: &amp;#34;es2020&amp;#34;, &amp;#34;keepClassNames&amp;#34;: true, &amp;#34;transform&amp;#34;: { &amp;#34;legacyDecorator&amp;#34;: true, &amp;#34;decoratorMetadata&amp;#34;: true, } }, &amp;#34;module&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;commonjs&amp;#34;, &amp;#34;noInterop&amp;#34;: true } }   nest-cli.">
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<figure class=site-avatar>
+<a href=/>
+<img src=/img/logo_huf10592dd2822538256e070550f453dcf_3270_300x0_resize_q75_h2_box_2.webp width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a>
+</figure>
+<div class=site-meta>
+<h1 class=site-name><a href=/>あゆき's BLOG</a></h1>
+<h2 class=site-description>A STUDENT WITH IDEALS AND BELIEFS.</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/TeamBlackCrystal/ayuki_blog_next target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<div class=menu-bottom-section>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/%E9%96%8B%E7%99%BA/>
+開発
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/>Nest.jsでSWCを使う</a>
+</h2>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jan 13, 2023</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+2 minute read
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<h1 id=初めに>初めに</h1>
+<p>この記事ではbuild, devでSWCを使うようにするという記事となっています。また、この記事ではパッケージ管理にpnpmを用いていますが、npm等をご利用の場合はpnpmをnpm等といった具合に置き換えてください。</p>
+<h2 id=依存関係を追加する>依存関係を追加する</h2>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># buildだけやる方</span>
+pnpm add -D @swc/cli @swc/core
+
+<span class=c1># build, devどちらもやる方</span>
+pnpm add -D @swc/cli @swc/core @swc/register chokidar
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=swcの設定を追加する>swcの設定を追加する</h2>
+<p>プロジェクトルートに<code>.swcrc</code>という名前で以下の内容を記載します。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>{</span>
+  <span class=s2>&#34;jsc&#34;</span>: <span class=o>{</span>
+    <span class=s2>&#34;parser&#34;</span>: <span class=o>{</span>
+      <span class=s2>&#34;syntax&#34;</span>: <span class=s2>&#34;typescript&#34;</span>,
+      <span class=s2>&#34;decorators&#34;</span>: true,
+    <span class=o>}</span>,
+    <span class=s2>&#34;target&#34;</span>: <span class=s2>&#34;es2020&#34;</span>,
+    <span class=s2>&#34;keepClassNames&#34;</span>: true,
+    <span class=s2>&#34;transform&#34;</span>: <span class=o>{</span>
+      <span class=s2>&#34;legacyDecorator&#34;</span>: true,
+      <span class=s2>&#34;decoratorMetadata&#34;</span>: true,
+    <span class=o>}</span>
+  <span class=o>}</span>,
+  <span class=s2>&#34;module&#34;</span>: <span class=o>{</span>
+    <span class=s2>&#34;type&#34;</span>: <span class=s2>&#34;commonjs&#34;</span>,
+    <span class=s2>&#34;noInterop&#34;</span>: <span class=nb>true</span>
+  <span class=o>}</span>
+<span class=o>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=nest-clijsonを編集する>nest-cli.jsonを編集する</h2>
+<p>sourceRootがあれば問題ないですが、一応全て載せておきます。（そもそも普通にプロジェクト作ったなら最初からあると思いますが）</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+  <span class=nt>&#34;$schema&#34;</span><span class=p>:</span> <span class=s2>&#34;https://json.schemastore.org/nest-cli&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;collection&#34;</span><span class=p>:</span> <span class=s2>&#34;@nestjs/schematics&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;sourceRoot&#34;</span><span class=p>:</span> <span class=s2>&#34;src&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;compilerOptions&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;plugins&#34;</span><span class=p>:</span> <span class=p>[]</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=devでホットリロードできるようにする>devでホットリロードできるようにする</h2>
+<p>今回紹介する方法は以下のプロジェクトの方法です。ライセンスは<code>MIT</code>です。作者の<code>manuschillerdev</code>さんとcontributorの皆さんに感謝です！</p>
+<p><a class=link href=https://github.com/manuschillerdev/nestjs-swc target=_blank rel=noopener>https://github.com/manuschillerdev/nestjs-swc</a></p>
+<h3 id=maintsを編集する>main.tsを編集する</h3>
+<p>まず初めにmain.tsで<code>bootstrap</code>関数をexportするようにします。
+また、あとで作成するホットリロードのスクリプトから呼び出す関係上<code>bootstrap()</code>という呼び出しを<code>process.env.NODE_ENV</code>環境変数によって行うかどうか決めます。
+最後に重要なポイントとして<code>bootstrap</code>関数で<code>return app</code>するようにしてください。これはあとで作成するホットリロード部分で、nestを止める為に必要になります。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-ts data-lang=ts><span class=kr>import</span> <span class=p>{</span> <span class=nx>NestFactory</span> <span class=p>}</span> <span class=kr>from</span> <span class=s2>&#34;@nestjs/core&#34;</span><span class=p>;</span>
+<span class=kr>import</span> <span class=p>{</span> <span class=nx>AppModule</span> <span class=p>}</span> <span class=kr>from</span> <span class=s2>&#34;./app.module&#34;</span><span class=p>;</span>
+
+<span class=kr>export</span> <span class=kr>async</span> <span class=kd>function</span> <span class=nx>bootstrap() {</span>
+  <span class=kr>const</span> <span class=nx>app</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>NestFactory</span><span class=p>.</span><span class=nx>create</span><span class=p>(</span><span class=nx>AppModule</span><span class=p>);</span>
+  <span class=k>await</span> <span class=nx>app</span><span class=p>.</span><span class=nx>listen</span><span class=p>(</span><span class=mi>3000</span><span class=p>);</span>
+
+  <span class=k>return</span> <span class=nx>app</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>process</span><span class=p>.</span><span class=nx>env</span><span class=p>.</span><span class=nx>NODE_ENV</span> <span class=o>!==</span> <span class=s1>&#39;development&#39;</span><span class=p>)</span> <span class=nx>bootstrap</span><span class=p>();</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=hmrtsを作成する>hmr.tsを作成する</h3>
+<p><code>src/hmr.ts</code>に作成します。
+ここでは、chokidarを用いてnestプロジェクトの変更を検知し、先ほどexportした<code>bootstrap</code>を呼び出し、nestを起動します。また、変更が発生した場合は自動で<code>bootstrap</code>の戻り値である<code>app</code>を用いて、<code>app.close()</code>を実行します。</p>
+<p>import等を本家のプロジェクトから変更しています。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-ts data-lang=ts><span class=kr>import</span> <span class=o>*</span> <span class=kr>as</span> <span class=nx>chokidar</span> <span class=kr>from</span> <span class=s1>&#39;chokidar&#39;</span><span class=p>;</span>
+<span class=kr>import</span> <span class=p>{</span> <span class=nx>INestApplication</span><span class=p>,</span> <span class=nx>Logger</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;@nestjs/common&#39;</span><span class=p>;</span>
+<span class=kr>import</span> <span class=o>*</span> <span class=kr>as</span> <span class=nx>path</span> <span class=kr>from</span> <span class=s1>&#39;path&#39;</span><span class=p>;</span>
+<span class=kr>import</span> <span class=o>*</span> <span class=kr>as</span> <span class=nx>nestCliConfig</span> <span class=kr>from</span> <span class=s1>&#39;../nest-cli.json&#39;</span><span class=p>;</span>
+
+<span class=kr>const</span> <span class=nx>SRC_PATH</span> <span class=o>=</span> <span class=nx>path</span><span class=p>.</span><span class=nx>resolve</span><span class=p>(</span><span class=nx>nestCliConfig</span><span class=p>.</span><span class=nx>sourceRoot</span><span class=p>);</span>
+<span class=kr>const</span> <span class=nx>MAIN_PATH</span> <span class=o>=</span> <span class=nx>path</span><span class=p>.</span><span class=nx>resolve</span><span class=p>(</span><span class=nx>SRC_PATH</span><span class=p>,</span> <span class=s1>&#39;main.ts&#39;</span><span class=p>);</span>
+
+<span class=kr>class</span> <span class=nx>HMR</span> <span class=p>{</span>
+  <span class=kr>private</span> <span class=nx>app</span>: <span class=kt>INestApplication</span><span class=p>;</span>
+  <span class=kr>private</span> <span class=nx>logger</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Logger</span><span class=p>(</span><span class=s1>&#39;HMR&#39;</span><span class=p>);</span>
+
+  <span class=kr>constructor</span><span class=p>()</span> <span class=p>{</span>
+    <span class=nx>chokidar</span><span class=p>.</span><span class=nx>watch</span><span class=p>(</span><span class=sb>`</span><span class=si>${</span><span class=nx>SRC_PATH</span><span class=si>}</span><span class=sb>/**/*.ts`</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;change&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>path</span><span class=p>)</span> <span class=o>=&gt;</span> <span class=p>{</span>
+      <span class=k>this</span><span class=p>.</span><span class=nx>logger</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`Detected changes in file: </span><span class=si>${</span><span class=nx>path</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+      <span class=k>this</span><span class=p>.</span><span class=nx>reload</span><span class=p>();</span>
+    <span class=p>});</span>
+
+    <span class=c1>// naive error handling - source maps should work
+</span><span class=c1></span>    <span class=nx>process</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;unhandledRejection&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>reason</span><span class=p>)</span> <span class=o>=&gt;</span> <span class=k>this</span><span class=p>.</span><span class=nx>logger</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>reason</span><span class=p>));</span>
+  <span class=p>}</span>
+
+  <span class=kr>async</span> <span class=nx>reload() {</span>
+    <span class=k>this</span><span class=p>.</span><span class=nx>logger</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Starting HMR cycle&#39;</span><span class=p>);</span>
+
+    <span class=k>await</span> <span class=k>this</span><span class=p>.</span><span class=nx>executeAndLogWithDuration</span><span class=p>(</span><span class=s1>&#39;Finished HMR cycle&#39;</span><span class=p>,</span> <span class=kr>async</span> <span class=p>()</span> <span class=o>=&gt;</span> <span class=p>{</span>
+      <span class=c1>// delete all require caches for SRC_PATH
+</span><span class=c1></span>      <span class=c1>// TODO: check how to handle node_modules
+</span><span class=c1></span>      <span class=k>for</span> <span class=p>(</span><span class=kr>const</span> <span class=nx>key</span> <span class=k>in</span> <span class=kr>require</span><span class=p>.</span><span class=nx>cache</span><span class=p>)</span>
+        <span class=k>if</span> <span class=p>(</span><span class=nx>key</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=nx>SRC_PATH</span><span class=p>))</span> <span class=k>delete</span> <span class=kr>require</span><span class=p>.</span><span class=nx>cache</span><span class=p>[</span><span class=nx>key</span><span class=p>];</span>
+
+      <span class=c1>// get fresh instance of main
+</span><span class=c1></span>      <span class=kr>const</span> <span class=p>{</span> <span class=nx>bootstrap</span> <span class=p>}</span> <span class=o>=</span> <span class=k>await</span> <span class=kr>import</span><span class=p>(</span><span class=nx>MAIN_PATH</span><span class=p>);</span>
+      <span class=c1>// close server if running
+</span><span class=c1></span>      <span class=k>if</span> <span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>app</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>await</span> <span class=k>this</span><span class=p>.</span><span class=nx>executeAndLogWithDuration</span><span class=p>(</span><span class=s1>&#39;Closed server&#39;</span><span class=p>,</span> <span class=k>this</span><span class=p>.</span><span class=nx>app</span><span class=p>.</span><span class=nx>close</span><span class=p>);</span>
+      <span class=p>}</span>
+
+      <span class=c1>// reinitialize server
+</span><span class=c1></span>      <span class=k>await</span> <span class=k>this</span><span class=p>.</span><span class=nx>executeAndLogWithDuration</span><span class=p>(</span>
+        <span class=s1>&#39;Started Server&#39;</span><span class=p>,</span>
+        <span class=kr>async</span> <span class=p>()</span> <span class=o>=&gt;</span>
+          <span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>app</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>bootstrap</span><span class=p>().</span><span class=k>catch</span><span class=p>((</span><span class=nx>err</span><span class=p>)</span> <span class=o>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>err</span><span class=p>))),</span>
+      <span class=p>);</span>
+    <span class=p>});</span>
+  <span class=p>}</span>
+
+  <span class=kr>async</span> <span class=nx>executeAndLogWithDuration</span><span class=p>(</span><span class=nx>msg</span>: <span class=kt>string</span><span class=p>,</span> <span class=nx>cb</span><span class=o>:</span> <span class=p>()</span> <span class=o>=&gt;</span> <span class=nx>Promise</span><span class=p>&lt;</span><span class=nt>any</span><span class=p>&gt;)</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>start</span> <span class=o>=</span> <span class=nx>performance</span><span class=p>.</span><span class=nx>now</span><span class=p>();</span>
+    <span class=k>await</span> <span class=nx>cb</span><span class=p>();</span>
+
+    <span class=kr>const</span> <span class=nx>duration</span> <span class=o>=</span> <span class=nb>Number</span><span class=p>(</span><span class=nx>performance</span><span class=p>.</span><span class=nx>now</span><span class=p>()</span> <span class=o>-</span> <span class=nx>start</span><span class=p>).</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+    <span class=k>this</span><span class=p>.</span><span class=nx>logger</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`</span><span class=si>${</span><span class=nx>msg</span><span class=si>}</span><span class=sb> +</span><span class=si>${</span><span class=nx>duration</span><span class=si>}</span><span class=sb>ms`</span><span class=p>);</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=kr>const</span> <span class=nx>hmr</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>HMR</span><span class=p>();</span>
+<span class=nx>hmr</span><span class=p>.</span><span class=nx>reload</span><span class=p>();</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=packagesjsonのscriptsを更新する>packages.jsonのscriptsを更新する</h2>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+  <span class=nt>&#34;scripts&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;build&#34;</span><span class=p>:</span> <span class=s2>&#34;npx swc src -d dist -D&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;start:dev&#34;</span><span class=p>:</span> <span class=s2>&#34;NODE_ENV=&#39;development&#39; node -r @swc/register src/hmr.ts&#34;</span><span class=p>,</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=参考にさせていただいた記事>参考にさせていただいた記事</h2>
+<p><a class=link href=https://zenn.dev/cohky/articles/use-swc-performance target=_blank rel=noopener>https://zenn.dev/cohky/articles/use-swc-performance</a></p>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/swc/>swc</a>
+<a href=/tags/nest.js/>nest.js</a>
+<a href=/tags/node.js/>node.js</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>Related content</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/>
+<div class=article-details>
+<h2 class=article-title>MisskeyのBotをPythonで開発できるライブラリを公開しました</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2024 あゆき's BLOG
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.21.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>archlinux on あゆき's BLOG</title><link>https://example.org/tags/archlinux/</link><description>Recent content in archlinux on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Wed, 07 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/archlinux/index.xml" rel="self" type="application/rss+xml"/><item><title>pythonでの文字列の扱い方2</title><link>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>前回の&lt;a class="link" href="2020-09-20-handling-strings-in-python.md" >python での文字列の扱い方&lt;/a>の続きとなります。前回同様、ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。
+初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい&lt;/p>
+&lt;p>今回は主に文字列の置き換えに関することを紹介します。
+正規表現に関してはまだ自信がないため、しばらくしたら追加します(´・ω・｀)&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>ArchLinux&lt;/li>
+&lt;li>python 3.8.5&lt;/li>
+&lt;/ul>
+&lt;h2 id="一般的な文字列の置き換え">一般的な文字列の置き換え&lt;/h2>
+&lt;h3 id="特定の文字列を全て置き換える">特定の文字列を全て置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;yupix&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: yupixだよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>しかし、このままでは「ゆぴ」という単語があるたびに「yupix」に置き換えられてしまいます。
+そこで使用するのが第三引数の&lt;code>count&lt;/code>です&lt;/p>
+&lt;h3 id="指定した数だけ特定の文字列を置き換える">指定した数だけ特定の文字列を置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;あるところにゆぴという青年がいました。ゆぴはパソコンゲームが大好きです！そんなところにあきがやってきて、ゆぴにこう言いました[一緒にゲームを作ってみないかい?]&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;yupix&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: あるところにyupixという青年がいました。yupixはパソコンゲームが大好きです！そんなところにあきがやってきて、ゆぴにこう言いました[一緒にゲームを作ってみないかい?]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>今回は 2 回指定した為、最初の方に見つかった「ゆぴ」が 2 つ「yupix」に置き換えられました。&lt;/p>
+&lt;h3 id="複数の文字列を置き換える">複数の文字列を置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;amp;あきだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;hoge&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;あき&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;age&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: hoge&amp;amp;ageだよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このように「ゆぴ」と「あき」をそれぞれ指定した単語に置き換えることに成功しました。&lt;/p>
+&lt;h2 id="応用">応用&lt;/h2>
+&lt;h3 id="指定した文字列を削除する">指定した文字列を削除する&lt;/h3>
+&lt;p>これは replace の応用で消したい文字を指定し、置き換え後の文字を空にすることで文字列を削除しています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: だよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このように、「ゆぴ」という単語が削除されおかしな文を作ることに成功しました（？）&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>最後まで読んでくださりありがとうございました。一応動作テストはしていますが、私の知識に誤りがあった際は教えていただけると幸いです。
+次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>pythonでの文字列の扱い方1</title><link>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B91/</link><pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B91/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。
+初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい&lt;/p>
+&lt;p>今回は主に文字列の出力の際の変数の展開などを紹介します。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>ArchLinux&lt;/li>
+&lt;li>python 3.8.5&lt;/li>
+&lt;/ul>
+&lt;h2 id="一般的な文字列の出力">一般的な文字列の出力&lt;/h2>
+&lt;h3 id="変数を使わない文字列出力">変数を使わない文字列出力&lt;/h3>
+&lt;p>ごく普通の文字列出力です&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちは&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="変数を使った文字列出力">変数を使った文字列出力&lt;/h3>
+&lt;p>変数に出力したい文字列を入れてそれを print に入れて出力しています&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">hoge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;こんにちは&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちは&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="文字列の中で変数を展開する方法">文字列の中で変数を展開する方法&lt;/h2>
+&lt;p>基本的に文字列の中（シングルクォートかダブルクォート）の中で変数を展開する方法です&lt;/p>
+&lt;h3 id="f-strings-を使った方法">F-strings を使った方法&lt;/h3>
+&lt;p>個人的にはシンプルでとても使いやすいと思っています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">hoge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">さん&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちはゆぴさん&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="format-を使った方法">format を使った方法&lt;/h3>
+&lt;p>format に hoge 変数を私、{0}の場所に展開しています。&lt;/p>
+&lt;h4 id="ひとつだけ展開する場合">ひとつだけ展開する場合&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">hoge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&lt;/span>&lt;span class="si">{0}&lt;/span>&lt;span class="s1">さん&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="複数展開する場合">複数展開する場合&lt;/h4>
+&lt;p>数字を{}に入れない場合も紹介していますが、繰り返し使う際などには不便になる可能性があるため、format の引数にあった数字を入れることをおすすめします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">hoge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>
+&lt;span class="n">piyo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;あき&amp;#39;&lt;/span>
+&lt;span class="c1"># 数字を{}に入れない場合&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s1">と&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s1">さん&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">piyo&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちはゆぴとあきさん&lt;/span>
+&lt;span class="c1"># {}に数字を入れてformatの順番にそって使う方法&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;こんにちは&lt;/span>&lt;span class="si">{0}&lt;/span>&lt;span class="s1">と&lt;/span>&lt;span class="si">{1}&lt;/span>&lt;span class="s1">さん&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hoge&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">piyo&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: こんにちはゆぴとあきさん&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>最後まで読んでくださりありがとうございました。一応動作テストはしていますが、私の知識に誤りがあった際は教えていただけると幸いです。
+次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>ArchLinuxにVNCを使ってサブディスプレイを作る</title><link>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>Ubuntu などのメジャーなディストリビューションでは多くの記事がすでに出回っています。
+そこで、ArchLinux だとパッケージが変わっていたり個人的によく忘れてしまうので備忘録として残しておきます。&lt;/p>
+&lt;h2 id="やりかた">やりかた&lt;/h2>
+&lt;h3 id="パッケージのインストール">パッケージのインストール&lt;/h3>
+&lt;p>以下の 2 つのパッケージが必要です。&lt;/p>
+&lt;ul>
+&lt;li>tigervnc（公式パッケージ）&lt;/li>
+&lt;li>x2vnc-no-xinerama（AUR）&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S tigervnc
+yay -S x2vnc-no-xinerama
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="サーバー側の準備">サーバー側の準備&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ vncserver :1
+You will require a password to access your desktops.
+Password: ******
+Verify: ******
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="android側の準備">Android　側の準備&lt;/h3>
+&lt;p>クライアント側では Android で&lt;a class="link" href="https://play.google.com/store/apps/details?id=com.realvnc.viewer.android&amp;amp;hl=ja" target="_blank" rel="noopener"
+>VNC Viewer - Remote Desktop&lt;/a>を今回は使用します。
+その他にも私の環境では&lt;a class="link" href="https://play.google.com/store/apps/details?id=nine.viewer&amp;amp;hl=ja" target="_blank" rel="noopener"
+>VNC Viewer&lt;/a>での動作も確認しています。&lt;/p>
+&lt;h3 id="マウスの行き来の準備">マウスの行き来の準備&lt;/h3>
+&lt;p>ここで使用するパスワードはさきほど&lt;a class="link" href="#%e3%82%b5%e3%83%bc%e3%83%90%e3%83%bc%e5%81%b4%e3%81%ae%e6%ba%96%e5%82%99" >サーバーの準備&lt;/a>で設定したパスワードを入力します&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ x2vnc -shared -west localhost:1
+x2vnc: VNC server supports protocol version 3.8 &lt;span class="o">(&lt;/span>viewer 3.3&lt;span class="o">)&lt;/span>
+Password: ******
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これでマウスが行き来できるようになりました。&lt;/p>
+&lt;p>!!! warning
+注意点として、ウィンドウをサブディスプレイに持っていく事などはできません（その逆もしかり）&lt;/p>
+&lt;h3 id="起動">起動&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ vncserver :1 -geometry 1280x800 -alwaysshared
+$ x2vnc -shared -west localhost:1
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="x2vncのオプションについて">x2vncのオプションについて&lt;/h4>
+&lt;p>-westなどはマウスカーソルをどの向きに持っていった際サブディスプレイに移動するかを設定するものです。
+以下がその一覧です&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>オプション名&lt;/th>
+&lt;th>使い方&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>-north&lt;/td>
+&lt;td>&lt;strong>北&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-east&lt;/td>
+&lt;td>&lt;strong>東&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-south&lt;/td>
+&lt;td>&lt;strong>南&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-west&lt;/td>
+&lt;td>&lt;strong>西&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="xstartupの編集">xstartupの編集&lt;/h3>
+&lt;p>xstartupとはVNCのデスクトップ環境設定ファイルです。
+デフォルトではおそらく&lt;br>
+~/.vnc/xstartup&lt;br>
+にファイルが存在します&lt;/p>
+&lt;p>このファイルを編集します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ nano ~/.vnc/xstartup
+&lt;span class="c1">#元からあった行を...で表しています&lt;/span>
+...
+&lt;span class="c1">#⬇を追加&lt;/span>
+&lt;span class="nb">exec&lt;/span> cinnamon &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>今回の場合はcinnamonがvncserverに接続すると表示されるはずです。
+ここを自分のすでに入れてあるデスクトップ環境のコマンドに書き換えることで変更が可能です。&lt;/p>
+&lt;h2 id="謝辞">謝辞&lt;/h2>
+&lt;p>この記事は&lt;strong>ともの技術メモ&lt;/strong>様の記事を見てArchLinuxで実際にできるのか
+パッケージ名などが違う為忘れないように書かせていただきました。
+内容の多くが&lt;strong>ともの技術メモ&lt;/strong>様の内容と被ってしまっている事をここで謝罪します。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>全般コマンド&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>ともの技術メモ
+&lt;cite>&lt;a class="link" href="https://tomono.tokyo/2016/08/09/6228/" target="_blank" rel="noopener"
+>https://tomono.tokyo/2016/08/09/6228/&lt;/a>&lt;/cite>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>xstartupの意味&lt;br>
+&lt;a class="link" href="http://www.obenri.com/_vnc/vnc_server1.html" target="_blank" rel="noopener"
+>お便利サーバー.com&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>ShellScriptで変数に値があるかどうかを判断する方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! note
+AND　ORを使う際の変数の値のチェックには気をつけよう!
+※ORの場合片方だけがあるだけで&lt;strong>真&lt;/strong>になったり。。。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>ShellScriptで変数に値がある場合だけ動かしたい処理などは多くあるはずです。&lt;/p>
+&lt;h2 id="やりかた">やりかた&lt;/h2>
+&lt;h3 id="変数が空の場合">変数が空の場合&lt;/h3>
+&lt;p>今回はtestという変数を使ってテストします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数がないよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-zを使うことで変数がある場合は&lt;strong>真&lt;/strong>となります&lt;/p>
+&lt;h3 id="変数がある場合">変数がある場合&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#変数を定義&lt;/span>
+&lt;span class="nv">test&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -n &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数があるよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-nを使うことで変数がない場合&lt;strong>真&lt;/strong>となります。&lt;/p>
+&lt;h3 id="1つで確認する方法">1つで確認する方法&lt;/h3>
+&lt;p>ifの使い方をある程度知ってる場合は当たり前のような話ですが
+一応書いておきます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#変数を定義(elseで動作)&lt;/span>
+&lt;span class="nv">test&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数がないよ!&amp;#34;&lt;/span>
+&lt;span class="k">else&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数があるよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-zで変数がない場合&lt;strong>真&lt;/strong>となるため、elseを使うことで変数がある場合の動作を作ることができます。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>ShellScriptは楽しいので、今後もこういった事を書いていく予定です。
+あと、昔作った記事で書きかけのやつとかは今度書きます。
+最後に更新が遅くなってしまったのは純粋無為に何も書くようなことが無かったからです&lt;/p></description></item><item><title>ShellScriptで処理をループさせる方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! warning
+この解説ではbashを使用することを前提としています。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>ShellScriptで処理を複数回、または永続的にループさせたい、と思う方は多いはずです。今回はそんなときに役に立つテクニックを紹介します。&lt;/p>
+&lt;h2 id="どんな書き方があるの">どんな書き方があるの？&lt;/h2>
+&lt;p>まず、ShellScriptで多く知られている手段としてはいかが挙げられます。&lt;/p>
+&lt;ul>
+&lt;li>for&lt;/li>
+&lt;li>while&lt;/li>
+&lt;/ul>
+&lt;p>大体はこの2つだけで簡単に処理のループが行えます。&lt;/p>
+&lt;h2 id="whileを使った無限ループ">whileを使った無限ループ&lt;/h2>
+&lt;p>ではさっそく、while文を使用して処理をループさせてみましょう。
+whileの書き方は以下のとおりです。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="k">while&lt;/span> :&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>
+sleep &lt;span class="m">1&lt;/span>
+&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さてまず、1行目から解説です。
+while :; doを解説しましょう。
+ifには[]で条件をつけることができるのは皆様ご存知でしょうか？
+今回の場合:となっている部分を[]にする事で条件をつけることが可能です。
+次に2行目、言わずもがなechoですね。
+次に3行目、あまりにも早いと迷惑なので、sleepで間隔を空けています。
+最後に4行目はwhileの閉じタグの様なものです。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
+&lt;h2 id="サポート">サポート&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>ArchLinuxにSteamをインストールする方法</title><link>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! note
+この解説ではGitなどのコマンドがすでに使用できることを前提としています。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>ArchLinuxを入れてよし、いざゲームするぞー！と意気込んで
+sudo pacman -S steam
+をやろうとした人は少なからずいるはずです。しかし、ArchLinuxはデフォルトで32bitパッケージが無効化されている為、有効化した後にインストールしてもコアダンプが発生します。今回は32bitの有効化、コアダンプの修正を解説します。&lt;/p>
+&lt;h2 id="32bitパッケージの有効化">32bitパッケージの有効化&lt;/h2>
+&lt;p>さて、こんな辺境の地のblogを見てる時点で大体の方はご存知でしょうが、
+一応解説をArchLinuxでは32bitパッケージがデフォルトでは無効になっています。
+なので、最初にいきなり&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S steam
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>とコンソールに打ってもパッケージが見当たらないよ！と言われてしまいます。
+ということで本題です。ArchLinuxでは無効になっているだけで、32bitは有効化できます。なので、手動で有効化する方法が以下の手順です。&lt;/p>
+&lt;p>&lt;strong>/etc/pacman.conf&lt;/strong> に以下のような行が存在します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">#[multilib]
+#Include = /etc/pacman.d/mirrorlist
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>見てわかるとおり、これらの行は#でコメントアウトされています。
+そこで、そのコメントアウトを外しましょう&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">[multilib]
+Include = /etc/pacman.d/mirrorlist
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>この様に先頭についていた#を外すことによりパッケージの有効化ができます。
+しかしながら、このままだとパッケージリストが更新されていないため、以下のコマンドを実行して、パッケージリストを最新の状態にしましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -Syy
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="steamのインストール--パッケージのインストール">Steamのインストール &amp;amp; パッケージのインストール&lt;/h2>
+&lt;p>さて、ここまで来ればフィニッシュに近いです。
+ではいよいよSteamをインストールしましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S steam
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>よし、インストールに成功した！ここで喜びに浸るのはまだ早いです。
+大きな落とし穴として、ArchLinuxではSteamをインストールするだけだと、コアダンプを起こし、起動することができません。&lt;br>
+&lt;strong>そこで追加するのが32bitのnvidia driverです&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S lib32-nvidia-utils
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、これで遂にSteamが起動できると思います。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
+&lt;h2 id="サポート">サポート&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item></channel></rss>

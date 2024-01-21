@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>minecraft on あゆき's BLOG</title><link>https://example.org/tags/minecraft/</link><description>Recent content in minecraft on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Tue, 12 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/minecraft/index.xml" rel="self" type="application/rss+xml"/><item><title>FMProjectEについて</title><link>https://example.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid><description>&lt;h1 id="最近作った動画版">最近作った動画版&lt;/h1>
+&lt;script type="application/javascript" src="https://embed.nicovideo.jp/watch/sm40731600/script?w=640&amp;h=360">&lt;/script>&lt;noscript>&lt;a href="https://www.nicovideo.jp/watch/sm40731600">FMProjectEの紹介 [1.7.10]&lt;/a>&lt;/noscript>
+&lt;h2 id="要約">要約&lt;/h2>
+&lt;p>最近(2年前)作ったModです。1.12.2のProjectEからEMC上限変更を移植したModです。&lt;/p>
+&lt;h2 id="何を変えた">何を変えた？&lt;/h2>
+&lt;p>動画にある通り、EMC上限を&lt;code>Long.MAX_VALUE&lt;/code>にしました。&lt;/p>
+&lt;h2 id="breaking-change">BREAKING CHANGE💥&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>PEAA&lt;/code>と&lt;code>PEEX&lt;/code>と互換性が無いです。
+&lt;ul>
+&lt;li>&lt;code>PEAA&lt;/code>に関しては&lt;code>FMPEAA&lt;/code>として対応版を配布予定。&lt;/li>
+&lt;li>&lt;code>PEEX&lt;/code>はライセンス的にわからんし、なんか知らんけどデコンパイルがうまくできなかった記憶がある。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>ProjectE本体は消して入れてください。&lt;/li>
+&lt;/ul>
+&lt;h2 id="ダウンロード">ダウンロード&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.curseforge.com/minecraft/mc-mods/fmprojecte-fmpe" target="_blank" rel="noopener"
+>ここ&lt;/a>
+&lt;a class="link" href="https://lab.teamblackcrystal.com/aki/fmprojecte" target="_blank" rel="noopener"
+>src&lt;/a> (for developer)&lt;/p>
+&lt;h2 id="注意">注意&lt;/h2>
+&lt;p>何があっても責任は取りません。必ずバックアップしてください。
+本家にバグ報告を送らないでください。&lt;/p></description></item><item><title>1.7.10のmodding環境構築方法</title><link>https://example.org/p/1.7.10%E3%81%AEmodding%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%96%B9%E6%B3%95/</link><pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/1.7.10%E3%81%AEmodding%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! warning
+現在この方法ではセットアップすることができません。かわりに&lt;a class="link" href="https://github.com/GTNewHorizons/lwjgl3ify/issues/20#issuecomment-1441396877" target="_blank" rel="noopener"
+>ここ&lt;/a>の2つの方法のいずれかを行ってください。&lt;/p>
+&lt;p>!!! info tip
+https使えないのは・・・&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>Forge 1.7.10で環境構築ができないので、色々調べてみたのでその結果をまとめてみる。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>IDEA Community&lt;/li>
+&lt;li>java 8&lt;/li>
+&lt;/ul>
+&lt;h2 id="どうやるの">どうやるの？&lt;/h2>
+&lt;p>方法は大きく分けて2つあります。&lt;/p>
+&lt;ol>
+&lt;li>gradleのバージョンを上げる&lt;/li>
+&lt;li>改造版のForgeGradleを使う&lt;/li>
+&lt;/ol>
+&lt;p>どちらがいいかは好みの問題です。&lt;/p>
+&lt;h3 id="gradleのバージョンを上げる">gradleのバージョンを上げる&lt;/h3>
+&lt;p>デフォルトのForgeGradleは実は4.4.1辺りまで対応しているので、HTTPSに対応した2.1以降にするだけです。&lt;/p>
+&lt;p>&lt;code>gradle/wrapper/gradle-wrapper.properties&lt;/code>を編集します&lt;/p>
+&lt;p>2.1にする場合&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="nv">distributionBase&lt;/span>&lt;span class="o">=&lt;/span>GRADLE_USER_HOME
+&lt;span class="nv">distributionPath&lt;/span>&lt;span class="o">=&lt;/span>wrapper/dists
+&lt;span class="nv">zipStoreBase&lt;/span>&lt;span class="o">=&lt;/span>GRADLE_USER_HOME
+&lt;span class="nv">zipStorePath&lt;/span>&lt;span class="o">=&lt;/span>wrapper/dists
+&lt;span class="nv">distributionUrl&lt;/span>&lt;span class="o">=&lt;/span>https&lt;span class="se">\:&lt;/span>//services.gradle.org/distributions/gradle-2.1-bin.zip
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>4.4.1にする場合&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="nv">distributionBase&lt;/span>&lt;span class="o">=&lt;/span>GRADLE_USER_HOME
+&lt;span class="nv">distributionPath&lt;/span>&lt;span class="o">=&lt;/span>wrapper/dists
+&lt;span class="nv">zipStoreBase&lt;/span>&lt;span class="o">=&lt;/span>GRADLE_USER_HOME
+&lt;span class="nv">zipStorePath&lt;/span>&lt;span class="o">=&lt;/span>wrapper/dists
+&lt;span class="nv">distributionUrl&lt;/span>&lt;span class="o">=&lt;/span>https&lt;span class="se">\:&lt;/span>//services.gradle.org/distributions/gradle-4.4.1-bin.zip
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="改造版のforgegradleを使う">改造版のForgeGradleを使う&lt;/h3>
+&lt;p>公式からsrcをダウンロードする代わりに、&lt;a class="link" href="https://github.com/anatawa12/ForgeGradle-example" target="_blank" rel="noopener"
+>anatawa12/ForgeGradle-1.2&lt;/a>から&lt;code>code&lt;/code>ボタンを押して&lt;code>Download ZIP&lt;/code>を押してダウンロードするか、git cloneし通常どうりに使用します。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>実は3つ目に既存のbuild.gradleを書き換えて対応させる方法もありますが、それは&lt;a class="link" href="https://github.com/anatawa12/ForgeGradle-example#how-to-replace-forgegradle-12-with-anatawa12s-fork" target="_blank" rel="noopener"
+>ここ&lt;/a>に書いてあるので、頑張ってみてください！！&lt;/p></description></item></channel></rss>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>配布物 on あゆき's BLOG</title><link>https://example.org/tags/%E9%85%8D%E5%B8%83%E7%89%A9/</link><description>Recent content in 配布物 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Tue, 19 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/%E9%85%8D%E5%B8%83%E7%89%A9/index.xml" rel="self" type="application/rss+xml"/><item><title>MisskeyのBotをPythonで開発できるライブラリを公開しました</title><link>https://example.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/</guid><description>&lt;!-- toc -->
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>Misskeyって何?って人もいると思うのでまずMisskeyのご紹介から&lt;br>
+MisskeyはActivityPubというプロトコルを用いて作成された分散型SNSです。特徴として誰でもサーバーを作成し自分自身で運営することができます。
+義類のアプリではMastodonと言われるものもあります。今回はそんな分散型SNSのMisskeyでPythonを用いて開発ができるBotFrameWorkを開発したのでご紹介します。&lt;/p>
+&lt;h2 id="misskeypyってのがあるけど何が違うの">Misskey.pyってのがあるけど何が違うの?&lt;/h2>
+&lt;p>はい、Misskey.pyというライブラリが実はすでに存在します。ですが、これはあくまでWebSocketを用いない方法を使っており,これでBotを作るには自分でWebSocketの接続部分
+や帰ってきた情報を処理するパーサーを作成しないといけません。正直な話一度作ってしまえばいいだけですが、どうせやるなら使いまわしたいですよね。&lt;br>
+そんなこんなで開発したのが今回紹介するMi.pyです。&lt;/p>
+&lt;h2 id="mipyの主な特徴">Mi.pyの主な特徴&lt;/h2>
+&lt;ul>
+&lt;li>Discord.pyライクな文法&lt;/li>
+&lt;li>taskなどの定期実行に対応&lt;/li>
+&lt;li>cogシステムというファイルを分割して書くDiscord.pyの機能を搭載&lt;/li>
+&lt;li>コマンドを楽に作成可能&lt;/li>
+&lt;li>&lt;strong>バグが多い&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>はい、最後のバグが多いは事実です、悲しいですね。正直な話私一人で開発しているのでテストしてる人物が私しかいないという状況です。&lt;/p>
+&lt;h2 id="実際に使ってみる">実際に使ってみる&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pip install mi.py
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.ext.commands&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Bot&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.note&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Note&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">mi.router&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Router&lt;/span>
+&lt;span class="n">uri&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ws://localhost:3300/streaming&amp;#39;&lt;/span>
+&lt;span class="n">token&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>
+&lt;span class="k">class&lt;/span> &lt;span class="nc">MyBot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Bot&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">command_prefix&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;!&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ws&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="n">Router&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ws&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">channels&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;home&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_message&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ctx&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Note&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">created_at&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1"> | &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">author&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1"> | &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">author&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">がノートしました: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">await&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">process_commands&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">MyBot&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">uri&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このようにある程度少ないコードでノートを受け取るだけのBotが作成できます。
+ノートの投稿をするには次のようなコードを用います。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">await&lt;/span> &lt;span class="n">Note&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;Hello Mi.py&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>もちろんファイルのアップロードにも対応しています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">res&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Drive&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">upload&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/home/example/example.png&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;example.png&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># ドライブに画像をアップロード&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これらを先程のノートに追加することでノートに画像を乗っけることもできます。&lt;/p>
+&lt;h2 id="ドキュメントなど">ドキュメントなど&lt;/h2>
+&lt;p>Mi.pyではなるべく多くの情報を皆さんに見ていただくためにSphinxを用いたドキュメントとMkDocsを用いた私自身が一つ一つ書いた2つのサイトがあります。
+この2つを用いることでより多くの情報を入手することが可能です。&lt;/p>
+&lt;p>&lt;a class="link" href="https://mipy.readthedocs.io/ja/latest/" target="_blank" rel="noopener"
+>APIドキュメント&lt;/a>
+&lt;a class="link" href="https://mipy-hub.readthedocs.io/ja/latest/" target="_blank" rel="noopener"
+>チュートリアルなど&lt;/a>&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>Mi.pyでは現状私が欲しい機能だけをちょこちょこと追加しています。そのため機能が少ないという問題があります。なので皆さんが実際に使ってみてこんな機能がほしい、
+こんなバグが有るなどと行った情報をくださると開発の励みになります。ぜひMi.pyを使ってみてください。&lt;/p>
+&lt;h2 id="バグ報告など">バグ報告など&lt;/h2>
+&lt;p>&lt;a class="link" href="https://ar.akarinext.org/@yupix" target="_blank" rel="noopener"
+>私のMisskeyアカウント&lt;/a>
+&lt;a class="link" href="https://github.com/yupix/Mi.py/issues" target="_blank" rel="noopener"
+>Mi.pyのIssues&lt;/a>
+&lt;a class="link" href="https://discord.gg/CcT997U" target="_blank" rel="noopener"
+>Discordサーバー&lt;/a>&lt;/p></description></item></channel></rss>

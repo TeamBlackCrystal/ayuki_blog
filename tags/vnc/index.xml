@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vnc on あゆき's BLOG</title><link>https://example.org/tags/vnc/</link><description>Recent content in vnc on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/vnc/index.xml" rel="self" type="application/rss+xml"/><item><title>ArchLinuxにVNCを使ってサブディスプレイを作る</title><link>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>Ubuntu などのメジャーなディストリビューションでは多くの記事がすでに出回っています。
+そこで、ArchLinux だとパッケージが変わっていたり個人的によく忘れてしまうので備忘録として残しておきます。&lt;/p>
+&lt;h2 id="やりかた">やりかた&lt;/h2>
+&lt;h3 id="パッケージのインストール">パッケージのインストール&lt;/h3>
+&lt;p>以下の 2 つのパッケージが必要です。&lt;/p>
+&lt;ul>
+&lt;li>tigervnc（公式パッケージ）&lt;/li>
+&lt;li>x2vnc-no-xinerama（AUR）&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S tigervnc
+yay -S x2vnc-no-xinerama
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="サーバー側の準備">サーバー側の準備&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ vncserver :1
+You will require a password to access your desktops.
+Password: ******
+Verify: ******
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="android側の準備">Android　側の準備&lt;/h3>
+&lt;p>クライアント側では Android で&lt;a class="link" href="https://play.google.com/store/apps/details?id=com.realvnc.viewer.android&amp;amp;hl=ja" target="_blank" rel="noopener"
+>VNC Viewer - Remote Desktop&lt;/a>を今回は使用します。
+その他にも私の環境では&lt;a class="link" href="https://play.google.com/store/apps/details?id=nine.viewer&amp;amp;hl=ja" target="_blank" rel="noopener"
+>VNC Viewer&lt;/a>での動作も確認しています。&lt;/p>
+&lt;h3 id="マウスの行き来の準備">マウスの行き来の準備&lt;/h3>
+&lt;p>ここで使用するパスワードはさきほど&lt;a class="link" href="#%e3%82%b5%e3%83%bc%e3%83%90%e3%83%bc%e5%81%b4%e3%81%ae%e6%ba%96%e5%82%99" >サーバーの準備&lt;/a>で設定したパスワードを入力します&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ x2vnc -shared -west localhost:1
+x2vnc: VNC server supports protocol version 3.8 &lt;span class="o">(&lt;/span>viewer 3.3&lt;span class="o">)&lt;/span>
+Password: ******
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これでマウスが行き来できるようになりました。&lt;/p>
+&lt;p>!!! warning
+注意点として、ウィンドウをサブディスプレイに持っていく事などはできません（その逆もしかり）&lt;/p>
+&lt;h3 id="起動">起動&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ vncserver :1 -geometry 1280x800 -alwaysshared
+$ x2vnc -shared -west localhost:1
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="x2vncのオプションについて">x2vncのオプションについて&lt;/h4>
+&lt;p>-westなどはマウスカーソルをどの向きに持っていった際サブディスプレイに移動するかを設定するものです。
+以下がその一覧です&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>オプション名&lt;/th>
+&lt;th>使い方&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>-north&lt;/td>
+&lt;td>&lt;strong>北&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-east&lt;/td>
+&lt;td>&lt;strong>東&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-south&lt;/td>
+&lt;td>&lt;strong>南&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-west&lt;/td>
+&lt;td>&lt;strong>西&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="xstartupの編集">xstartupの編集&lt;/h3>
+&lt;p>xstartupとはVNCのデスクトップ環境設定ファイルです。
+デフォルトではおそらく&lt;br>
+~/.vnc/xstartup&lt;br>
+にファイルが存在します&lt;/p>
+&lt;p>このファイルを編集します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ nano ~/.vnc/xstartup
+&lt;span class="c1">#元からあった行を...で表しています&lt;/span>
+...
+&lt;span class="c1">#⬇を追加&lt;/span>
+&lt;span class="nb">exec&lt;/span> cinnamon &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>今回の場合はcinnamonがvncserverに接続すると表示されるはずです。
+ここを自分のすでに入れてあるデスクトップ環境のコマンドに書き換えることで変更が可能です。&lt;/p>
+&lt;h2 id="謝辞">謝辞&lt;/h2>
+&lt;p>この記事は&lt;strong>ともの技術メモ&lt;/strong>様の記事を見てArchLinuxで実際にできるのか
+パッケージ名などが違う為忘れないように書かせていただきました。
+内容の多くが&lt;strong>ともの技術メモ&lt;/strong>様の内容と被ってしまっている事をここで謝罪します。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>全般コマンド&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>ともの技術メモ
+&lt;cite>&lt;a class="link" href="https://tomono.tokyo/2016/08/09/6228/" target="_blank" rel="noopener"
+>https://tomono.tokyo/2016/08/09/6228/&lt;/a>&lt;/cite>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>xstartupの意味&lt;br>
+&lt;a class="link" href="http://www.obenri.com/_vnc/vnc_server1.html" target="_blank" rel="noopener"
+>お便利サーバー.com&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

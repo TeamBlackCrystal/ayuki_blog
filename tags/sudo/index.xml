@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sudo on あゆき's BLOG</title><link>https://example.org/tags/sudo/</link><description>Recent content in sudo on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 01 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/sudo/index.xml" rel="self" type="application/rss+xml"/><item><title>Windowsにsudoが欲しいかい？</title><link>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
+&lt;p>!!! info tip
+欲しいときあるよね？&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>Windowsにsudo&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>ほしいけどわからない！！とか、調べても本物に程遠い&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>のしか見つからない！！という人に向けて書いています。&lt;/p>
+&lt;h2 id="q使えるものはあるの">Q.使えるものはあるの？&lt;/h2>
+&lt;p>A.あります&lt;/p>
+&lt;h3 id="使えるもの">使えるもの&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/gerardog/gsudo" target="_blank" rel="noopener"
+>gerardog/gsudo&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/lukesampson/psutils" target="_blank" rel="noopener"
+>lukesampson/psutils(sudo.ps1)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="どうやって入れるの">どうやって入れるの？&lt;/h2>
+&lt;p>めんどくさいのでパッケージマネージャーを使いましょう。&lt;/p>
+&lt;h3 id="使えるやつ">使えるやつ&lt;/h3>
+&lt;p>*[choco]: 要administratorだが、少ない手間でたくさんのパッケージを入れられる。&lt;/p>
+&lt;p>!!! info tip
+chocoのインストール手順は準備中です。
+scoopのインストール方法は {%post_link 2020-05-01-install-scoop &amp;lsquo;こちら&amp;rsquo;%}&lt;/p>
+&lt;ul>
+&lt;li>choco&lt;/li>
+&lt;li>scoop&lt;/li>
+&lt;/ul>
+&lt;h2 id="インストール">インストール&lt;/h2>
+&lt;p>実際に入れてみましょう。&lt;/p>
+&lt;h3 id="gerardoggsudoの場合個人的なオススメ">gerardog/gsudoの場合（個人的なオススメ）&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#非administratorでできるのでオススメ&lt;/span>
+&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">gsudo&lt;/span>
+&lt;span class="c">#要administrator&lt;/span>
+&lt;span class="n">choco&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">gsudo&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="lukesampsonpsutilssudops1の場合">lukesampson/psutils(sudo.ps1)の場合&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">sudo&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>chocoにも同名の物があるがこれは完成度低い&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>&lt;/p>
+&lt;h2 id="how-to">How to&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">sudo&lt;/span> &lt;span class="n">choco&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="nb">windows-terminal&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#hostsファイルが楽に編集できるよ！やったね！！&lt;/span>
+&lt;span class="n">sudo&lt;/span> &lt;span class="n">notepad&lt;/span> &lt;span class="n">C:&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">Windows&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">System32&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">drivers&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">hosts&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>!!! warning
+何も気にせず乱用してはいけません。
+ウイルス等の感染の原因になります。&lt;/p>
+&lt;p>!!! error danger
+&lt;code>rm&lt;/code>や&lt;code>rd&lt;/code>(及び&lt;code>rmdir&lt;/code>)などのファイルを削除するコマンドに対して&lt;code>C:\&lt;/code>や&lt;code>/&lt;/code>を指定してはいけません。(OSや個人データをを破壊する可能性があります。)&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>管理者権限なので扱いには気をつけましょう。&lt;/p>
+&lt;p>Linuxやmacを使っているあなたもですよ？rootの扱いには気をつけましょう。&lt;/p>
+&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>Linuxやmacに存在するrootに昇格するコマンド。今回は、知っていることを前提としている。&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2" role="doc-endnote">
+&lt;p>日本語で検索するとよく出てくるやつは、別窓だったり、色が出なかったりと色々と問題がある。&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3" role="doc-endnote">
+&lt;p>別窓タイプ&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item></channel></rss>

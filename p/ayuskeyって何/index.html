@@ -1,0 +1,252 @@
+<!doctype html><html lang=ja-jp dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Misskey Advent Calendar 2020の21日目の記事です。
+はじめに 多分多くの人が初めてだと思います。akiといいます。 今回は私と@yupix@ne.akarinext.org氏で作っているAyuskeyについてお話させていただきたいと思います。
+名前の由来について 名前の由来は、akiとyupixからとってAyuとなっています。(このブログも同じ) なお、初期の頃は私一人で開発していたのでReiskeyという名前をつけておりました。その頃の名残として、バージョンにrei0784をつけるのを継承しています。
+技術的なあれこれ 現在もパッケージ更新などのメンテナンスがされているmei23/misskey-v11をベースに開発しています。 また、筆頭となる私のインスタンスとyupix氏のインスタンスは、Raspberry Pi 4で運用しているため、arm64で動かしやすいようにDockerfile等が調整されていたりします。
+動かなかったり、ビルドができなかったりした場合は気軽に@akiまでご連絡ください。
+鯖缶にやさしく 全文検索で重いElasticsearchを使う必要がなくなりました！！ 本流にある放置されていそうな#5138をマージしてsonicという検索エンジンを使えるようにしました。とても軽く、Raspberry Pi 4であっても軽快に動作します。実際に、私のインスタンスで使用しております。(ただ、短い単語とかだと精度が終わってるので、要調整)
+他の鯖にある絵文字をコピーしたいときありますよね？ 本流のapiを移植してできるようにしました！！ 現在はapiを直接叩くのが1番安定していますが、GUIでのコピーができるように作業中です。
+より高機能を目指して 本来のmisskey v11にはあまりぼかし(blur)や透明度がついていないのですが、より近代的な見た目を目指しています。現在は未実装ですが重い環境ではインスタンスのurl/flags(例:kr.akirin.xyz/flags)から無効化できるようにする予定です。最終的には他の設定と同じ場所に配置されます。
+MFMの拡張 基本的に文法はm544と互換性があります。チートシート(私のm544インスタンスに飛びます) :@aki:や:@rei_k@misskey.io:でアバター絵文字が使えます。なお、一部の場所(こことか)だと動きませんが、普通にノートを投稿する分には問題なく使えます。
+ @keyframes mfm-rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }  Groundpolisからも一部取り入れさせて頂いている文法があります。 [rainbow kr更新しようぜ]
+kr更新しようぜ
+[font.size=20px,color=#86b300 みすきーぐりーん]
+みすきーぐりーん
+ただ、Ayuskey同士だと正常に表示できていますが、他の実装からだとうまく表示されないことが多いです。(逆は回転速度とかの指定にmsを使わないようにすればだいたいいけそう)
+独自機能 他のMisskeyには存在しない独自の機能としてbotであることを宣言するのと同じようにお嬢様(Lady)であることを宣言できます。しっかりと連合できるように作ってあります。
+ブラーのところで書きましたが、実験的な機能を/flagsで有効化できます。まあ、これ書いてる時点だとどれも今は機能しないんですけど
+最後に 読んでいただきありがとうございます。 もしよろしければ私のインスタンスに登録していただけると幸いです。
+おまけ 既知のバグ トークの読み込みが終わらない=&amp;gt;原因調査中&amp;hellip;#61 =&amp;gt; 5.0.0-rc.10で解決 モバイルで引用RNできない=&amp;gt;原因調査中&amp;hellip;
+夢は大きく 〜今後の目標〜 独自にVue3対応=&amp;gt;v12と根本的に作りが違うのでほとんどバックポートで対応できないので、少なくともinitはほとんど書き直しです。 それと、BootstrapVueの対応ができたら少しずつやってみたいと思います。">
+<title>Ayuskeyって何？</title>
+<link rel=canonical href=https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/>
+<link rel=stylesheet href=/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css><meta property="og:title" content="Ayuskeyって何？">
+<meta property="og:description" content="Misskey Advent Calendar 2020の21日目の記事です。
+はじめに 多分多くの人が初めてだと思います。akiといいます。 今回は私と@yupix@ne.akarinext.org氏で作っているAyuskeyについてお話させていただきたいと思います。
+名前の由来について 名前の由来は、akiとyupixからとってAyuとなっています。(このブログも同じ) なお、初期の頃は私一人で開発していたのでReiskeyという名前をつけておりました。その頃の名残として、バージョンにrei0784をつけるのを継承しています。
+技術的なあれこれ 現在もパッケージ更新などのメンテナンスがされているmei23/misskey-v11をベースに開発しています。 また、筆頭となる私のインスタンスとyupix氏のインスタンスは、Raspberry Pi 4で運用しているため、arm64で動かしやすいようにDockerfile等が調整されていたりします。
+動かなかったり、ビルドができなかったりした場合は気軽に@akiまでご連絡ください。
+鯖缶にやさしく 全文検索で重いElasticsearchを使う必要がなくなりました！！ 本流にある放置されていそうな#5138をマージしてsonicという検索エンジンを使えるようにしました。とても軽く、Raspberry Pi 4であっても軽快に動作します。実際に、私のインスタンスで使用しております。(ただ、短い単語とかだと精度が終わってるので、要調整)
+他の鯖にある絵文字をコピーしたいときありますよね？ 本流のapiを移植してできるようにしました！！ 現在はapiを直接叩くのが1番安定していますが、GUIでのコピーができるように作業中です。
+より高機能を目指して 本来のmisskey v11にはあまりぼかし(blur)や透明度がついていないのですが、より近代的な見た目を目指しています。現在は未実装ですが重い環境ではインスタンスのurl/flags(例:kr.akirin.xyz/flags)から無効化できるようにする予定です。最終的には他の設定と同じ場所に配置されます。
+MFMの拡張 基本的に文法はm544と互換性があります。チートシート(私のm544インスタンスに飛びます) :@aki:や:@rei_k@misskey.io:でアバター絵文字が使えます。なお、一部の場所(こことか)だと動きませんが、普通にノートを投稿する分には問題なく使えます。
+ @keyframes mfm-rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }  Groundpolisからも一部取り入れさせて頂いている文法があります。 [rainbow kr更新しようぜ]
+kr更新しようぜ
+[font.size=20px,color=#86b300 みすきーぐりーん]
+みすきーぐりーん
+ただ、Ayuskey同士だと正常に表示できていますが、他の実装からだとうまく表示されないことが多いです。(逆は回転速度とかの指定にmsを使わないようにすればだいたいいけそう)
+独自機能 他のMisskeyには存在しない独自の機能としてbotであることを宣言するのと同じようにお嬢様(Lady)であることを宣言できます。しっかりと連合できるように作ってあります。
+ブラーのところで書きましたが、実験的な機能を/flagsで有効化できます。まあ、これ書いてる時点だとどれも今は機能しないんですけど
+最後に 読んでいただきありがとうございます。 もしよろしければ私のインスタンスに登録していただけると幸いです。
+おまけ 既知のバグ トークの読み込みが終わらない=&amp;gt;原因調査中&amp;hellip;#61 =&amp;gt; 5.0.0-rc.10で解決 モバイルで引用RNできない=&amp;gt;原因調査中&amp;hellip;
+夢は大きく 〜今後の目標〜 独自にVue3対応=&amp;gt;v12と根本的に作りが違うのでほとんどバックポートで対応できないので、少なくともinitはほとんど書き直しです。 それと、BootstrapVueの対応ができたら少しずつやってみたいと思います。">
+<meta property="og:url" content="https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/">
+<meta property="og:site_name" content="あゆき's BLOG">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="ja"><meta property="article:tag" content="Advent Calendar"><meta property="article:tag" content="Advent Calendar 2020"><meta property="article:tag" content="Misskey"><meta property="article:published_time" content="2020-12-21T00:00:00+00:00"><meta property="article:modified_time" content="2020-12-21T00:00:00+00:00">
+<meta name=twitter:title content="Ayuskeyって何？">
+<meta name=twitter:description content="Misskey Advent Calendar 2020の21日目の記事です。
+はじめに 多分多くの人が初めてだと思います。akiといいます。 今回は私と@yupix@ne.akarinext.org氏で作っているAyuskeyについてお話させていただきたいと思います。
+名前の由来について 名前の由来は、akiとyupixからとってAyuとなっています。(このブログも同じ) なお、初期の頃は私一人で開発していたのでReiskeyという名前をつけておりました。その頃の名残として、バージョンにrei0784をつけるのを継承しています。
+技術的なあれこれ 現在もパッケージ更新などのメンテナンスがされているmei23/misskey-v11をベースに開発しています。 また、筆頭となる私のインスタンスとyupix氏のインスタンスは、Raspberry Pi 4で運用しているため、arm64で動かしやすいようにDockerfile等が調整されていたりします。
+動かなかったり、ビルドができなかったりした場合は気軽に@akiまでご連絡ください。
+鯖缶にやさしく 全文検索で重いElasticsearchを使う必要がなくなりました！！ 本流にある放置されていそうな#5138をマージしてsonicという検索エンジンを使えるようにしました。とても軽く、Raspberry Pi 4であっても軽快に動作します。実際に、私のインスタンスで使用しております。(ただ、短い単語とかだと精度が終わってるので、要調整)
+他の鯖にある絵文字をコピーしたいときありますよね？ 本流のapiを移植してできるようにしました！！ 現在はapiを直接叩くのが1番安定していますが、GUIでのコピーができるように作業中です。
+より高機能を目指して 本来のmisskey v11にはあまりぼかし(blur)や透明度がついていないのですが、より近代的な見た目を目指しています。現在は未実装ですが重い環境ではインスタンスのurl/flags(例:kr.akirin.xyz/flags)から無効化できるようにする予定です。最終的には他の設定と同じ場所に配置されます。
+MFMの拡張 基本的に文法はm544と互換性があります。チートシート(私のm544インスタンスに飛びます) :@aki:や:@rei_k@misskey.io:でアバター絵文字が使えます。なお、一部の場所(こことか)だと動きませんが、普通にノートを投稿する分には問題なく使えます。
+ @keyframes mfm-rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }  Groundpolisからも一部取り入れさせて頂いている文法があります。 [rainbow kr更新しようぜ]
+kr更新しようぜ
+[font.size=20px,color=#86b300 みすきーぐりーん]
+みすきーぐりーん
+ただ、Ayuskey同士だと正常に表示できていますが、他の実装からだとうまく表示されないことが多いです。(逆は回転速度とかの指定にmsを使わないようにすればだいたいいけそう)
+独自機能 他のMisskeyには存在しない独自の機能としてbotであることを宣言するのと同じようにお嬢様(Lady)であることを宣言できます。しっかりと連合できるように作ってあります。
+ブラーのところで書きましたが、実験的な機能を/flagsで有効化できます。まあ、これ書いてる時点だとどれも今は機能しないんですけど
+最後に 読んでいただきありがとうございます。 もしよろしければ私のインスタンスに登録していただけると幸いです。
+おまけ 既知のバグ トークの読み込みが終わらない=&amp;gt;原因調査中&amp;hellip;#61 =&amp;gt; 5.0.0-rc.10で解決 モバイルで引用RNできない=&amp;gt;原因調査中&amp;hellip;
+夢は大きく 〜今後の目標〜 独自にVue3対応=&amp;gt;v12と根本的に作りが違うのでほとんどバックポートで対応できないので、少なくともinitはほとんど書き直しです。 それと、BootstrapVueの対応ができたら少しずつやってみたいと思います。">
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<figure class=site-avatar>
+<a href=/>
+<img src=/img/logo_huf10592dd2822538256e070550f453dcf_3270_300x0_resize_q75_h2_box_2.webp width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a>
+</figure>
+<div class=site-meta>
+<h1 class=site-name><a href=/>あゆき's BLOG</a></h1>
+<h2 class=site-description>A STUDENT WITH IDEALS AND BELIEFS.</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/TeamBlackCrystal/ayuki_blog_next target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<div class=menu-bottom-section>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/ayuskey/>
+Ayuskey
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/>Ayuskeyって何？</a>
+</h2>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Dec 21, 2020</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+1 minute read
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p><strong><a class=link href=https://adventar.org/calendars/5026 target=_blank rel=noopener>Misskey Advent Calendar 2020</a>の21日目の記事です。</strong></p>
+<h2 id=はじめに>はじめに</h2>
+<p>多分多くの人が初めてだと思います。<a class=link href=https://kr.akirin.xyz/@aki target=_blank rel=noopener>aki</a>といいます。
+今回は私と<a class=link href=https://kr.akirin.xyz/@yupix@ne.akarinext.org target=_blank rel=noopener>@yupix@ne.akarinext.org</a>氏で作っているAyuskeyについてお話させていただきたいと思います。</p>
+<h3 id=名前の由来について>名前の由来について</h3>
+<p>名前の由来は、<strong>a</strong>kiと<strong>yu</strong>pixからとってAyuとなっています。(このブログも同じ)
+なお、初期の頃は私一人で開発していたのでReiskeyという名前をつけておりました。その頃の名残として、バージョンに<code>rei0784</code>をつけるのを継承しています。</p>
+<h2 id=技術的なあれこれ>技術的なあれこれ</h2>
+<p>現在もパッケージ更新などのメンテナンスがされている<a class=link href=https://github.com/mei23/misskey-v11 target=_blank rel=noopener>mei23/misskey-v11</a>をベースに開発しています。
+また、筆頭となる<a class=link href=https://kr.akirin.xyz target=_blank rel=noopener>私のインスタンス</a>と<a class=link href=https://ne.akarinext.org target=_blank rel=noopener>yupix氏のインスタンス</a>は、Raspberry Pi 4で運用しているため、arm64で動かしやすいようにDockerfile等が調整されていたりします。</p>
+<p>動かなかったり、ビルドができなかったりした場合は気軽に<a class=link href=https://kr.akirin.xyz/@aki target=_blank rel=noopener>@aki</a>までご連絡ください。</p>
+<h2 id=鯖缶にやさしく>鯖缶にやさしく</h2>
+<p>全文検索で重いElasticsearchを使う必要がなくなりました！！
+本流にある<del>放置されていそうな</del><a class=link href=https://github.com/syuilo/misskey/pull/5138 target=_blank rel=noopener>#5138</a>をマージしてsonicという検索エンジンを使えるようにしました。とても軽く、Raspberry Pi 4であっても軽快に動作します。実際に、私のインスタンスで使用しております。(ただ、短い単語とかだと精度が終わってるので、要調整)</p>
+<p>他の鯖にある絵文字をコピーしたいときありますよね？
+本流のapiを移植してできるようにしました！！
+現在はapiを直接叩くのが1番安定していますが、GUIでのコピーができるように作業中です。</p>
+<h3 id=より高機能を目指して>より高機能を目指して</h3>
+<p>本来のmisskey v11にはあまりぼかし(blur)や透明度がついていないのですが、より近代的な見た目を目指しています。現在は未実装ですが重い環境では<code>インスタンスのurl/flags</code>(例:<a class=link href=https://kr.akirin.xyz/flags target=_blank rel=noopener>kr.akirin.xyz/flags</a>)から無効化できるようにする予定です。最終的には他の設定と同じ場所に配置されます。</p>
+<h3 id=mfmの拡張>MFMの拡張</h3>
+<p>基本的に文法はm544と互換性があります。<a class=link href=https://ti.akirin.xyz/mfm-cheat-sheet target=_blank rel=noopener>チートシート</a>(私のm544インスタンスに飛びます)
+<code>:@aki:</code>や<code>:@rei_k@misskey.io:</code>でアバター絵文字が使えます。なお、一部の場所(こことか)だと動きませんが、普通にノートを投稿する分には問題なく使えます。</p>
+<style>@keyframes mfm-rainbow{0%{filter:hue-rotate(0)}100%{filter:hue-rotate(360deg)}}</style>
+<p>Groundpolisからも一部取り入れさせて頂いている文法があります。
+<code>[rainbow kr更新しようぜ]</code></p>
+<p style="color:#9c0;animation:mfm-rainbow 1s linear infinite both">kr更新しようぜ</p>
+<p><code>[font.size=20px,color=#86b300 みすきーぐりーん]</code></p>
+<p style=font-size:20px;color:#86b300>みすきーぐりーん</p>
+<p>ただ、Ayuskey同士だと正常に表示できていますが、他の実装からだとうまく表示されないことが多いです。(逆は回転速度とかの指定に<code>ms</code>を使わないようにすればだいたいいけそう)</p>
+<h3 id=独自機能>独自機能</h3>
+<p>他のMisskeyには存在しない独自の機能としてbotであることを宣言するのと同じようにお嬢様(Lady)であることを宣言できます。しっかりと連合できるように作ってあります。</p>
+<p>ブラーのところで書きましたが、実験的な機能を<code>/flags</code>で有効化できます。<del>まあ、これ書いてる時点だとどれも今は機能しないんですけど</del></p>
+<h2 id=最後に>最後に</h2>
+<p>読んでいただきありがとうございます。
+もしよろしければ<a class=link href=https://kr.akirin.xyz target=_blank rel=noopener>私のインスタンス</a>に登録していただけると幸いです。</p>
+<h2 id=おまけ>おまけ</h2>
+<h3 id=既知のバグ>既知のバグ</h3>
+<p>トークの読み込みが終わらない=><del>原因調査中&mldr;</del><a class=link href=https://github.com/TeamOrangeServer/misskey/issues/61 target=_blank rel=noopener>#61</a> => <a class=link href=https://github.com/TeamOrangeServer/misskey/releases/tag/11.37.1-rei0784-5.0.0-rc.10 target=_blank rel=noopener>5.0.0-rc.10</a>で解決
+モバイルで引用RNできない=>原因調査中&mldr;</p>
+<h3 id=夢は大きく-今後の目標>夢は大きく 〜今後の目標〜</h3>
+<p>独自にVue3対応=>v12と根本的に作りが違うのでほとんどバックポートで対応できないので、少なくともinitはほとんど書き直しです。
+それと、BootstrapVueの対応ができたら少しずつやってみたいと思います。</p>
+<h3 id=xeの終了に伴う記事の移植>XEの終了に伴う記事の移植</h3>
+<p>最初はXE(私の旧インスタンス)のpagesで書いていたのですが、諸事情でKrに移行することになったのでここのブログに移植することにしました。MFM周りは実際のAyuskeyのcssを引っ張ってMarkdownに書いて実現しているため、疲れました・・・</p>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/ja/>ja</a>
+<a href=/tags/advent-calendar/>Advent Calendar</a>
+<a href=/tags/advent-calendar-2020/>Advent Calendar 2020</a>
+<a href=/tags/misskey/>Misskey</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>Related content</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/>
+<div class=article-details>
+<h2 class=article-title>Pgpool-IIを導入するだけ</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/>
+<div class=article-details>
+<h2 class=article-title>MisskeyのBotをPythonで開発できるライブラリを公開しました</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2024 あゆき's BLOG
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.21.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

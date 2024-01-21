@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shellscript on あゆき's BLOG</title><link>https://example.org/tags/shellscript/</link><description>Recent content in shellscript on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/shellscript/index.xml" rel="self" type="application/rss+xml"/><item><title>ShellScriptで変数に値があるかどうかを判断する方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! note
+AND　ORを使う際の変数の値のチェックには気をつけよう!
+※ORの場合片方だけがあるだけで&lt;strong>真&lt;/strong>になったり。。。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>ShellScriptで変数に値がある場合だけ動かしたい処理などは多くあるはずです。&lt;/p>
+&lt;h2 id="やりかた">やりかた&lt;/h2>
+&lt;h3 id="変数が空の場合">変数が空の場合&lt;/h3>
+&lt;p>今回はtestという変数を使ってテストします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数がないよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-zを使うことで変数がある場合は&lt;strong>真&lt;/strong>となります&lt;/p>
+&lt;h3 id="変数がある場合">変数がある場合&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#変数を定義&lt;/span>
+&lt;span class="nv">test&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -n &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数があるよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-nを使うことで変数がない場合&lt;strong>真&lt;/strong>となります。&lt;/p>
+&lt;h3 id="1つで確認する方法">1つで確認する方法&lt;/h3>
+&lt;p>ifの使い方をある程度知ってる場合は当たり前のような話ですが
+一応書いておきます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#変数を定義(elseで動作)&lt;/span>
+&lt;span class="nv">test&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数がないよ!&amp;#34;&lt;/span>
+&lt;span class="k">else&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数があるよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-zで変数がない場合&lt;strong>真&lt;/strong>となるため、elseを使うことで変数がある場合の動作を作ることができます。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>ShellScriptは楽しいので、今後もこういった事を書いていく予定です。
+あと、昔作った記事で書きかけのやつとかは今度書きます。
+最後に更新が遅くなってしまったのは純粋無為に何も書くようなことが無かったからです&lt;/p></description></item><item><title>ShellScriptで処理をループさせる方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! warning
+この解説ではbashを使用することを前提としています。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>ShellScriptで処理を複数回、または永続的にループさせたい、と思う方は多いはずです。今回はそんなときに役に立つテクニックを紹介します。&lt;/p>
+&lt;h2 id="どんな書き方があるの">どんな書き方があるの？&lt;/h2>
+&lt;p>まず、ShellScriptで多く知られている手段としてはいかが挙げられます。&lt;/p>
+&lt;ul>
+&lt;li>for&lt;/li>
+&lt;li>while&lt;/li>
+&lt;/ul>
+&lt;p>大体はこの2つだけで簡単に処理のループが行えます。&lt;/p>
+&lt;h2 id="whileを使った無限ループ">whileを使った無限ループ&lt;/h2>
+&lt;p>ではさっそく、while文を使用して処理をループさせてみましょう。
+whileの書き方は以下のとおりです。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="k">while&lt;/span> :&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>
+sleep &lt;span class="m">1&lt;/span>
+&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さてまず、1行目から解説です。
+while :; doを解説しましょう。
+ifには[]で条件をつけることができるのは皆様ご存知でしょうか？
+今回の場合:となっている部分を[]にする事で条件をつけることが可能です。
+次に2行目、言わずもがなechoですね。
+次に3行目、あまりにも早いと迷惑なので、sleepで間隔を空けています。
+最後に4行目はwhileの閉じタグの様なものです。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
+&lt;h2 id="サポート">サポート&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item></channel></rss>

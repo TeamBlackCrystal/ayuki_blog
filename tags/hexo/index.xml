@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hexo on あゆき's BLOG</title><link>https://example.org/tags/hexo/</link><description>Recent content in hexo on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Tue, 23 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/hexo/index.xml" rel="self" type="application/rss+xml"/><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>まず初めに、このサイトはhexoというprojectを用いて作成されているのですが、そのhexoには&lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a>
+という物があり、これを使うことで簡単にpwaに対応することができます、ですが大本が既に更新されていない状態になっており2020/12月頃には既に動作しなかった覚えがありますが、
+私はそのforkである&lt;a class="link" href="https://github.com/marcofranssen/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a> を使わせていただいていました。ですが少し前に&lt;a class="link" href="https://github.com/hexojs/hexo/releases/tag/5.4.0" target="_blank" rel="noopener"
+>hexo v5.4.0&lt;/a>
+がリリースされました。これには依存関係の更新として&lt;code>js-yaml&lt;/code>という物が含まれていました。そしてjs-yamlの更新でsafeloadがデフォルトで使用されるようになった
+というのが今回の問題点です。そちらを理解しつつご覧ください。&lt;/p>
+&lt;h2 id="直し方">直し方&lt;/h2>
+&lt;p>はじめにでも言った通り、今回の不具合というかは&lt;code>js-yaml&lt;/code>にはsafeloadという機能があり、hexo-pwaではそれを使用していました。READMEのconfigの書き方を引用してみましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>&lt;span class="nt">routes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/hm.baidu.com/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkOnly&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/.*\.(js|css|jpg|jpeg|png|gif)$/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cacheFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/\//&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>引用元: &lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
+>https://github.com/lavas-project/hexo-pwa&lt;/a>&lt;/p>
+&lt;p>このように書かれているわけですが、引用したymlにもある&lt;code>!!js/regexp&lt;/code>という部分がsafeloadを使うという明言です、そして最初にも言った通り、safeloadはjs-yamlの更新で
+&lt;strong>デフォルトで使用するようになったわけです&lt;/strong>つまり、これは既にjs-yamlでは存在しないtagになったわけです、そしてエラーでは存在しないtagだという事を示唆しています。
+なので&lt;code>!!js/regexp&lt;/code>を削除し、以下のようにすると正常に動作します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>&lt;span class="nt">routes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/hm.baidu.com/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkOnly&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/.*\.(js|css|jpg|jpeg|png|gif)$/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cacheFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/\//&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これらの点を変更し、依存関係を更新したforkを作成したので是非使ってみてください。 &lt;a class="link" href="https://github.com/yupix/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a>&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>hexoはとても軽量で、便利な物ですが、plugin等の多くは更新されていない事が多いです。他にもwordpressの用に多機能なpluginは少なく、
+自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item></channel></rss>

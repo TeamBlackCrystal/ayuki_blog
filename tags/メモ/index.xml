@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>メモ on あゆき's BLOG</title><link>https://example.org/tags/%E3%83%A1%E3%83%A2/</link><description>Recent content in メモ on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Mon, 29 Nov 2021 21:42:46 +0000</lastBuildDate><atom:link href="https://example.org/tags/%E3%83%A1%E3%83%A2/index.xml" rel="self" type="application/rss+xml"/><item><title>Pythonでデコレーターで作った関数からデコレーターを派生させる</title><link>https://example.org/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/</link><pubDate>Mon, 29 Nov 2021 21:42:46 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/</guid><description>&lt;h1 id="まずはじめに">まずはじめに&lt;/h1>
+&lt;p>タイトルで????となった方も多いでしょう。正直私の知識ではうまく言い表せないので変な違和感を覚えること請け合いです。
+実際にコードを見てもらいましょう。今回の例はDiscord.pyのCogなどを使用できる CommandFrameWorkを用いた際にできるサブコマンドの作り方です。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">
+&lt;span class="k">class&lt;/span> &lt;span class="err">(&lt;/span>&lt;span class="nc">commands&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Cog&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>
+&lt;span class="nd">@commands&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">pass&lt;/span>
+&lt;span class="nd">@main&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">sub&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">pass&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、いいたいことは伝わったでしょうか?ようは commands.group デコレーターをつけた main関数から main.commandデコレーターを作成する方法になります。&lt;/p>
+&lt;h2 id="どうやるの">どうやるの？&lt;/h2>
+&lt;p>では完成品からお見せします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nd">@classmethod&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">cls&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">test&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>では、完成品をお見せしたところでどのような原理になっているのかの解説です。&lt;/p>
+&lt;p>!!! warning
+ここからは完璧な私の独学によるもので、あっているのかいまいちわからない解説です。その点をご理解の上ご覧ください。&lt;/p>
+&lt;p>まず以下のコードをご覧ください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このコードは &lt;code>group&lt;/code> というデコレーターを作成している部分になるのですが、この時点で大事なところがあります。それは一番最初に引数で &lt;code>func&lt;/code> を受け取っていないことです。
+Googleなどで &lt;code>デコレーター 作り方&lt;/code> などと調べてみた際に一般的に出てくるデコレーターは以下のようなコードだと私は思っています&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">decorator&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">decorator&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>ではなぜ今回のコードでは、一番最初に &lt;code>name&lt;/code> を受け取っているのでしょうか。そこから解説します。&lt;br>
+今回のコードでは、2つのデコレーターを作成する必要があります、１つは &lt;code>group&lt;/code> 次に Command クラスにある &lt;code>command&lt;/code> デコレーターです。
+そして、 &lt;code>group&lt;/code> デコレーターでは今回の仕様上 Commandを呼び出す必要があります。そうしたら先程の検索で出てきたコードで再現してみましょう&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nd">@classmethod&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">cls&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">test&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">group&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="n">missing&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="n">required&lt;/span> &lt;span class="n">positional&lt;/span> &lt;span class="n">argument&lt;/span> &lt;span class="s1">&amp;#39;func&amp;#39;&lt;/span> &lt;span class="c1"># あっているかイマイチ覚えてません&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、実装してみました。おや？一番最後にエラーが出ていますね&amp;hellip;なぜでしょう。これは デコレーターを 呼び出す際に 関数として成り立つ都合上 func がなくなるからだと考えています。
+これを解決するにはどうしましょう、そうです、引数を最初に受け取ればいいですね、ではまた調べてみましょう。 &lt;code>python デコレーター 引数&lt;/code> そしたら出てくるコードはこんな感じでした。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">_group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">decorator&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">decorator&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">_group&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、すごいネストしてますね、これの何が問題かというとこれでは先程言った &lt;code>group&lt;/code> を呼び出す都合上 確かに &lt;code>_group&lt;/code> までは行きますが、 decorator が呼び出されなくなってしまいます。
+じゃあ、どうするかというと最初のコードに戻ることです。これを解決するのにとても時間がかかりました。これさえ乗り越えれば簡単です。&lt;/p>
+&lt;h3 id="なんで-command-クラスの-commandデコレーターは-classmethod">なんで Command クラスの commandデコレーターは classmethod?&lt;/h3>
+&lt;p>これはいくつかの理由があります、まず通常のクラスで作ると次に示す2つめのコードになります。
+これの何が問題なのでしょうか、これは実行してみるとよく分かることなのですが、&lt;code>@test.command()&lt;/code> の部分で selfが渡されていないと怒られてしまいます。
+そのため、classmethod にしています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nd">@classmethod&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">cls&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># 問題なく動く&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># selfが無いと怒られる&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="ラストに-testを実行">ラストに testを実行&lt;/h3>
+&lt;p>さて、これで終わりです。最後に &lt;code>test&lt;/code> 関数を追加しましょう！&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">class&lt;/span> &lt;span class="nc">Command&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nd">@classmethod&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">cls&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">wrapper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">func&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Command&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">wrapper&lt;/span>
+&lt;span class="nd">@group&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nd">@test&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">command&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">sub_test&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;test2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">test&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>動きましたね！&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>何かわからない点があれば github の方に issueを建てていただけるとありがたいです！
+今回のは記事で見たことがなかったので一応書いてみました、既存のものがあったらごめんなさい！
+それではまた別の記事でお会いしましょう〜&lt;/p></description></item><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>お久しぶりです。前回の記事から8ヶ月ぶりですね。&lt;/p>
+&lt;p>最近久しぶりにWindows ServerのVMを触ったら起動時とかの詳細メッセージを表示したくなったので調べてみました。
+次にWindows入れるときには絶対に忘れていそうなので、忘れてもいいようにメモしておきます。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>Windows11 (win2k以降)&lt;/li>
+&lt;/ul>
+&lt;h2 id="やり方">やり方&lt;/h2>
+&lt;h3 id="かんたん">かんたん&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-reg" data-lang="reg">Windows Registry Editor Version 5.00
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_LOCAL_MACHINE&lt;/span>&lt;span class="k">\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]&lt;/span>
+&lt;span class="na">&amp;#34;VerboseStatus&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">dword&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">00000001&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上のをわかりやすい名前(例: &lt;code>VerboseStatus.reg&lt;/code>)で保存します。
+その後ダブルクリックまたは、右クリック &amp;gt; 結合でレジストリエディターに許可を与えます。&lt;/p>
+&lt;h3 id="ローカル-グループポリシー-エディターを使う">ローカル グループポリシー エディターを使う&lt;/h3>
+&lt;p>コンピューターの構成 &amp;gt; システム &amp;gt; 詳細な状態メッセージを表示する&lt;/p>
+&lt;p>有効をオンにする。&lt;/p>
+&lt;h3 id="レジストリエディタを使う">レジストリエディタを使う&lt;/h3>
+&lt;p>&lt;code>regedit&lt;/code>を起動し、&lt;code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&lt;/code>へ移動する。
+&lt;code>VerboseStatus&lt;/code>をdwordで作成し、編集して&lt;code>1&lt;/code>をセットする。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>これで一度ログアウトしてログインし、正しく動作することを確認して完了です。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://news.mynavi.jp/article/windows-297/" target="_blank" rel="noopener"
+>Win 8/8.1編: サインアウト時などに詳細メッセージを表示する&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://admx.help/?Category=Windows_10_2016&amp;amp;Policy=Microsoft.Policies.WindowsLogon::VerboseStatus&amp;amp;Language=ja-jp" target="_blank" rel="noopener"
+>詳細な状態メッセージを表示する&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>gpgが動かなくなった話</title><link>https://example.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+&lt;h1 id="前置き">前置き&lt;/h1>
+&lt;p>久々にWindows10 Insidersになってみたら、いろいろとアプリとの相性が悪く、ブルスク吐きまくるわ、更新したらブルスク吐いて起動できなくなって結局巻き戻すわでキリがなかったので、クリーンインストールして、環境を作り直して、いざ開発に取り掛かろうと
+思いGitのGPG署名を有効にしようとしたところで今回の出来事は起きています（（&lt;/p>
+&lt;h2 id="何が起きたの">何が起きたの?&lt;/h2>
+&lt;p>以下のようにシークレットキーが使用できないといった感じのエラーが出ました。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">gpg: skipped &amp;#34;*******&amp;#34;: secret key not available
+gpg: signing failed: secret key not available
+error: gpg failed to sign the data
+fatal: failed to write commit object
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="解決策">解決策&lt;/h2>
+&lt;p>まあ、これはいたって単純で、gpgがどこにいるのか認識できていないので、以下のようにコマンドを打つと修正されます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c"># gpgがC:\Program Files (x86)\GnuPGにインストールされている場合&lt;/span>
+&lt;span class="n">git&lt;/span> &lt;span class="n">config&lt;/span> &lt;span class="p">-&lt;/span>&lt;span class="n">-global&lt;/span> &lt;span class="n">gpg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">program&lt;/span> &lt;span class="s2">&amp;#34;C:\Program Files (x86)\GnuPG\bin\gpg.exe&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これでもう一度コミットを行ってみると無事にコミットできました！&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>最近はほんとに忙しくて開発事とかあんまりできないけど、環境だけは整えていつでも開発できるようにしときたいから、今後の後学のためにも残しておきます！それではまたこんど！&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available" target="_blank" rel="noopener"
+>https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available&lt;/a>&lt;/p></description></item></channel></rss>

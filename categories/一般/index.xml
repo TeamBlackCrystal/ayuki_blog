@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>一般 on あゆき's BLOG</title><link>https://example.org/categories/%E4%B8%80%E8%88%AC/</link><description>Recent content in 一般 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 13 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/categories/%E4%B8%80%E8%88%AC/index.xml" rel="self" type="application/rss+xml"/><item><title>あけましておめでとうございます</title><link>https://example.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://example.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</guid><description>&lt;h1 id="挨拶">挨拶&lt;/h1>
+&lt;p>大分遅れてしまいましたが、あけましておめでとうございます！
+今年は昨年より良い記事を書けるよう精進するので、今年もよろしくお願いします！&lt;/p></description></item><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>お久しぶりです。前回の記事から8ヶ月ぶりですね。&lt;/p>
+&lt;p>最近久しぶりにWindows ServerのVMを触ったら起動時とかの詳細メッセージを表示したくなったので調べてみました。
+次にWindows入れるときには絶対に忘れていそうなので、忘れてもいいようにメモしておきます。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>Windows11 (win2k以降)&lt;/li>
+&lt;/ul>
+&lt;h2 id="やり方">やり方&lt;/h2>
+&lt;h3 id="かんたん">かんたん&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-reg" data-lang="reg">Windows Registry Editor Version 5.00
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_LOCAL_MACHINE&lt;/span>&lt;span class="k">\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]&lt;/span>
+&lt;span class="na">&amp;#34;VerboseStatus&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">dword&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">00000001&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上のをわかりやすい名前(例: &lt;code>VerboseStatus.reg&lt;/code>)で保存します。
+その後ダブルクリックまたは、右クリック &amp;gt; 結合でレジストリエディターに許可を与えます。&lt;/p>
+&lt;h3 id="ローカル-グループポリシー-エディターを使う">ローカル グループポリシー エディターを使う&lt;/h3>
+&lt;p>コンピューターの構成 &amp;gt; システム &amp;gt; 詳細な状態メッセージを表示する&lt;/p>
+&lt;p>有効をオンにする。&lt;/p>
+&lt;h3 id="レジストリエディタを使う">レジストリエディタを使う&lt;/h3>
+&lt;p>&lt;code>regedit&lt;/code>を起動し、&lt;code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&lt;/code>へ移動する。
+&lt;code>VerboseStatus&lt;/code>をdwordで作成し、編集して&lt;code>1&lt;/code>をセットする。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>これで一度ログアウトしてログインし、正しく動作することを確認して完了です。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://news.mynavi.jp/article/windows-297/" target="_blank" rel="noopener"
+>Win 8/8.1編: サインアウト時などに詳細メッセージを表示する&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://admx.help/?Category=Windows_10_2016&amp;amp;Policy=Microsoft.Policies.WindowsLogon::VerboseStatus&amp;amp;Language=ja-jp" target="_blank" rel="noopener"
+>詳細な状態メッセージを表示する&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>まず初めに、このサイトはhexoというprojectを用いて作成されているのですが、そのhexoには&lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a>
+という物があり、これを使うことで簡単にpwaに対応することができます、ですが大本が既に更新されていない状態になっており2020/12月頃には既に動作しなかった覚えがありますが、
+私はそのforkである&lt;a class="link" href="https://github.com/marcofranssen/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a> を使わせていただいていました。ですが少し前に&lt;a class="link" href="https://github.com/hexojs/hexo/releases/tag/5.4.0" target="_blank" rel="noopener"
+>hexo v5.4.0&lt;/a>
+がリリースされました。これには依存関係の更新として&lt;code>js-yaml&lt;/code>という物が含まれていました。そしてjs-yamlの更新でsafeloadがデフォルトで使用されるようになった
+というのが今回の問題点です。そちらを理解しつつご覧ください。&lt;/p>
+&lt;h2 id="直し方">直し方&lt;/h2>
+&lt;p>はじめにでも言った通り、今回の不具合というかは&lt;code>js-yaml&lt;/code>にはsafeloadという機能があり、hexo-pwaではそれを使用していました。READMEのconfigの書き方を引用してみましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>&lt;span class="nt">routes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/hm.baidu.com/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkOnly&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/.*\.(js|css|jpg|jpeg|png|gif)$/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cacheFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">!!js/regexp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/\//&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>引用元: &lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
+>https://github.com/lavas-project/hexo-pwa&lt;/a>&lt;/p>
+&lt;p>このように書かれているわけですが、引用したymlにもある&lt;code>!!js/regexp&lt;/code>という部分がsafeloadを使うという明言です、そして最初にも言った通り、safeloadはjs-yamlの更新で
+&lt;strong>デフォルトで使用するようになったわけです&lt;/strong>つまり、これは既にjs-yamlでは存在しないtagになったわけです、そしてエラーでは存在しないtagだという事を示唆しています。
+なので&lt;code>!!js/regexp&lt;/code>を削除し、以下のようにすると正常に動作します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>&lt;span class="nt">routes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/hm.baidu.com/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkOnly&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/.*\.(js|css|jpg|jpeg|png|gif)$/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cacheFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/\//&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">strategy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これらの点を変更し、依存関係を更新したforkを作成したので是非使ってみてください。 &lt;a class="link" href="https://github.com/yupix/hexo-pwa" target="_blank" rel="noopener"
+>hexo-pwa&lt;/a>&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>hexoはとても軽量で、便利な物ですが、plugin等の多くは更新されていない事が多いです。他にもwordpressの用に多機能なpluginは少なく、
+自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item><item><title>私的使ってみて便利なタスク管理ツール</title><link>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</link><pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</guid><description>&lt;!-- toc -->
+&lt;h1 id="はじめに">はじめに&lt;/h1>
+&lt;p>この記事で紹介するツール、サイトの評価は私個人の考えであり、使っている方々を批判するものではありません。また、この記事は随時更新です。&lt;/p>
+&lt;h2 id="clickup">ClickUp&lt;/h2>
+&lt;p>URL: &lt;a class="link" href="https://clickup.com/" target="_blank" rel="noopener"
+>https://clickup.com/&lt;/a>&lt;/p>
+&lt;p>こちらは実際に私が現在使っているタスク管理ツールとなります。&lt;/p>
+&lt;h3 id="おすすめする点">おすすめする点&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>特別なことをしない限り無料&lt;/strong>&lt;/li>
+&lt;li>テーマがとても奇麗で使いやすい&lt;/li>
+&lt;li>Githubと連携が可能(Commitの関連付けなどをGithub Issuesみたいに行える)&lt;/li>
+&lt;li>カンバンやリスト、カレンダーなどの表示が使える&lt;/li>
+&lt;li>作業している間の時間を測ることができてモチベーションが少し上がる(個人的に)&lt;/li>
+&lt;li>プロジェクトの関連付けが簡単にできる&lt;/li>
+&lt;li>プロジェクトの優先度が簡単にわかる&lt;/li>
+&lt;li>Chromeに拡張機能があり、作業するとなった際にすぐに利用できる。&lt;/li>
+&lt;li>スマホ版がある&lt;/li>
+&lt;li>他にも多くの機能がある&lt;/li>
+&lt;/ul>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>この記事は随時更新なので、今はまだデメリット等そういったものを書いていませんが、今後使っていくうえで不便だと感じるところがあれば更新していきます。&lt;/p></description></item><item><title>pythonでの文字列の扱い方2</title><link>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>前回の&lt;a class="link" href="2020-09-20-handling-strings-in-python.md" >python での文字列の扱い方&lt;/a>の続きとなります。前回同様、ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。
+初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい&lt;/p>
+&lt;p>今回は主に文字列の置き換えに関することを紹介します。
+正規表現に関してはまだ自信がないため、しばらくしたら追加します(´・ω・｀)&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>ArchLinux&lt;/li>
+&lt;li>python 3.8.5&lt;/li>
+&lt;/ul>
+&lt;h2 id="一般的な文字列の置き換え">一般的な文字列の置き換え&lt;/h2>
+&lt;h3 id="特定の文字列を全て置き換える">特定の文字列を全て置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;yupix&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: yupixだよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>しかし、このままでは「ゆぴ」という単語があるたびに「yupix」に置き換えられてしまいます。
+そこで使用するのが第三引数の&lt;code>count&lt;/code>です&lt;/p>
+&lt;h3 id="指定した数だけ特定の文字列を置き換える">指定した数だけ特定の文字列を置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;あるところにゆぴという青年がいました。ゆぴはパソコンゲームが大好きです！そんなところにあきがやってきて、ゆぴにこう言いました[一緒にゲームを作ってみないかい?]&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;yupix&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: あるところにyupixという青年がいました。yupixはパソコンゲームが大好きです！そんなところにあきがやってきて、ゆぴにこう言いました[一緒にゲームを作ってみないかい?]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>今回は 2 回指定した為、最初の方に見つかった「ゆぴ」が 2 つ「yupix」に置き換えられました。&lt;/p>
+&lt;h3 id="複数の文字列を置き換える">複数の文字列を置き換える&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴ&amp;amp;あきだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;hoge&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;あき&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;age&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: hoge&amp;amp;ageだよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このように「ゆぴ」と「あき」をそれぞれ指定した単語に置き換えることに成功しました。&lt;/p>
+&lt;h2 id="応用">応用&lt;/h2>
+&lt;h3 id="指定した文字列を削除する">指定した文字列を削除する&lt;/h3>
+&lt;p>これは replace の応用で消したい文字を指定し、置き換え後の文字を空にすることで文字列を削除しています。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;ゆぴだよー!&amp;#39;&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ゆぴ&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1"># 出力結果: だよー!&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このように、「ゆぴ」という単語が削除されおかしな文を作ることに成功しました（？）&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>最後まで読んでくださりありがとうございました。一応動作テストはしていますが、私の知識に誤りがあった際は教えていただけると幸いです。
+次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>ArchLinuxにVNCを使ってサブディスプレイを作る</title><link>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>Ubuntu などのメジャーなディストリビューションでは多くの記事がすでに出回っています。
+そこで、ArchLinux だとパッケージが変わっていたり個人的によく忘れてしまうので備忘録として残しておきます。&lt;/p>
+&lt;h2 id="やりかた">やりかた&lt;/h2>
+&lt;h3 id="パッケージのインストール">パッケージのインストール&lt;/h3>
+&lt;p>以下の 2 つのパッケージが必要です。&lt;/p>
+&lt;ul>
+&lt;li>tigervnc（公式パッケージ）&lt;/li>
+&lt;li>x2vnc-no-xinerama（AUR）&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S tigervnc
+yay -S x2vnc-no-xinerama
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="サーバー側の準備">サーバー側の準備&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ vncserver :1
+You will require a password to access your desktops.
+Password: ******
+Verify: ******
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="android側の準備">Android　側の準備&lt;/h3>
+&lt;p>クライアント側では Android で&lt;a class="link" href="https://play.google.com/store/apps/details?id=com.realvnc.viewer.android&amp;amp;hl=ja" target="_blank" rel="noopener"
+>VNC Viewer - Remote Desktop&lt;/a>を今回は使用します。
+その他にも私の環境では&lt;a class="link" href="https://play.google.com/store/apps/details?id=nine.viewer&amp;amp;hl=ja" target="_blank" rel="noopener"
+>VNC Viewer&lt;/a>での動作も確認しています。&lt;/p>
+&lt;h3 id="マウスの行き来の準備">マウスの行き来の準備&lt;/h3>
+&lt;p>ここで使用するパスワードはさきほど&lt;a class="link" href="#%e3%82%b5%e3%83%bc%e3%83%90%e3%83%bc%e5%81%b4%e3%81%ae%e6%ba%96%e5%82%99" >サーバーの準備&lt;/a>で設定したパスワードを入力します&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ x2vnc -shared -west localhost:1
+x2vnc: VNC server supports protocol version 3.8 &lt;span class="o">(&lt;/span>viewer 3.3&lt;span class="o">)&lt;/span>
+Password: ******
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>これでマウスが行き来できるようになりました。&lt;/p>
+&lt;p>!!! warning
+注意点として、ウィンドウをサブディスプレイに持っていく事などはできません（その逆もしかり）&lt;/p>
+&lt;h3 id="起動">起動&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ vncserver :1 -geometry 1280x800 -alwaysshared
+$ x2vnc -shared -west localhost:1
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="x2vncのオプションについて">x2vncのオプションについて&lt;/h4>
+&lt;p>-westなどはマウスカーソルをどの向きに持っていった際サブディスプレイに移動するかを設定するものです。
+以下がその一覧です&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>オプション名&lt;/th>
+&lt;th>使い方&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>-north&lt;/td>
+&lt;td>&lt;strong>北&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-east&lt;/td>
+&lt;td>&lt;strong>東&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-south&lt;/td>
+&lt;td>&lt;strong>南&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-west&lt;/td>
+&lt;td>&lt;strong>西&lt;/strong>方向にマウスを持っていくとサブディスプレイに繋がる&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="xstartupの編集">xstartupの編集&lt;/h3>
+&lt;p>xstartupとはVNCのデスクトップ環境設定ファイルです。
+デフォルトではおそらく&lt;br>
+~/.vnc/xstartup&lt;br>
+にファイルが存在します&lt;/p>
+&lt;p>このファイルを編集します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ nano ~/.vnc/xstartup
+&lt;span class="c1">#元からあった行を...で表しています&lt;/span>
+...
+&lt;span class="c1">#⬇を追加&lt;/span>
+&lt;span class="nb">exec&lt;/span> cinnamon &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>今回の場合はcinnamonがvncserverに接続すると表示されるはずです。
+ここを自分のすでに入れてあるデスクトップ環境のコマンドに書き換えることで変更が可能です。&lt;/p>
+&lt;h2 id="謝辞">謝辞&lt;/h2>
+&lt;p>この記事は&lt;strong>ともの技術メモ&lt;/strong>様の記事を見てArchLinuxで実際にできるのか
+パッケージ名などが違う為忘れないように書かせていただきました。
+内容の多くが&lt;strong>ともの技術メモ&lt;/strong>様の内容と被ってしまっている事をここで謝罪します。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>全般コマンド&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>ともの技術メモ
+&lt;cite>&lt;a class="link" href="https://tomono.tokyo/2016/08/09/6228/" target="_blank" rel="noopener"
+>https://tomono.tokyo/2016/08/09/6228/&lt;/a>&lt;/cite>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>xstartupの意味&lt;br>
+&lt;a class="link" href="http://www.obenri.com/_vnc/vnc_server1.html" target="_blank" rel="noopener"
+>お便利サーバー.com&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>ShellScriptで変数に値があるかどうかを判断する方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! note
+AND　ORを使う際の変数の値のチェックには気をつけよう!
+※ORの場合片方だけがあるだけで&lt;strong>真&lt;/strong>になったり。。。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>ShellScriptで変数に値がある場合だけ動かしたい処理などは多くあるはずです。&lt;/p>
+&lt;h2 id="やりかた">やりかた&lt;/h2>
+&lt;h3 id="変数が空の場合">変数が空の場合&lt;/h3>
+&lt;p>今回はtestという変数を使ってテストします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数がないよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-zを使うことで変数がある場合は&lt;strong>真&lt;/strong>となります&lt;/p>
+&lt;h3 id="変数がある場合">変数がある場合&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#変数を定義&lt;/span>
+&lt;span class="nv">test&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -n &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数があるよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-nを使うことで変数がない場合&lt;strong>真&lt;/strong>となります。&lt;/p>
+&lt;h3 id="1つで確認する方法">1つで確認する方法&lt;/h3>
+&lt;p>ifの使い方をある程度知ってる場合は当たり前のような話ですが
+一応書いておきます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#変数を定義(elseで動作)&lt;/span>
+&lt;span class="nv">test&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$test&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数がないよ!&amp;#34;&lt;/span>
+&lt;span class="k">else&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;変数があるよ!&amp;#34;&lt;/span>
+&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-zで変数がない場合&lt;strong>真&lt;/strong>となるため、elseを使うことで変数がある場合の動作を作ることができます。&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>ShellScriptは楽しいので、今後もこういった事を書いていく予定です。
+あと、昔作った記事で書きかけのやつとかは今度書きます。
+最後に更新が遅くなってしまったのは純粋無為に何も書くようなことが無かったからです&lt;/p></description></item><item><title>初めてのaki</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! tip
+はじめまして（?）&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="名前">名前&lt;/h2>
+&lt;p>akiやsousuke0422などそんな感じの名前で活動している人です。&lt;/p>
+&lt;h2 id="何してるの">何してるの？&lt;/h2>
+&lt;p>Windowsでよく、ゲームしてます。
+UbuntuやArch Linuxを主な開発環境として使ってます。
+&lt;del>mac?ナニソレ、オイシイノ？&lt;/del>&lt;/p>
+&lt;h2 id="活動場所">活動場所&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/TeamOrangeServer" target="_blank" rel="noopener"
+>TeamOrangeServer&lt;/a>や、&lt;a class="link" href="https://github.com/TeamPimcServer" target="_blank" rel="noopener"
+>TeamPimcServer&lt;/a>が主なGitHubでの活動地帯です。
+&lt;a class="link" href="https://discord.gg/3F4r97p" target="_blank" rel="noopener"
+>Discord(Orange)&lt;/a>&lt;/p>
+&lt;h2 id="その他">その他&lt;/h2>
+&lt;p>随時追加します。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
+&lt;p>yupixやゆぴなどの名前で活動しています。&lt;/p>
+&lt;h2 id="何してるの">何してるの？&lt;/h2>
+&lt;p>主にArchLinuxでShellScriptを使って遊んでいます。
+その他にも、Minecraftのサーバー運営などを行っています。&lt;/p>
+&lt;h2 id="活動場所">活動場所&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/TeamOrangeServer" target="_blank" rel="noopener"
+>TeamOrangeServer&lt;/a>や、&lt;a class="link" href="https://github.com/TeamPimcServer" target="_blank" rel="noopener"
+>TeamPimcServer&lt;/a>が主なGitHubでの活動地帯です。
+&lt;a class="link" href="https://discord.gg/gsjcMQe" target="_blank" rel="noopener"
+>Discord(AKARINEXT)&lt;/a>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>解説 on あゆき's BLOG</title><link>https://example.org/categories/%E8%A7%A3%E8%AA%AC/</link><description>Recent content in 解説 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sat, 09 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/categories/%E8%A7%A3%E8%AA%AC/index.xml" rel="self" type="application/rss+xml"/><item><title>Hyper-V環境でBlueStacksを使う方法</title><link>https://example.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- toc -->
+&lt;h2 id="hyper-v環境で動くandroidエミュレーター欲しくない">Hyper-V環境で動くAndroidエミュレーター欲しくない？&lt;/h2>
+&lt;p>Hyper-V環境で動くAndroidエミュレーターを求めて我々はジャングル（Google）の奥地へと向かった。&lt;/p>
+&lt;h2 id="bluestacks-hyper-v-beta">BlueStacks (Hyper-V) Beta&lt;/h2>
+&lt;p>さて、今回の本題であるBlueStacksですが、なんと公式がHyper-Vに対応しているものをBetaながら公開しています。
+公式サイトは&lt;a class="link" href="https://support.bluestacks.com/hc/ja/articles/360041390952-BlueStacks-Hyper-V%E7%89%88%E3%82%92%E5%88%A9%E7%94%A8%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95" target="_blank" rel="noopener"
+>こちら&lt;/a>&lt;/p>
+&lt;h2 id="インストールするだけじゃないの">インストールするだけじゃないの？&lt;/h2>
+&lt;p>ならそれ使えば終わりじゃん！お疲れ！とは行きません、確かにインストール直後ならそれでいいのかもしれませんが、2回目の起動後やPCを
+再起動すると途端に起動ができなくなってしまいます。&lt;/p>
+&lt;h2 id="解決策">解決策&lt;/h2>
+&lt;p>以下のコマンドを管理者プロンプトで実行することで修正が可能です&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">netsh advfirewall firewall add rule &lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;BlueStacks Service&amp;#34;&lt;/span> &lt;span class="nv">dir&lt;/span>&lt;span class="o">=&lt;/span>in &lt;span class="nv">action&lt;/span>&lt;span class="o">=&lt;/span>allow &lt;span class="nv">remoteip&lt;/span>&lt;span class="o">=&lt;/span>any &lt;span class="nv">localport&lt;/span>&lt;span class="o">=&lt;/span>2860-2892 &lt;span class="nv">protocol&lt;/span>&lt;span class="o">=&lt;/span>TCP &lt;span class="nv">enable&lt;/span>&lt;span class="o">=&lt;/span>yes
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.youtube.com/watch?v=A7USXXZ04eM" target="_blank" rel="noopener"
+>https://www.youtube.com/watch?v=A7USXXZ04eM&lt;/a>
+&lt;a class="link" href="https://markdevel.hatenablog.com/entry/2021/04/27/024314" target="_blank" rel="noopener"
+>https://markdevel.hatenablog.com/entry/2021/04/27/024314&lt;/a>&lt;/p></description></item><item><title>qt5をbuildしてみる</title><link>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! info tip
+chocoにもscoop&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>にもねぇ&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>なぜか知らんが、mozcをwindowsでbuildしたくなったが、qtがないのでbuildしてみる。&lt;/p>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;ul>
+&lt;li>git&lt;/li>
+&lt;li>python2.7&lt;/li>
+&lt;li>perl&lt;/li>
+&lt;li>make (いるのこれ？)&lt;/li>
+&lt;/ul>
+&lt;p>!!! info tip
+追加でvsを準備してください。C関係が必要です。&lt;/p>
+&lt;h3 id="どうやって入れるの">どうやって入れるの？&lt;/h3>
+&lt;p>めんどくさいのでパッケージマネージャーを使いましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">scoop&lt;/span> &lt;span class="n">bucket&lt;/span> &lt;span class="n">add&lt;/span> &lt;span class="n">versions&lt;/span>
+&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">git&lt;/span> &lt;span class="n">python27&lt;/span> &lt;span class="n">perl&lt;/span> &lt;span class="n">make&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="下準備">下準備&lt;/h2>
+&lt;p>!!! info tip
+&lt;code>~/work&lt;/code>を作業場所として想定しています。&lt;/p>
+&lt;p>まずは、git cloneをしましょう。これをしないと始まらないもんね。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git clone git://code.qt.io/qt/qt5.git
+&lt;span class="c1">#リポジトリ内に移動&lt;/span>
+&lt;span class="nb">cd&lt;/span> qt5
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このままでもいいのですが、ときが進みqt6が出たときに問題が発生しそうなので、しっかりとcheckoutしましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git checkout v5.15.0
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>このままだと、準備が完璧ではないので、仕上げに次のものを実行します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">perl init-repository --module-subset&lt;span class="o">=&lt;/span>qtbase
+&lt;span class="c1">#エラーが出たら &amp;#34;-f&amp;#34; をつけましょう。&lt;/span>
+&lt;span class="c1">#~/work直下に移動&lt;/span>
+&lt;span class="nb">cd&lt;/span> ..
+mkdir qt5_build
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="build-start">build start!!!&lt;/h2>
+&lt;p>!!! info tip
+スタートメニューから&lt;code>x64 Native Tools Command Prompt for VS 2019&lt;/code>を探して実行しましょう。(2019は環境によっては、2017や2015)
+windowがおかしくなる場合は&lt;code>x64 Native Tools Command Prompt for VS 2019&lt;/code>の実態のbatファイルをwindows-terminal等で動いたcmdで実行することができます。
+例:&lt;code>H:\VisualStudio\2019\Community\VC\Auxiliary\Build\vcvars64.bat&lt;/code>&lt;/p>
+&lt;p>いざ、びるど&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">#~/work/qt5_build&lt;/span>
+..&lt;span class="se">\q&lt;/span>t5&lt;span class="se">\c&lt;/span>onfigure -developer-build -opensource -nomake examples -nomake tests
+nmake
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>&lt;del>これを書いてる時点では結果が出てないけど、多分動くと思う。&lt;/del>
+32bitでビルドしないと、mozc用としては使えないの忘れてた・・・&lt;/p>
+&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>古いのはあるがないのと同じ&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item><item><title>scoopを入れよう！！</title><link>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;!-- more -->
+&lt;p>!!! info tip
+scoopって知ってる？便利だよ～&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>sudo回で使ってる&lt;code>scoop&lt;/code>を入れます。&lt;del>投稿順序逆だね&lt;/del>&lt;/p>
+&lt;h2 id="前提環境">前提環境&lt;/h2>
+&lt;ul>
+&lt;li>PowerShell (^5) または　PowerShell Core&lt;/li>
+&lt;li>.Net Framework (^4.5)&lt;/li>
+&lt;/ul>
+&lt;p>!!! info tip
+サポート中のWindowsなら問題ないはずです。&lt;/p>
+&lt;h2 id="インストール">インストール&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#非administrator&lt;/span>
+&lt;span class="nb">iwr &lt;/span>&lt;span class="n">-useb&lt;/span> &lt;span class="n">get&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">scoop&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sh&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="nb">iex
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上記のコマンドを実行した際以下のようなエラーが発生した場合は、次のコマンドを実行した後に再度上記のコマンドを実行してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#エラー内容&lt;/span>
+&lt;span class="n">PowerShell&lt;/span> &lt;span class="n">requires&lt;/span> &lt;span class="n">an&lt;/span> &lt;span class="n">execution&lt;/span> &lt;span class="n">policy&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="no">[Unrestricted, RemoteSigned, ByPass]&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="n">Scoop&lt;/span>&lt;span class="p">.&lt;/span>
+&lt;span class="k">For&lt;/span> &lt;span class="n">example&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="nb">set &lt;/span>&lt;span class="n">the&lt;/span> &lt;span class="n">execution&lt;/span> &lt;span class="n">policy&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="s1">&amp;#39;RemoteSigned&amp;#39;&lt;/span> &lt;span class="n">please&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="err">:&lt;/span>
+&lt;span class="s1">&amp;#39;Set-ExecutionPolicy RemoteSigned -scope CurrentUser&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="nb">Set-ExecutionPolicy&lt;/span> &lt;span class="n">RemoteSigned&lt;/span> &lt;span class="n">-scope&lt;/span> &lt;span class="n">CurrentUser&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="how-to">How to&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">git&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>便利でしょ？
+追加でjavaやphpなどのbucket（scoopでのリポジトリ）もあるので追加することが可能です。&lt;/p>
+&lt;p>じゃんじゃん使っていこうね～&lt;/p>
+&lt;p>!!! info tip
+もしかすると、応用編も出るかもしれません。&lt;/p>
+&lt;p>&lt;del>&lt;div v-twemoji>投稿順序はGitHub行かないと基本的にはバレない:thinking:&lt;/div>&lt;/del>&lt;/p></description></item><item><title>ShellScriptで処理をループさせる方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! warning
+この解説ではbashを使用することを前提としています。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>ShellScriptで処理を複数回、または永続的にループさせたい、と思う方は多いはずです。今回はそんなときに役に立つテクニックを紹介します。&lt;/p>
+&lt;h2 id="どんな書き方があるの">どんな書き方があるの？&lt;/h2>
+&lt;p>まず、ShellScriptで多く知られている手段としてはいかが挙げられます。&lt;/p>
+&lt;ul>
+&lt;li>for&lt;/li>
+&lt;li>while&lt;/li>
+&lt;/ul>
+&lt;p>大体はこの2つだけで簡単に処理のループが行えます。&lt;/p>
+&lt;h2 id="whileを使った無限ループ">whileを使った無限ループ&lt;/h2>
+&lt;p>ではさっそく、while文を使用して処理をループさせてみましょう。
+whileの書き方は以下のとおりです。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="k">while&lt;/span> :&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>
+sleep &lt;span class="m">1&lt;/span>
+&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さてまず、1行目から解説です。
+while :; doを解説しましょう。
+ifには[]で条件をつけることができるのは皆様ご存知でしょうか？
+今回の場合:となっている部分を[]にする事で条件をつけることが可能です。
+次に2行目、言わずもがなechoですね。
+次に3行目、あまりにも早いと迷惑なので、sleepで間隔を空けています。
+最後に4行目はwhileの閉じタグの様なものです。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
+&lt;h2 id="サポート">サポート&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>Windowsにsudoが欲しいかい？</title><link>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
+&lt;p>!!! info tip
+欲しいときあるよね？&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>Windowsにsudo&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>ほしいけどわからない！！とか、調べても本物に程遠い&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>のしか見つからない！！という人に向けて書いています。&lt;/p>
+&lt;h2 id="q使えるものはあるの">Q.使えるものはあるの？&lt;/h2>
+&lt;p>A.あります&lt;/p>
+&lt;h3 id="使えるもの">使えるもの&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/gerardog/gsudo" target="_blank" rel="noopener"
+>gerardog/gsudo&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/lukesampson/psutils" target="_blank" rel="noopener"
+>lukesampson/psutils(sudo.ps1)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="どうやって入れるの">どうやって入れるの？&lt;/h2>
+&lt;p>めんどくさいのでパッケージマネージャーを使いましょう。&lt;/p>
+&lt;h3 id="使えるやつ">使えるやつ&lt;/h3>
+&lt;p>*[choco]: 要administratorだが、少ない手間でたくさんのパッケージを入れられる。&lt;/p>
+&lt;p>!!! info tip
+chocoのインストール手順は準備中です。
+scoopのインストール方法は {%post_link 2020-05-01-install-scoop &amp;lsquo;こちら&amp;rsquo;%}&lt;/p>
+&lt;ul>
+&lt;li>choco&lt;/li>
+&lt;li>scoop&lt;/li>
+&lt;/ul>
+&lt;h2 id="インストール">インストール&lt;/h2>
+&lt;p>実際に入れてみましょう。&lt;/p>
+&lt;h3 id="gerardoggsudoの場合個人的なオススメ">gerardog/gsudoの場合（個人的なオススメ）&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#非administratorでできるのでオススメ&lt;/span>
+&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">gsudo&lt;/span>
+&lt;span class="c">#要administrator&lt;/span>
+&lt;span class="n">choco&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">gsudo&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="lukesampsonpsutilssudops1の場合">lukesampson/psutils(sudo.ps1)の場合&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">scoop&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">sudo&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>chocoにも同名の物があるがこれは完成度低い&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>&lt;/p>
+&lt;h2 id="how-to">How to&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="n">sudo&lt;/span> &lt;span class="n">choco&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="nb">windows-terminal&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="c">#hostsファイルが楽に編集できるよ！やったね！！&lt;/span>
+&lt;span class="n">sudo&lt;/span> &lt;span class="n">notepad&lt;/span> &lt;span class="n">C:&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">Windows&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">System32&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">drivers&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">hosts&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>!!! warning
+何も気にせず乱用してはいけません。
+ウイルス等の感染の原因になります。&lt;/p>
+&lt;p>!!! error danger
+&lt;code>rm&lt;/code>や&lt;code>rd&lt;/code>(及び&lt;code>rmdir&lt;/code>)などのファイルを削除するコマンドに対して&lt;code>C:\&lt;/code>や&lt;code>/&lt;/code>を指定してはいけません。(OSや個人データをを破壊する可能性があります。)&lt;/p>
+&lt;h2 id="最後に">最後に&lt;/h2>
+&lt;p>管理者権限なので扱いには気をつけましょう。&lt;/p>
+&lt;p>Linuxやmacを使っているあなたもですよ？rootの扱いには気をつけましょう。&lt;/p>
+&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>Linuxやmacに存在するrootに昇格するコマンド。今回は、知っていることを前提としている。&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2" role="doc-endnote">
+&lt;p>日本語で検索するとよく出てくるやつは、別窓だったり、色が出なかったりと色々と問題がある。&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3" role="doc-endnote">
+&lt;p>別窓タイプ&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item><item><title>ArchLinuxにSteamをインストールする方法</title><link>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>!!! note
+この解説ではGitなどのコマンドがすでに使用できることを前提としています。&lt;/p>
+&lt;!-- toc -->
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>ArchLinuxを入れてよし、いざゲームするぞー！と意気込んで
+sudo pacman -S steam
+をやろうとした人は少なからずいるはずです。しかし、ArchLinuxはデフォルトで32bitパッケージが無効化されている為、有効化した後にインストールしてもコアダンプが発生します。今回は32bitの有効化、コアダンプの修正を解説します。&lt;/p>
+&lt;h2 id="32bitパッケージの有効化">32bitパッケージの有効化&lt;/h2>
+&lt;p>さて、こんな辺境の地のblogを見てる時点で大体の方はご存知でしょうが、
+一応解説をArchLinuxでは32bitパッケージがデフォルトでは無効になっています。
+なので、最初にいきなり&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S steam
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>とコンソールに打ってもパッケージが見当たらないよ！と言われてしまいます。
+ということで本題です。ArchLinuxでは無効になっているだけで、32bitは有効化できます。なので、手動で有効化する方法が以下の手順です。&lt;/p>
+&lt;p>&lt;strong>/etc/pacman.conf&lt;/strong> に以下のような行が存在します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">#[multilib]
+#Include = /etc/pacman.d/mirrorlist
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>見てわかるとおり、これらの行は#でコメントアウトされています。
+そこで、そのコメントアウトを外しましょう&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">[multilib]
+Include = /etc/pacman.d/mirrorlist
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>この様に先頭についていた#を外すことによりパッケージの有効化ができます。
+しかしながら、このままだとパッケージリストが更新されていないため、以下のコマンドを実行して、パッケージリストを最新の状態にしましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -Syy
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="steamのインストール--パッケージのインストール">Steamのインストール &amp;amp; パッケージのインストール&lt;/h2>
+&lt;p>さて、ここまで来ればフィニッシュに近いです。
+ではいよいよSteamをインストールしましょう。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S steam
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>よし、インストールに成功した！ここで喜びに浸るのはまだ早いです。
+大きな落とし穴として、ArchLinuxではSteamをインストールするだけだと、コアダンプを起こし、起動することができません。&lt;br>
+&lt;strong>そこで追加するのが32bitのnvidia driverです&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S lib32-nvidia-utils
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>さて、これで遂にSteamが起動できると思います。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
+&lt;h2 id="サポート">サポート&lt;/h2>
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item></channel></rss>
