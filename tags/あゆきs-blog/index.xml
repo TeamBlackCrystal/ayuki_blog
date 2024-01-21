@@ -1,24 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>あゆき's blog on あゆき's BLOG</title><link>https://example.org/tags/%E3%81%82%E3%82%86%E3%81%8Ds-blog/</link><description>Recent content in あゆき's blog on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sun, 24 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/%E3%81%82%E3%82%86%E3%81%8Ds-blog/index.xml" rel="self" type="application/rss+xml"/><item><title>本ブログの更新内容</title><link>https://example.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</link><pubDate>Sun, 24 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</guid><description>&lt;!-- toc -->
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>あゆき's blog on あゆき's BLOG</title><link>https://blog.akarinext.org/tags/%E3%81%82%E3%82%86%E3%81%8Ds-blog/</link><description>Recent content in あゆき's blog on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sun, 24 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.akarinext.org/tags/%E3%81%82%E3%82%86%E3%81%8Ds-blog/index.xml" rel="self" type="application/rss+xml"/><item><title>本ブログの更新内容</title><link>https://blog.akarinext.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</link><pubDate>Sun, 24 Oct 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>更新内容を乗っけるのは今回が初めてとなります。実はひっそりとデザイン周りの調整などは多々やっていたのですが、機能面での改修を行ったのでご紹介します。
 今回も私ことゆぴが行った変更なのでどんどん魔改造化が進んでいきますね！&lt;/p>
 &lt;h2 id="何が変わったの">何が変わったの?&lt;/h2>
 &lt;p>ページネーションは元来元からありましたが、1つ目の画像から2,3個目の画像のように新しくなりました。&lt;/p>
-&lt;p>&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/old-pagination-mobile.png"
+&lt;p>&lt;img src="https://blog.akarinext.org/image/posts/2021-10-24-update-ayuki-blog/old-pagination-mobile.png"
 loading="lazy"
 alt="old-pagination-desktop.png"
 >&lt;/p>
-&lt;p>&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-desktop.png"
+&lt;p>&lt;img src="https://blog.akarinext.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-desktop.png"
 loading="lazy"
 alt="new-pagination-desktop.png"
 >
-&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-mobile.png"
+&lt;img src="https://blog.akarinext.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-mobile.png"
 loading="lazy"
 alt="new-pagination-mobile.png"
 >&lt;/p>
 &lt;p>デスクトップ版ではまだ少し改良の余地があるかもしれませんが、モバイル版は前より空白が減っていい感じになったんじゃないかなと満足してます。&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
-&lt;p>また今後も見た目に変更などがあり、変更点が多くなってきたらこういった場を設けたいと思っています。ご覧下さりありがとうございました。&lt;/p></description></item><item><title>リニューアルのお知らせ</title><link>https://example.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</link><pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>また今後も見た目に変更などがあり、変更点が多くなってきたらこういった場を設けたいと思っています。ご覧下さりありがとうございました。&lt;/p></description></item><item><title>リニューアルのお知らせ</title><link>https://blog.akarinext.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</link><pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
 &lt;p>まず、あゆき&amp;rsquo;s BLOGをご覧にいただき誠にありがとうございます。更新頻度はほとんどのブログに比べ低く、それをどうするという気力もありませんでした。
 しかし、今回から「Hexo」を使ったブログに生まれ変わります。&lt;del>今までありがとう「vuepress」&lt;/del>&lt;/p>
 &lt;h2 id="このテーマに関して">このテーマに関して&lt;/h2>

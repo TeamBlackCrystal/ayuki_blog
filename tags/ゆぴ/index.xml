@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ゆぴ on あゆき's BLOG</title><link>https://example.org/tags/%E3%82%86%E3%81%B4/</link><description>Recent content in ゆぴ on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Tue, 21 Dec 2021 17:41:26 +0000</lastBuildDate><atom:link href="https://example.org/tags/%E3%82%86%E3%81%B4/index.xml" rel="self" type="application/rss+xml"/><item><title>PythonでMisskeyのBotFrameWorkを作ってみた</title><link>https://example.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Tue, 21 Dec 2021 17:41:26 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;p>これは &lt;a class="link" href="https://adventar.org/calendars/6273" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ゆぴ on あゆき's BLOG</title><link>https://blog.akarinext.org/tags/%E3%82%86%E3%81%B4/</link><description>Recent content in ゆぴ on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Tue, 21 Dec 2021 17:41:26 +0000</lastBuildDate><atom:link href="https://blog.akarinext.org/tags/%E3%82%86%E3%81%B4/index.xml" rel="self" type="application/rss+xml"/><item><title>PythonでMisskeyのBotFrameWorkを作ってみた</title><link>https://blog.akarinext.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Tue, 21 Dec 2021 17:41:26 +0000</pubDate><guid>https://blog.akarinext.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;p>これは &lt;a class="link" href="https://adventar.org/calendars/6273" target="_blank" rel="noopener"
 >Misskey Advent Calendar&lt;/a> 21日目の記事です。&lt;/p>
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>PythonでMisskeyのBotを作って見る際に第一に選択肢に出てくるのが、 YuzuRyo61さんの&lt;a class="link" href="https://github.com/YuzuRyo61/Misskey.py" target="_blank" rel="noopener"
@@ -94,7 +94,7 @@ await Router(ws).connect_channel([&amp;#39;global&amp;#39;, &amp;#39;main&amp;#3
 >GitHub&lt;/a> にて公開しています。 pull requestなども歓迎していますので、もしよければやってみてください。&lt;/p>
 &lt;p>最後になりますが、Misskeyは リアクションなどをインスタンスごとのカスタム絵文字で貰うことができ、自分のつぶやきにTwitterのようなハート以外のリアクションがほしいという方にも楽しめると思うので、Misskeyにご興味がある場合は &lt;a class="link" href="https://join.misskey.page" target="_blank" rel="noopener"
 >joinmisskey&lt;/a> をぜひご覧ください。&lt;/p>
-&lt;p>ここまでご覧頂きありがとうございました。&lt;/p></description></item><item><title>gpgが動かなくなった話</title><link>https://example.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+&lt;p>ここまでご覧頂きありがとうございました。&lt;/p></description></item><item><title>gpgが動かなくなった話</title><link>https://blog.akarinext.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
 &lt;h1 id="前置き">前置き&lt;/h1>
 &lt;p>久々にWindows10 Insidersになってみたら、いろいろとアプリとの相性が悪く、ブルスク吐きまくるわ、更新したらブルスク吐いて起動できなくなって結局巻き戻すわでキリがなかったので、クリーンインストールして、環境を作り直して、いざ開発に取り掛かろうと
 思いGitのGPG署名を有効にしようとしたところで今回の出来事は起きています（（&lt;/p>
@@ -131,7 +131,7 @@ fatal: failed to write commit object
 &lt;p>最近はほんとに忙しくて開発事とかあんまりできないけど、環境だけは整えていつでも開発できるようにしときたいから、今後の後学のためにも残しておきます！それではまたこんど！&lt;/p>
 &lt;h2 id="参考">参考&lt;/h2>
 &lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available" target="_blank" rel="noopener"
->https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available&lt;/a>&lt;/p></description></item><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+>https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available&lt;/a>&lt;/p></description></item><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://blog.akarinext.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>まず初めに、このサイトはhexoというprojectを用いて作成されているのですが、そのhexoには&lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
 >hexo-pwa&lt;/a>
@@ -192,7 +192,7 @@ fatal: failed to write commit object
 >hexo-pwa&lt;/a>&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>hexoはとても軽量で、便利な物ですが、plugin等の多くは更新されていない事が多いです。他にもwordpressの用に多機能なpluginは少なく、
-自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item><item><title>私的使ってみて便利なタスク管理ツール</title><link>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</link><pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</guid><description>&lt;!-- toc -->
+自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item><item><title>私的使ってみて便利なタスク管理ツール</title><link>https://blog.akarinext.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</link><pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>この記事で紹介するツール、サイトの評価は私個人の考えであり、使っている方々を批判するものではありません。また、この記事は随時更新です。&lt;/p>
 &lt;h2 id="clickup">ClickUp&lt;/h2>
@@ -213,7 +213,7 @@ fatal: failed to write commit object
 &lt;li>他にも多くの機能がある&lt;/li>
 &lt;/ul>
 &lt;h2 id="最後に">最後に&lt;/h2>
-&lt;p>この記事は随時更新なので、今はまだデメリット等そういったものを書いていませんが、今後使っていくうえで不便だと感じるところがあれば更新していきます。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
+&lt;p>この記事は随時更新なので、今はまだデメリット等そういったものを書いていませんが、今後使っていくうえで不便だと感じるところがあれば更新していきます。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
 &lt;p>yupixやゆぴなどの名前で活動しています。&lt;/p>
 &lt;h2 id="何してるの">何してるの？&lt;/h2>
 &lt;p>主にArchLinuxでShellScriptを使って遊んでいます。

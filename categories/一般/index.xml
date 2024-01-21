@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>一般 on あゆき's BLOG</title><link>https://example.org/categories/%E4%B8%80%E8%88%AC/</link><description>Recent content in 一般 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 13 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/categories/%E4%B8%80%E8%88%AC/index.xml" rel="self" type="application/rss+xml"/><item><title>あけましておめでとうございます</title><link>https://example.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://example.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</guid><description>&lt;h1 id="挨拶">挨拶&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>一般 on あゆき's BLOG</title><link>https://blog.akarinext.org/categories/%E4%B8%80%E8%88%AC/</link><description>Recent content in 一般 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 13 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.akarinext.org/categories/%E4%B8%80%E8%88%AC/index.xml" rel="self" type="application/rss+xml"/><item><title>あけましておめでとうございます</title><link>https://blog.akarinext.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</guid><description>&lt;h1 id="挨拶">挨拶&lt;/h1>
 &lt;p>大分遅れてしまいましたが、あけましておめでとうございます！
-今年は昨年より良い記事を書けるよう精進するので、今年もよろしくお願いします！&lt;/p></description></item><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
+今年は昨年より良い記事を書けるよう精進するので、今年もよろしくお願いします！&lt;/p></description></item><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://blog.akarinext.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
 &lt;h2 id="はじめに">はじめに&lt;/h2>
 &lt;p>お久しぶりです。前回の記事から8ヶ月ぶりですね。&lt;/p>
 &lt;p>最近久しぶりにWindows ServerのVMを触ったら起動時とかの詳細メッセージを表示したくなったので調べてみました。
@@ -40,7 +40,7 @@
 >Win 8/8.1編: サインアウト時などに詳細メッセージを表示する&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://admx.help/?Category=Windows_10_2016&amp;amp;Policy=Microsoft.Policies.WindowsLogon::VerboseStatus&amp;amp;Language=ja-jp" target="_blank" rel="noopener"
 >詳細な状態メッセージを表示する&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+&lt;/ul></description></item><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://blog.akarinext.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>まず初めに、このサイトはhexoというprojectを用いて作成されているのですが、そのhexoには&lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
 >hexo-pwa&lt;/a>
@@ -101,7 +101,7 @@
 >hexo-pwa&lt;/a>&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>hexoはとても軽量で、便利な物ですが、plugin等の多くは更新されていない事が多いです。他にもwordpressの用に多機能なpluginは少なく、
-自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item><item><title>私的使ってみて便利なタスク管理ツール</title><link>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</link><pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</guid><description>&lt;!-- toc -->
+自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item><item><title>私的使ってみて便利なタスク管理ツール</title><link>https://blog.akarinext.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</link><pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>この記事で紹介するツール、サイトの評価は私個人の考えであり、使っている方々を批判するものではありません。また、この記事は随時更新です。&lt;/p>
 &lt;h2 id="clickup">ClickUp&lt;/h2>
@@ -122,7 +122,7 @@
 &lt;li>他にも多くの機能がある&lt;/li>
 &lt;/ul>
 &lt;h2 id="最後に">最後に&lt;/h2>
-&lt;p>この記事は随時更新なので、今はまだデメリット等そういったものを書いていませんが、今後使っていくうえで不便だと感じるところがあれば更新していきます。&lt;/p></description></item><item><title>pythonでの文字列の扱い方2</title><link>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>この記事は随時更新なので、今はまだデメリット等そういったものを書いていませんが、今後使っていくうえで不便だと感じるところがあれば更新していきます。&lt;/p></description></item><item><title>pythonでの文字列の扱い方2</title><link>https://blog.akarinext.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
 &lt;p>前回の&lt;a class="link" href="2020-09-20-handling-strings-in-python.md" >python での文字列の扱い方&lt;/a>の続きとなります。前回同様、ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。
 初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい&lt;/p>
 &lt;p>今回は主に文字列の置き換えに関することを紹介します。
@@ -198,7 +198,7 @@
 &lt;/div>&lt;p>このように、「ゆぴ」という単語が削除されおかしな文を作ることに成功しました（？）&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>最後まで読んでくださりありがとうございました。一応動作テストはしていますが、私の知識に誤りがあった際は教えていただけると幸いです。
-次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>ArchLinuxにVNCを使ってサブディスプレイを作る</title><link>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>ArchLinuxにVNCを使ってサブディスプレイを作る</title><link>https://blog.akarinext.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
 &lt;p>Ubuntu などのメジャーなディストリビューションでは多くの記事がすでに出回っています。
 そこで、ArchLinux だとパッケージが変わっていたり個人的によく忘れてしまうので備忘録として残しておきます。&lt;/p>
 &lt;h2 id="やりかた">やりかた&lt;/h2>
@@ -338,7 +338,7 @@ $ x2vnc -shared -west localhost:1
 &lt;li>xstartupの意味&lt;br>
 &lt;a class="link" href="http://www.obenri.com/_vnc/vnc_server1.html" target="_blank" rel="noopener"
 >お便利サーバー.com&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>ShellScriptで変数に値があるかどうかを判断する方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;/ul></description></item><item><title>ShellScriptで変数に値があるかどうかを判断する方法</title><link>https://blog.akarinext.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! note
 AND　ORを使う際の変数の値のチェックには気をつけよう!
@@ -409,7 +409,7 @@ AND　ORを使う際の変数の値のチェックには気をつけよう!
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>ShellScriptは楽しいので、今後もこういった事を書いていく予定です。
 あと、昔作った記事で書きかけのやつとかは今度書きます。
-最後に更新が遅くなってしまったのは純粋無為に何も書くようなことが無かったからです&lt;/p></description></item><item><title>初めてのaki</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+最後に更新が遅くなってしまったのは純粋無為に何も書くようなことが無かったからです&lt;/p></description></item><item><title>初めてのaki</title><link>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! tip
 はじめまして（?）&lt;/p>
@@ -427,7 +427,7 @@ UbuntuやArch Linuxを主な開発環境として使ってます。
 &lt;a class="link" href="https://discord.gg/3F4r97p" target="_blank" rel="noopener"
 >Discord(Orange)&lt;/a>&lt;/p>
 &lt;h2 id="その他">その他&lt;/h2>
-&lt;p>随時追加します。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
+&lt;p>随時追加します。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
 &lt;p>yupixやゆぴなどの名前で活動しています。&lt;/p>
 &lt;h2 id="何してるの">何してるの？&lt;/h2>
 &lt;p>主にArchLinuxでShellScriptを使って遊んでいます。

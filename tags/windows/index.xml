@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>windows on あゆき's BLOG</title><link>https://example.org/tags/windows/</link><description>Recent content in windows on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Wed, 04 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>windows on あゆき's BLOG</title><link>https://blog.akarinext.org/tags/windows/</link><description>Recent content in windows on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Wed, 04 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.akarinext.org/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://blog.akarinext.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
 &lt;h2 id="はじめに">はじめに&lt;/h2>
 &lt;p>お久しぶりです。前回の記事から8ヶ月ぶりですね。&lt;/p>
 &lt;p>最近久しぶりにWindows ServerのVMを触ったら起動時とかの詳細メッセージを表示したくなったので調べてみました。
@@ -38,7 +38,7 @@
 >Win 8/8.1編: サインアウト時などに詳細メッセージを表示する&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://admx.help/?Category=Windows_10_2016&amp;amp;Policy=Microsoft.Policies.WindowsLogon::VerboseStatus&amp;amp;Language=ja-jp" target="_blank" rel="noopener"
 >詳細な状態メッセージを表示する&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>qt5をbuildしてみる</title><link>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;/ul></description></item><item><title>qt5をbuildしてみる</title><link>https://blog.akarinext.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! info tip
 chocoにもscoop&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>にもねぇ&lt;/p>
@@ -139,7 +139,7 @@ nmake
 &lt;p>古いのはあるがないのと同じ&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/section></description></item><item><title>scoopを入れよう！！</title><link>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;/section></description></item><item><title>scoopを入れよう！！</title><link>https://blog.akarinext.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! info tip
 scoopって知ってる？便利だよ～&lt;/p>
@@ -202,7 +202,7 @@ scoopって知ってる？便利だよ～&lt;/p>
 &lt;p>じゃんじゃん使っていこうね～&lt;/p>
 &lt;p>!!! info tip
 もしかすると、応用編も出るかもしれません。&lt;/p>
-&lt;p>&lt;del>&lt;div v-twemoji>投稿順序はGitHub行かないと基本的にはバレない:thinking:&lt;/div>&lt;/del>&lt;/p></description></item><item><title>Windowsにsudoが欲しいかい？</title><link>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
+&lt;p>&lt;del>&lt;div v-twemoji>投稿順序はGitHub行かないと基本的にはバレない:thinking:&lt;/div>&lt;/del>&lt;/p></description></item><item><title>Windowsにsudoが欲しいかい？</title><link>https://blog.akarinext.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
 &lt;p>!!! info tip
 欲しいときあるよね？&lt;/p>
 &lt;!-- toc -->

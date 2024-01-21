@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>あゆき's BLOG</title><link>https://example.org/</link><description>Recent content on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 13 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml"/><item><title>Nest.jsでSWCを使う</title><link>https://example.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://example.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</guid><description>&lt;h1 id="初めに">初めに&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>あゆき's BLOG</title><link>https://blog.akarinext.org/</link><description>Recent content on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 13 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.akarinext.org/index.xml" rel="self" type="application/rss+xml"/><item><title>Nest.jsでSWCを使う</title><link>https://blog.akarinext.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</guid><description>&lt;h1 id="初めに">初めに&lt;/h1>
 &lt;p>この記事ではbuild, devでSWCを使うようにするという記事となっています。また、この記事ではパッケージ管理にpnpmを用いていますが、npm等をご利用の場合はpnpmをnpm等といった具合に置き換えてください。&lt;/p>
 &lt;h2 id="依存関係を追加する">依存関係を追加する&lt;/h2>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -253,9 +253,9 @@ pnpm add -D @swc/cli @swc/core @swc/register chokidar
 &lt;/div>
 &lt;/div>&lt;h2 id="参考にさせていただいた記事">参考にさせていただいた記事&lt;/h2>
 &lt;p>&lt;a class="link" href="https://zenn.dev/cohky/articles/use-swc-performance" target="_blank" rel="noopener"
->https://zenn.dev/cohky/articles/use-swc-performance&lt;/a>&lt;/p></description></item><item><title>あけましておめでとうございます</title><link>https://example.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://example.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</guid><description>&lt;h1 id="挨拶">挨拶&lt;/h1>
+>https://zenn.dev/cohky/articles/use-swc-performance&lt;/a>&lt;/p></description></item><item><title>あけましておめでとうございます</title><link>https://blog.akarinext.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</guid><description>&lt;h1 id="挨拶">挨拶&lt;/h1>
 &lt;p>大分遅れてしまいましたが、あけましておめでとうございます！
-今年は昨年より良い記事を書けるよう精進するので、今年もよろしくお願いします！&lt;/p></description></item><item><title>Ayuskey v6 Changelog</title><link>https://example.org/p/ayuskey-v6-changelog/</link><pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/ayuskey-v6-changelog/</guid><description>&lt;h1 id="はじめに">はじめに&lt;/h1>
+今年は昨年より良い記事を書けるよう精進するので、今年もよろしくお願いします！&lt;/p></description></item><item><title>Ayuskey v6 Changelog</title><link>https://blog.akarinext.org/p/ayuskey-v6-changelog/</link><pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/ayuskey-v6-changelog/</guid><description>&lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>Ayuskeyって何？って方は{% post_link 2020-12-21-misskey-advent-calendar-2020-ayuskey こちら %}の記事を先にお読みください。&lt;/p>
 &lt;h2 id="注意事項">注意事項&lt;/h2>
 &lt;p>6.0.0以下のバージョンから更新する際はマイグレーションが必要です。&lt;/p>
@@ -334,7 +334,7 @@ pnpm add -D @swc/cli @swc/core @swc/register chokidar
 &lt;ul>
 &lt;li>v2 APIの搭載(GETメソッド等が使用できる)&lt;/li>
 &lt;li>VuexからPiniaへの置き換え&lt;/li>
-&lt;/ul></description></item><item><title>Remixの流儀</title><link>https://example.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/</link><pubDate>Tue, 19 Jul 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/</guid><description>&lt;h1 id="概要">概要&lt;/h1>
+&lt;/ul></description></item><item><title>Remixの流儀</title><link>https://blog.akarinext.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/</link><pubDate>Tue, 19 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/</guid><description>&lt;h1 id="概要">概要&lt;/h1>
 &lt;p>この記事では結構新しめなReactベースのフレームワークであるRemixについてご紹介します。&lt;/p>
 &lt;h2 id="初めに">初めに&lt;/h2>
 &lt;p>Remixってなんだよ！って人のために少しだけご紹介します。Remixはサーバーサイドレンダリング（SSR）の最近よく聞くSPAとは少し違ったアプローチをとっているフレームワークです。
@@ -613,7 +613,7 @@ SSRなのでOGPなどが容易に設定できます。これに関しては後�
 &lt;/div>&lt;p>こんな感じにloaderで取得したデータをmetaで使用することができます。loaderでparamsを取得してパラメータのIDを用いてデータベースからアイテム情報を取得、OGPに表示みたいなことが簡単にできます。&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>正直fetcherに関しては2日ぐらい苦しんでいろいろとGitHubの数少ないリポジトリを探して、使い方が分かりました。fetcher.dataが空にしかならなくて、割とマジで苦しんだ覚えがあります&amp;hellip;記事とかでもfetcher使ってる人全くいなくて、大変でした。そういう方のお役に立てれば幸いです。最後にコードに関しては確認せず書いてるので少し間違ってたり、普通に動かないやつあるかもしれないので、見つけたら&lt;a class="link" href="https://github.com/TeamPimcServer/ayuki_blog/issues" target="_blank" rel="noopener"
->ここ&lt;/a>とかに連絡ください。&lt;/p></description></item><item><title>FMProjectEについて</title><link>https://example.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate><guid>https://example.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid><description>&lt;h1 id="最近作った動画版">最近作った動画版&lt;/h1>
+>ここ&lt;/a>とかに連絡ください。&lt;/p></description></item><item><title>FMProjectEについて</title><link>https://blog.akarinext.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/fmprojecte%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid><description>&lt;h1 id="最近作った動画版">最近作った動画版&lt;/h1>
 &lt;script type="application/javascript" src="https://embed.nicovideo.jp/watch/sm40731600/script?w=640&amp;h=360">&lt;/script>&lt;noscript>&lt;a href="https://www.nicovideo.jp/watch/sm40731600">FMProjectEの紹介 [1.7.10]&lt;/a>&lt;/noscript>
 &lt;h2 id="要約">要約&lt;/h2>
 &lt;p>最近(2年前)作ったModです。1.12.2のProjectEからEMC上限変更を移植したModです。&lt;/p>
@@ -636,7 +636,7 @@ SSRなのでOGPなどが容易に設定できます。これに関しては後�
 >src&lt;/a> (for developer)&lt;/p>
 &lt;h2 id="注意">注意&lt;/h2>
 &lt;p>何があっても責任は取りません。必ずバックアップしてください。
-本家にバグ報告を送らないでください。&lt;/p></description></item><item><title>PythonでMisskeyのBotFrameWorkを作ってみた</title><link>https://example.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Tue, 21 Dec 2021 17:41:26 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;p>これは &lt;a class="link" href="https://adventar.org/calendars/6273" target="_blank" rel="noopener"
+本家にバグ報告を送らないでください。&lt;/p></description></item><item><title>PythonでMisskeyのBotFrameWorkを作ってみた</title><link>https://blog.akarinext.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Tue, 21 Dec 2021 17:41:26 +0000</pubDate><guid>https://blog.akarinext.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;p>これは &lt;a class="link" href="https://adventar.org/calendars/6273" target="_blank" rel="noopener"
 >Misskey Advent Calendar&lt;/a> 21日目の記事です。&lt;/p>
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>PythonでMisskeyのBotを作って見る際に第一に選択肢に出てくるのが、 YuzuRyo61さんの&lt;a class="link" href="https://github.com/YuzuRyo61/Misskey.py" target="_blank" rel="noopener"
@@ -732,7 +732,7 @@ await Router(ws).connect_channel([&amp;#39;global&amp;#39;, &amp;#39;main&amp;#3
 >GitHub&lt;/a> にて公開しています。 pull requestなども歓迎していますので、もしよければやってみてください。&lt;/p>
 &lt;p>最後になりますが、Misskeyは リアクションなどをインスタンスごとのカスタム絵文字で貰うことができ、自分のつぶやきにTwitterのようなハート以外のリアクションがほしいという方にも楽しめると思うので、Misskeyにご興味がある場合は &lt;a class="link" href="https://join.misskey.page" target="_blank" rel="noopener"
 >joinmisskey&lt;/a> をぜひご覧ください。&lt;/p>
-&lt;p>ここまでご覧頂きありがとうございました。&lt;/p></description></item><item><title>Pythonでデコレーターで作った関数からデコレーターを派生させる</title><link>https://example.org/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/</link><pubDate>Mon, 29 Nov 2021 21:42:46 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/</guid><description>&lt;h1 id="まずはじめに">まずはじめに&lt;/h1>
+&lt;p>ここまでご覧頂きありがとうございました。&lt;/p></description></item><item><title>Pythonでデコレーターで作った関数からデコレーターを派生させる</title><link>https://blog.akarinext.org/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/</link><pubDate>Mon, 29 Nov 2021 21:42:46 +0000</pubDate><guid>https://blog.akarinext.org/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/</guid><description>&lt;h1 id="まずはじめに">まずはじめに&lt;/h1>
 &lt;p>タイトルで????となった方も多いでしょう。正直私の知識ではうまく言い表せないので変な違和感を覚えること請け合いです。
 実際にコードを見てもらいましょう。今回の例はDiscord.pyのCogなどを使用できる CommandFrameWorkを用いた際にできるサブコマンドの作り方です。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -1084,7 +1084,7 @@ Googleなどで &lt;code>デコレーター 作り方&lt;/code> などと調べ�
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>何かわからない点があれば github の方に issueを建てていただけるとありがたいです！
 今回のは記事で見たことがなかったので一応書いてみました、既存のものがあったらごめんなさい！
-それではまた別の記事でお会いしましょう〜&lt;/p></description></item><item><title>Pgpool-IIを導入するだけ</title><link>https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</link><pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</guid><description>&lt;h3 id="はじめに">はじめに&lt;/h3>
+それではまた別の記事でお会いしましょう〜&lt;/p></description></item><item><title>Pgpool-IIを導入するだけ</title><link>https://blog.akarinext.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</link><pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</guid><description>&lt;h3 id="はじめに">はじめに&lt;/h3>
 &lt;p>また、結構期間空いてしまいましたね・・・
 3ヶ月ぶりです。&lt;/p>
 &lt;p>さて、今回はMisskeyをPgpool-IIに載せたいと思います。レプリケーションは別の機会にやります。&lt;/p>
@@ -1193,27 +1193,27 @@ sudo systemctl restart postgresql
 sudo systemctl restart pgpool2
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>本ブログの更新内容</title><link>https://example.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</link><pubDate>Sun, 24 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</guid><description>&lt;!-- toc -->
+&lt;/div></description></item><item><title>本ブログの更新内容</title><link>https://blog.akarinext.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</link><pubDate>Sun, 24 Oct 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E6%9C%AC%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>更新内容を乗っけるのは今回が初めてとなります。実はひっそりとデザイン周りの調整などは多々やっていたのですが、機能面での改修を行ったのでご紹介します。
 今回も私ことゆぴが行った変更なのでどんどん魔改造化が進んでいきますね！&lt;/p>
 &lt;h2 id="何が変わったの">何が変わったの?&lt;/h2>
 &lt;p>ページネーションは元来元からありましたが、1つ目の画像から2,3個目の画像のように新しくなりました。&lt;/p>
-&lt;p>&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/old-pagination-mobile.png"
+&lt;p>&lt;img src="https://blog.akarinext.org/image/posts/2021-10-24-update-ayuki-blog/old-pagination-mobile.png"
 loading="lazy"
 alt="old-pagination-desktop.png"
 >&lt;/p>
-&lt;p>&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-desktop.png"
+&lt;p>&lt;img src="https://blog.akarinext.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-desktop.png"
 loading="lazy"
 alt="new-pagination-desktop.png"
 >
-&lt;img src="https://example.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-mobile.png"
+&lt;img src="https://blog.akarinext.org/image/posts/2021-10-24-update-ayuki-blog/new-pagination-mobile.png"
 loading="lazy"
 alt="new-pagination-mobile.png"
 >&lt;/p>
 &lt;p>デスクトップ版ではまだ少し改良の余地があるかもしれませんが、モバイル版は前より空白が減っていい感じになったんじゃないかなと満足してます。&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
-&lt;p>また今後も見た目に変更などがあり、変更点が多くなってきたらこういった場を設けたいと思っています。ご覧下さりありがとうございました。&lt;/p></description></item><item><title>MisskeyのBotをPythonで開発できるライブラリを公開しました</title><link>https://example.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/</guid><description>&lt;!-- toc -->
+&lt;p>また今後も見た目に変更などがあり、変更点が多くなってきたらこういった場を設けたいと思っています。ご覧下さりありがとうございました。&lt;/p></description></item><item><title>MisskeyのBotをPythonで開発できるライブラリを公開しました</title><link>https://blog.akarinext.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>Misskeyって何?って人もいると思うのでまずMisskeyのご紹介から&lt;br>
 MisskeyはActivityPubというプロトコルを用いて作成された分散型SNSです。特徴として誰でもサーバーを作成し自分自身で運営することができます。
@@ -1323,7 +1323,7 @@ MisskeyはActivityPubというプロトコルを用いて作成された分散�
 &lt;a class="link" href="https://github.com/yupix/Mi.py/issues" target="_blank" rel="noopener"
 >Mi.pyのIssues&lt;/a>
 &lt;a class="link" href="https://discord.gg/CcT997U" target="_blank" rel="noopener"
->Discordサーバー&lt;/a>&lt;/p></description></item><item><title>Hyper-V環境でBlueStacksを使う方法</title><link>https://example.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- toc -->
+>Discordサーバー&lt;/a>&lt;/p></description></item><item><title>Hyper-V環境でBlueStacksを使う方法</title><link>https://blog.akarinext.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- toc -->
 &lt;h2 id="hyper-v環境で動くandroidエミュレーター欲しくない">Hyper-V環境で動くAndroidエミュレーター欲しくない？&lt;/h2>
 &lt;p>Hyper-V環境で動くAndroidエミュレーターを求めて我々はジャングル（Google）の奥地へと向かった。&lt;/p>
 &lt;h2 id="bluestacks-hyper-v-beta">BlueStacks (Hyper-V) Beta&lt;/h2>
@@ -1347,7 +1347,7 @@ MisskeyはActivityPubというプロトコルを用いて作成された分散�
 &lt;p>&lt;a class="link" href="https://www.youtube.com/watch?v=A7USXXZ04eM" target="_blank" rel="noopener"
 >https://www.youtube.com/watch?v=A7USXXZ04eM&lt;/a>
 &lt;a class="link" href="https://markdevel.hatenablog.com/entry/2021/04/27/024314" target="_blank" rel="noopener"
->https://markdevel.hatenablog.com/entry/2021/04/27/024314&lt;/a>&lt;/p></description></item><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
+>https://markdevel.hatenablog.com/entry/2021/04/27/024314&lt;/a>&lt;/p></description></item><item><title>Windowsの起動時とかの詳細メッセージを表示する</title><link>https://blog.akarinext.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</link><pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/</guid><description>&lt;!-- toc -->
 &lt;h2 id="はじめに">はじめに&lt;/h2>
 &lt;p>お久しぶりです。前回の記事から8ヶ月ぶりですね。&lt;/p>
 &lt;p>最近久しぶりにWindows ServerのVMを触ったら起動時とかの詳細メッセージを表示したくなったので調べてみました。
@@ -1387,7 +1387,7 @@ MisskeyはActivityPubというプロトコルを用いて作成された分散�
 >Win 8/8.1編: サインアウト時などに詳細メッセージを表示する&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://admx.help/?Category=Windows_10_2016&amp;amp;Policy=Microsoft.Policies.WindowsLogon::VerboseStatus&amp;amp;Language=ja-jp" target="_blank" rel="noopener"
 >詳細な状態メッセージを表示する&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>gpgが動かなくなった話</title><link>https://example.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+&lt;/ul></description></item><item><title>gpgが動かなくなった話</title><link>https://blog.akarinext.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
 &lt;h1 id="前置き">前置き&lt;/h1>
 &lt;p>久々にWindows10 Insidersになってみたら、いろいろとアプリとの相性が悪く、ブルスク吐きまくるわ、更新したらブルスク吐いて起動できなくなって結局巻き戻すわでキリがなかったので、クリーンインストールして、環境を作り直して、いざ開発に取り掛かろうと
 思いGitのGPG署名を有効にしようとしたところで今回の出来事は起きています（（&lt;/p>
@@ -1424,7 +1424,7 @@ fatal: failed to write commit object
 &lt;p>最近はほんとに忙しくて開発事とかあんまりできないけど、環境だけは整えていつでも開発できるようにしときたいから、今後の後学のためにも残しておきます！それではまたこんど！&lt;/p>
 &lt;h2 id="参考">参考&lt;/h2>
 &lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available" target="_blank" rel="noopener"
->https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available&lt;/a>&lt;/p></description></item><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
+>https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available&lt;/a>&lt;/p></description></item><item><title>hexoのpwa化pluginが動かなかくなった話</title><link>https://blog.akarinext.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</link><pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/hexo%E3%81%AEpwa%E5%8C%96plugin%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>まず初めに、このサイトはhexoというprojectを用いて作成されているのですが、そのhexoには&lt;a class="link" href="https://github.com/lavas-project/hexo-pwa" target="_blank" rel="noopener"
 >hexo-pwa&lt;/a>
@@ -1485,7 +1485,7 @@ fatal: failed to write commit object
 >hexo-pwa&lt;/a>&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>hexoはとても軽量で、便利な物ですが、plugin等の多くは更新されていない事が多いです。他にもwordpressの用に多機能なpluginは少なく、
-自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item><item><title>私的使ってみて便利なタスク管理ツール</title><link>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</link><pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</guid><description>&lt;!-- toc -->
+自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。&lt;/p></description></item><item><title>私的使ってみて便利なタスク管理ツール</title><link>https://blog.akarinext.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</link><pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E7%A7%81%E7%9A%84%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB/</guid><description>&lt;!-- toc -->
 &lt;h1 id="はじめに">はじめに&lt;/h1>
 &lt;p>この記事で紹介するツール、サイトの評価は私個人の考えであり、使っている方々を批判するものではありません。また、この記事は随時更新です。&lt;/p>
 &lt;h2 id="clickup">ClickUp&lt;/h2>
@@ -1506,7 +1506,7 @@ fatal: failed to write commit object
 &lt;li>他にも多くの機能がある&lt;/li>
 &lt;/ul>
 &lt;h2 id="最後に">最後に&lt;/h2>
-&lt;p>この記事は随時更新なので、今はまだデメリット等そういったものを書いていませんが、今後使っていくうえで不便だと感じるところがあれば更新していきます。&lt;/p></description></item><item><title>Ayuskeyって何？</title><link>https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</link><pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</guid><description>&lt;p>&lt;strong>&lt;a class="link" href="https://adventar.org/calendars/5026" target="_blank" rel="noopener"
+&lt;p>この記事は随時更新なので、今はまだデメリット等そういったものを書いていませんが、今後使っていくうえで不便だと感じるところがあれば更新していきます。&lt;/p></description></item><item><title>Ayuskeyって何？</title><link>https://blog.akarinext.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</link><pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</guid><description>&lt;p>&lt;strong>&lt;a class="link" href="https://adventar.org/calendars/5026" target="_blank" rel="noopener"
 >Misskey Advent Calendar 2020&lt;/a>の21日目の記事です。&lt;/strong>&lt;/p>
 &lt;h2 id="はじめに">はじめに&lt;/h2>
 &lt;p>多分多くの人が初めてだと思います。&lt;a class="link" href="https://kr.akirin.xyz/@aki" target="_blank" rel="noopener"
@@ -1571,7 +1571,7 @@ filter: hue-rotate(360deg);
 &lt;p>独自にVue3対応=&amp;gt;v12と根本的に作りが違うのでほとんどバックポートで対応できないので、少なくともinitはほとんど書き直しです。
 それと、BootstrapVueの対応ができたら少しずつやってみたいと思います。&lt;/p>
 &lt;h3 id="xeの終了に伴う記事の移植">XEの終了に伴う記事の移植&lt;/h3>
-&lt;p>最初はXE(私の旧インスタンス)のpagesで書いていたのですが、諸事情でKrに移行することになったのでここのブログに移植することにしました。MFM周りは実際のAyuskeyのcssを引っ張ってMarkdownに書いて実現しているため、疲れました・・・&lt;/p></description></item><item><title>リニューアルのお知らせ</title><link>https://example.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</link><pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;p>最初はXE(私の旧インスタンス)のpagesで書いていたのですが、諸事情でKrに移行することになったのでここのブログに移植することにしました。MFM周りは実際のAyuskeyのcssを引っ張ってMarkdownに書いて実現しているため、疲れました・・・&lt;/p></description></item><item><title>リニューアルのお知らせ</title><link>https://blog.akarinext.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</link><pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
 &lt;p>まず、あゆき&amp;rsquo;s BLOGをご覧にいただき誠にありがとうございます。更新頻度はほとんどのブログに比べ低く、それをどうするという気力もありませんでした。
 しかし、今回から「Hexo」を使ったブログに生まれ変わります。&lt;del>今までありがとう「vuepress」&lt;/del>&lt;/p>
 &lt;h2 id="このテーマに関して">このテーマに関して&lt;/h2>
@@ -1592,7 +1592,7 @@ filter: hue-rotate(360deg);
 &lt;p>今後も更新は続けます。（&lt;del>じゃないとリニューアルした意味がないし&lt;/del>）しかし、更新頻度に関しては期待しないでください。前まで通りとても気ままに投稿していくと思いますので、今後もあゆき&amp;rsquo;s BLOGをよろしくおねがいします。&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>今後についてでほとんど言ってしまった気がしますが、最後まで読んでいただき感激です。ブログの改修は今回「ゆぴ」こと私だけでやったのですが、とても楽しかったです。
-今後も様々な分野に手を出しつつ、このブログも改修を続けていきたいと思っています。それではまた今度！&lt;/p></description></item><item><title>pythonでの文字列の扱い方2</title><link>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+今後も様々な分野に手を出しつつ、このブログも改修を続けていきたいと思っています。それではまた今度！&lt;/p></description></item><item><title>pythonでの文字列の扱い方2</title><link>https://blog.akarinext.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
 &lt;p>前回の&lt;a class="link" href="2020-09-20-handling-strings-in-python.md" >python での文字列の扱い方&lt;/a>の続きとなります。前回同様、ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。
 初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい&lt;/p>
 &lt;p>今回は主に文字列の置き換えに関することを紹介します。
@@ -1668,7 +1668,7 @@ filter: hue-rotate(360deg);
 &lt;/div>&lt;p>このように、「ゆぴ」という単語が削除されおかしな文を作ることに成功しました（？）&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>最後まで読んでくださりありがとうございました。一応動作テストはしていますが、私の知識に誤りがあった際は教えていただけると幸いです。
-次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>pythonでの文字列の扱い方1</title><link>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B91/</link><pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B91/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>pythonでの文字列の扱い方1</title><link>https://blog.akarinext.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B91/</link><pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B91/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
 &lt;p>ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。
 初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい&lt;/p>
 &lt;p>今回は主に文字列の出力の際の変数の展開などを紹介します。&lt;/p>
@@ -1768,7 +1768,7 @@ filter: hue-rotate(360deg);
 &lt;/div>
 &lt;/div>&lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>最後まで読んでくださりありがとうございました。一応動作テストはしていますが、私の知識に誤りがあった際は教えていただけると幸いです。
-次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>1.7.10のmodding環境構築方法</title><link>https://example.org/p/1.7.10%E3%81%AEmodding%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%96%B9%E6%B3%95/</link><pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/1.7.10%E3%81%AEmodding%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+次回は文字列の置き換えなどを紹介します。&lt;/p></description></item><item><title>1.7.10のmodding環境構築方法</title><link>https://blog.akarinext.org/p/1.7.10%E3%81%AEmodding%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%96%B9%E6%B3%95/</link><pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/1.7.10%E3%81%AEmodding%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
 &lt;p>!!! warning
 現在この方法ではセットアップすることができません。かわりに&lt;a class="link" href="https://github.com/GTNewHorizons/lwjgl3ify/issues/20#issuecomment-1441396877" target="_blank" rel="noopener"
 >ここ&lt;/a>の2つの方法のいずれかを行ってください。&lt;/p>
@@ -1831,7 +1831,7 @@ https使えないのは・・・&lt;/p>
 >anatawa12/ForgeGradle-1.2&lt;/a>から&lt;code>code&lt;/code>ボタンを押して&lt;code>Download ZIP&lt;/code>を押してダウンロードするか、git cloneし通常どうりに使用します。&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>実は3つ目に既存のbuild.gradleを書き換えて対応させる方法もありますが、それは&lt;a class="link" href="https://github.com/anatawa12/ForgeGradle-example#how-to-replace-forgegradle-12-with-anatawa12s-fork" target="_blank" rel="noopener"
->ここ&lt;/a>に書いてあるので、頑張ってみてください！！&lt;/p></description></item><item><title>qt5をbuildしてみる</title><link>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+>ここ&lt;/a>に書いてあるので、頑張ってみてください！！&lt;/p></description></item><item><title>qt5をbuildしてみる</title><link>https://blog.akarinext.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! info tip
 chocoにもscoop&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>にもねぇ&lt;/p>
@@ -1932,7 +1932,7 @@ nmake
 &lt;p>古いのはあるがないのと同じ&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/section></description></item><item><title>ArchLinuxにVNCを使ってサブディスプレイを作る</title><link>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
+&lt;/section></description></item><item><title>ArchLinuxにVNCを使ってサブディスプレイを作る</title><link>https://blog.akarinext.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/</guid><description>&lt;h2 id="まずはじめに">まずはじめに&lt;/h2>
 &lt;p>Ubuntu などのメジャーなディストリビューションでは多くの記事がすでに出回っています。
 そこで、ArchLinux だとパッケージが変わっていたり個人的によく忘れてしまうので備忘録として残しておきます。&lt;/p>
 &lt;h2 id="やりかた">やりかた&lt;/h2>
@@ -2072,7 +2072,7 @@ $ x2vnc -shared -west localhost:1
 &lt;li>xstartupの意味&lt;br>
 &lt;a class="link" href="http://www.obenri.com/_vnc/vnc_server1.html" target="_blank" rel="noopener"
 >お便利サーバー.com&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>ShellScriptで変数に値があるかどうかを判断する方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;/ul></description></item><item><title>ShellScriptで変数に値があるかどうかを判断する方法</title><link>https://blog.akarinext.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/shellscript%E3%81%A7%E5%A4%89%E6%95%B0%E3%81%AB%E5%80%A4%E3%81%8C%E3%81%82%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! note
 AND　ORを使う際の変数の値のチェックには気をつけよう!
@@ -2143,7 +2143,7 @@ AND　ORを使う際の変数の値のチェックには気をつけよう!
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>ShellScriptは楽しいので、今後もこういった事を書いていく予定です。
 あと、昔作った記事で書きかけのやつとかは今度書きます。
-最後に更新が遅くなってしまったのは純粋無為に何も書くようなことが無かったからです&lt;/p></description></item><item><title>scoopを入れよう！！</title><link>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+最後に更新が遅くなってしまったのは純粋無為に何も書くようなことが無かったからです&lt;/p></description></item><item><title>scoopを入れよう！！</title><link>https://blog.akarinext.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! info tip
 scoopって知ってる？便利だよ～&lt;/p>
@@ -2206,7 +2206,7 @@ scoopって知ってる？便利だよ～&lt;/p>
 &lt;p>じゃんじゃん使っていこうね～&lt;/p>
 &lt;p>!!! info tip
 もしかすると、応用編も出るかもしれません。&lt;/p>
-&lt;p>&lt;del>&lt;div v-twemoji>投稿順序はGitHub行かないと基本的にはバレない:thinking:&lt;/div>&lt;/del>&lt;/p></description></item><item><title>ShellScriptで処理をループさせる方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>&lt;del>&lt;div v-twemoji>投稿順序はGitHub行かないと基本的にはバレない:thinking:&lt;/div>&lt;/del>&lt;/p></description></item><item><title>ShellScriptで処理をループさせる方法</title><link>https://blog.akarinext.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
 &lt;p>!!! warning
 この解説ではbashを使用することを前提としています。&lt;/p>
 &lt;!-- toc -->
@@ -2246,7 +2246,7 @@ ifには[]で条件をつけることができるのは皆様ご存知でしょ�
 &lt;h2 id="参考">参考&lt;/h2>
 &lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
 &lt;h2 id="サポート">サポート&lt;/h2>
-&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>Windowsにsudoが欲しいかい？</title><link>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>Windowsにsudoが欲しいかい？</title><link>https://blog.akarinext.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
 &lt;p>!!! info tip
 欲しいときあるよね？&lt;/p>
 &lt;!-- toc -->
@@ -2340,7 +2340,7 @@ scoopのインストール方法は {%post_link 2020-05-01-install-scoop &amp;ls
 &lt;p>別窓タイプ&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/section></description></item><item><title>ArchLinuxにSteamをインストールする方法</title><link>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;/section></description></item><item><title>ArchLinuxにSteamをインストールする方法</title><link>https://blog.akarinext.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
 &lt;p>!!! note
 この解説ではGitなどのコマンドがすでに使用できることを前提としています。&lt;/p>
 &lt;!-- toc -->
@@ -2421,7 +2421,7 @@ Include = /etc/pacman.d/mirrorlist
 &lt;h2 id="参考">参考&lt;/h2>
 &lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
 &lt;h2 id="サポート">サポート&lt;/h2>
-&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>初めてのaki</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>初めてのaki</title><link>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! tip
 はじめまして（?）&lt;/p>
@@ -2439,7 +2439,7 @@ UbuntuやArch Linuxを主な開発環境として使ってます。
 &lt;a class="link" href="https://discord.gg/3F4r97p" target="_blank" rel="noopener"
 >Discord(Orange)&lt;/a>&lt;/p>
 &lt;h2 id="その他">その他&lt;/h2>
-&lt;p>随時追加します。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
+&lt;p>随時追加します。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
 &lt;p>yupixやゆぴなどの名前で活動しています。&lt;/p>
 &lt;h2 id="何してるの">何してるの？&lt;/h2>
 &lt;p>主にArchLinuxでShellScriptを使って遊んでいます。

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>解説 on あゆき's BLOG</title><link>https://example.org/categories/%E8%A7%A3%E8%AA%AC/</link><description>Recent content in 解説 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sat, 09 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/categories/%E8%A7%A3%E8%AA%AC/index.xml" rel="self" type="application/rss+xml"/><item><title>Hyper-V環境でBlueStacksを使う方法</title><link>https://example.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- toc -->
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>解説 on あゆき's BLOG</title><link>https://blog.akarinext.org/categories/%E8%A7%A3%E8%AA%AC/</link><description>Recent content in 解説 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sat, 09 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.akarinext.org/categories/%E8%A7%A3%E8%AA%AC/index.xml" rel="self" type="application/rss+xml"/><item><title>Hyper-V環境でBlueStacksを使う方法</title><link>https://blog.akarinext.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</link><pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/hyper-v%E7%92%B0%E5%A2%83%E3%81%A7bluestacks%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- toc -->
 &lt;h2 id="hyper-v環境で動くandroidエミュレーター欲しくない">Hyper-V環境で動くAndroidエミュレーター欲しくない？&lt;/h2>
 &lt;p>Hyper-V環境で動くAndroidエミュレーターを求めて我々はジャングル（Google）の奥地へと向かった。&lt;/p>
 &lt;h2 id="bluestacks-hyper-v-beta">BlueStacks (Hyper-V) Beta&lt;/h2>
@@ -22,7 +22,7 @@
 &lt;p>&lt;a class="link" href="https://www.youtube.com/watch?v=A7USXXZ04eM" target="_blank" rel="noopener"
 >https://www.youtube.com/watch?v=A7USXXZ04eM&lt;/a>
 &lt;a class="link" href="https://markdevel.hatenablog.com/entry/2021/04/27/024314" target="_blank" rel="noopener"
->https://markdevel.hatenablog.com/entry/2021/04/27/024314&lt;/a>&lt;/p></description></item><item><title>qt5をbuildしてみる</title><link>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+>https://markdevel.hatenablog.com/entry/2021/04/27/024314&lt;/a>&lt;/p></description></item><item><title>qt5をbuildしてみる</title><link>https://blog.akarinext.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/qt5%E3%82%92build%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! info tip
 chocoにもscoop&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>にもねぇ&lt;/p>
@@ -123,7 +123,7 @@ nmake
 &lt;p>古いのはあるがないのと同じ&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/section></description></item><item><title>scoopを入れよう！！</title><link>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+&lt;/section></description></item><item><title>scoopを入れよう！！</title><link>https://blog.akarinext.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/scoop%E3%82%92%E5%85%A5%E3%82%8C%E3%82%88%E3%81%86/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! info tip
 scoopって知ってる？便利だよ～&lt;/p>
@@ -186,7 +186,7 @@ scoopって知ってる？便利だよ～&lt;/p>
 &lt;p>じゃんじゃん使っていこうね～&lt;/p>
 &lt;p>!!! info tip
 もしかすると、応用編も出るかもしれません。&lt;/p>
-&lt;p>&lt;del>&lt;div v-twemoji>投稿順序はGitHub行かないと基本的にはバレない:thinking:&lt;/div>&lt;/del>&lt;/p></description></item><item><title>ShellScriptで処理をループさせる方法</title><link>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;p>&lt;del>&lt;div v-twemoji>投稿順序はGitHub行かないと基本的にはバレない:thinking:&lt;/div>&lt;/del>&lt;/p></description></item><item><title>ShellScriptで処理をループさせる方法</title><link>https://blog.akarinext.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/shellscript%E3%81%A7%E5%87%A6%E7%90%86%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
 &lt;p>!!! warning
 この解説ではbashを使用することを前提としています。&lt;/p>
 &lt;!-- toc -->
@@ -226,7 +226,7 @@ ifには[]で条件をつけることができるのは皆様ご存知でしょ�
 &lt;h2 id="参考">参考&lt;/h2>
 &lt;p>&lt;a class="button yx-background-color-archlinux font1 button-a-tag" style="font-size:1.5em;" href="https://wiki.archlinux.jp/index.php/Multilib">&lt;i class="mdi mdi-arch">&lt;/i> ArchWiki&lt;/a>&lt;/p>
 &lt;h2 id="サポート">サポート&lt;/h2>
-&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>Windowsにsudoが欲しいかい？</title><link>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
+&lt;p>&lt;a class="button yx-background-color-discord font1 button-a-tag" style="font-size:1.5em;" href="https://discord.gg/gsjcMQe">&lt;i class="fab fa-discord">&lt;/i> Discord&lt;/a>&lt;/p></description></item><item><title>Windowsにsudoが欲しいかい？</title><link>https://blog.akarinext.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/windows%E3%81%ABsudo%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%84%E3%81%8B%E3%81%84/</guid><description>&lt;!-- more -->
 &lt;p>!!! info tip
 欲しいときあるよね？&lt;/p>
 &lt;!-- toc -->
@@ -320,7 +320,7 @@ scoopのインストール方法は {%post_link 2020-05-01-install-scoop &amp;ls
 &lt;p>別窓タイプ&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/section></description></item><item><title>ArchLinuxにSteamをインストールする方法</title><link>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
+&lt;/section></description></item><item><title>ArchLinuxにSteamをインストールする方法</title><link>https://blog.akarinext.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/archlinux%E3%81%ABsteam%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- more -->
 &lt;p>!!! note
 この解説ではGitなどのコマンドがすでに使用できることを前提としています。&lt;/p>
 &lt;!-- toc -->

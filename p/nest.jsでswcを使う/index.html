@@ -4,12 +4,12 @@
 依存関係を追加する 1 2 3 4 5  # buildだけやる方 pnpm add -D @swc/cli @swc/core # build, devどちらもやる方 pnpm add -D @swc/cli @swc/core @swc/register chokidar   swcの設定を追加する プロジェクトルートに.swcrcという名前で以下の内容を記載します。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  { &amp;#34;jsc&amp;#34;: { &amp;#34;parser&amp;#34;: { &amp;#34;syntax&amp;#34;: &amp;#34;typescript&amp;#34;, &amp;#34;decorators&amp;#34;: true, }, &amp;#34;target&amp;#34;: &amp;#34;es2020&amp;#34;, &amp;#34;keepClassNames&amp;#34;: true, &amp;#34;transform&amp;#34;: { &amp;#34;legacyDecorator&amp;#34;: true, &amp;#34;decoratorMetadata&amp;#34;: true, } }, &amp;#34;module&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;commonjs&amp;#34;, &amp;#34;noInterop&amp;#34;: true } }   nest-cli.">
 <title>Nest.jsでSWCを使う</title>
-<link rel=canonical href=https://example.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/>
+<link rel=canonical href=https://blog.akarinext.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/>
 <link rel=stylesheet href=/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css><meta property="og:title" content="Nest.jsでSWCを使う">
 <meta property="og:description" content="初めに この記事ではbuild, devでSWCを使うようにするという記事となっています。また、この記事ではパッケージ管理にpnpmを用いていますが、npm等をご利用の場合はpnpmをnpm等といった具合に置き換えてください。
 依存関係を追加する 1 2 3 4 5  # buildだけやる方 pnpm add -D @swc/cli @swc/core # build, devどちらもやる方 pnpm add -D @swc/cli @swc/core @swc/register chokidar   swcの設定を追加する プロジェクトルートに.swcrcという名前で以下の内容を記載します。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  { &amp;#34;jsc&amp;#34;: { &amp;#34;parser&amp;#34;: { &amp;#34;syntax&amp;#34;: &amp;#34;typescript&amp;#34;, &amp;#34;decorators&amp;#34;: true, }, &amp;#34;target&amp;#34;: &amp;#34;es2020&amp;#34;, &amp;#34;keepClassNames&amp;#34;: true, &amp;#34;transform&amp;#34;: { &amp;#34;legacyDecorator&amp;#34;: true, &amp;#34;decoratorMetadata&amp;#34;: true, } }, &amp;#34;module&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;commonjs&amp;#34;, &amp;#34;noInterop&amp;#34;: true } }   nest-cli.">
-<meta property="og:url" content="https://example.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/">
+<meta property="og:url" content="https://blog.akarinext.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/">
 <meta property="og:site_name" content="あゆき's BLOG">
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="swc"><meta property="article:tag" content="nest.js"><meta property="article:tag" content="node.js"><meta property="article:published_time" content="2023-01-13T00:00:00+00:00"><meta property="article:modified_time" content="2023-01-13T00:00:00+00:00">
 <meta name=twitter:title content="Nest.jsでSWCを使う">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ayuskey on あゆき's BLOG</title><link>https://example.org/categories/ayuskey/</link><description>Recent content in Ayuskey on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sat, 27 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/categories/ayuskey/index.xml" rel="self" type="application/rss+xml"/><item><title>Pgpool-IIを導入するだけ</title><link>https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</link><pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate><guid>https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</guid><description>&lt;h3 id="はじめに">はじめに&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ayuskey on あゆき's BLOG</title><link>https://blog.akarinext.org/categories/ayuskey/</link><description>Recent content in Ayuskey on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Sat, 27 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.akarinext.org/categories/ayuskey/index.xml" rel="self" type="application/rss+xml"/><item><title>Pgpool-IIを導入するだけ</title><link>https://blog.akarinext.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</link><pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/</guid><description>&lt;h3 id="はじめに">はじめに&lt;/h3>
 &lt;p>また、結構期間空いてしまいましたね・・・
 3ヶ月ぶりです。&lt;/p>
 &lt;p>さて、今回はMisskeyをPgpool-IIに載せたいと思います。レプリケーションは別の機会にやります。&lt;/p>
@@ -107,7 +107,7 @@ sudo systemctl restart postgresql
 sudo systemctl restart pgpool2
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>Ayuskeyって何？</title><link>https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</link><pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</guid><description>&lt;p>&lt;strong>&lt;a class="link" href="https://adventar.org/calendars/5026" target="_blank" rel="noopener"
+&lt;/div></description></item><item><title>Ayuskeyって何？</title><link>https://blog.akarinext.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</link><pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/ayuskey%E3%81%A3%E3%81%A6%E4%BD%95/</guid><description>&lt;p>&lt;strong>&lt;a class="link" href="https://adventar.org/calendars/5026" target="_blank" rel="noopener"
 >Misskey Advent Calendar 2020&lt;/a>の21日目の記事です。&lt;/strong>&lt;/p>
 &lt;h2 id="はじめに">はじめに&lt;/h2>
 &lt;p>多分多くの人が初めてだと思います。&lt;a class="link" href="https://kr.akirin.xyz/@aki" target="_blank" rel="noopener"

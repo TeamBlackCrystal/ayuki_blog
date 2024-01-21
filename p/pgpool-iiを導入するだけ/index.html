@@ -8,7 +8,7 @@
 1 2 3  # /etc/postgresql/13/main/postgresql.conf - port = 5432 + port = 60001   /etc/pgpool2/pgpool.confを編集していきます。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  - port = 5433 + port = 5432  # 一応変えてある - backend_hostname0 = &amp;#39;localhost&amp;#39; + backend_hostname0 = &amp;#39;192.">
 <title>Pgpool-IIを導入するだけ</title>
-<link rel=canonical href=https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/>
+<link rel=canonical href=https://blog.akarinext.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/>
 <link rel=stylesheet href=/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css><meta property="og:title" content="Pgpool-IIを導入するだけ">
 <meta property="og:description" content="はじめに また、結構期間空いてしまいましたね・・・ 3ヶ月ぶりです。
 さて、今回はMisskeyをPgpool-IIに載せたいと思います。レプリケーションは別の機会にやります。
@@ -17,7 +17,7 @@
 事前にpostgres本体のポートを変えておきましょう。(今回は60001にします。)
 1 2 3  # /etc/postgresql/13/main/postgresql.conf - port = 5432 + port = 60001   /etc/pgpool2/pgpool.confを編集していきます。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  - port = 5433 + port = 5432  # 一応変えてある - backend_hostname0 = &amp;#39;localhost&amp;#39; + backend_hostname0 = &amp;#39;192.">
-<meta property="og:url" content="https://example.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/">
+<meta property="og:url" content="https://blog.akarinext.org/p/pgpool-ii%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91/">
 <meta property="og:site_name" content="あゆき's BLOG">
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="ja"><meta property="article:tag" content="ubuntu"><meta property="article:tag" content="Misskey"><meta property="article:tag" content="PostgreSQL"><meta property="article:tag" content="pgpool"><meta property="article:published_time" content="2021-11-27T00:00:00+00:00"><meta property="article:modified_time" content="2021-11-27T00:00:00+00:00">
 <meta name=twitter:title content="Pgpool-IIを導入するだけ">

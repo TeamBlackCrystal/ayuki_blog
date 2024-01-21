@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>自己紹介 on あゆき's BLOG</title><link>https://example.org/tags/%E8%87%AA%E5%B7%B1%E7%B4%B9%E4%BB%8B/</link><description>Recent content in 自己紹介 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 24 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://example.org/tags/%E8%87%AA%E5%B7%B1%E7%B4%B9%E4%BB%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>初めてのaki</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</guid><description>&lt;!-- markdownlint-disable MD033 -->
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>自己紹介 on あゆき's BLOG</title><link>https://blog.akarinext.org/tags/%E8%87%AA%E5%B7%B1%E7%B4%B9%E4%BB%8B/</link><description>Recent content in 自己紹介 on あゆき's BLOG</description><generator>Hugo -- gohugo.io</generator><language>ja-JP</language><lastBuildDate>Fri, 24 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.akarinext.org/tags/%E8%87%AA%E5%B7%B1%E7%B4%B9%E4%BB%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>初めてのaki</title><link>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEaki/</guid><description>&lt;!-- markdownlint-disable MD033 -->
 &lt;!-- more -->
 &lt;p>!!! tip
 はじめまして（?）&lt;/p>
@@ -16,7 +16,7 @@ UbuntuやArch Linuxを主な開発環境として使ってます。
 &lt;a class="link" href="https://discord.gg/3F4r97p" target="_blank" rel="noopener"
 >Discord(Orange)&lt;/a>&lt;/p>
 &lt;h2 id="その他">その他&lt;/h2>
-&lt;p>随時追加します。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://example.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
+&lt;p>随時追加します。&lt;/p></description></item><item><title>初めてのゆぴ</title><link>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</link><pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%82%86%E3%81%B4/</guid><description>&lt;h2 id="名前">名前&lt;/h2>
 &lt;p>yupixやゆぴなどの名前で活動しています。&lt;/p>
 &lt;h2 id="何してるの">何してるの？&lt;/h2>
 &lt;p>主にArchLinuxでShellScriptを使って遊んでいます。
