@@ -1,0 +1,3 @@
+[submodule "themes/hugo-theme-stack-starter"]
+	path = themes/hugo-theme-stack-starter
+	url = https://github.com/TeamBlackCrystal/hugo-theme-stack.git

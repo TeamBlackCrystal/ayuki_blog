@@ -1,0 +1,8 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = "あゆき's BLOG"
+theme = "hugo-theme-stack-starter"
+
+[params.Sidebar]
+    subtitle = "A STUDENT WITH IDEALS AND BELIEFS."
+    avatar.src = "img/logo.webp"
