@@ -22,6 +22,7 @@ BlueStacks (Hyper-V) Beta さて、今回の本題であるBlueStacksですが�
 インストールするだけじゃないの？ ならそれ使えば終わりじゃん！お疲れ！とは行きません、確かにインストール直後ならそれでいいのかもしれませんが、2回目の起動後やPCを 再起動すると途端に起動ができなくなってしまいます。
 解決策 以下のコマンドを管理者プロンプトで実行することで修正が可能です
 1  netsh advfirewall firewall add rule name=&amp;#34;BlueStacks Service&amp;#34; dir=in action=allow remoteip=any localport=2860-2892 protocol=TCP enable=yes   参考 https://www.youtube.com/watch?v=A7USXXZ04eM https://markdevel.hatenablog.com/entry/2021/04/27/024314">
+<link rel="shortcut icon" href=img/icon/favicon.ico>
 <style>:root{--article-font-family:"Noto Sans JP", var(--base-font-family)}</style>
 <script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css?family=Noto+Sans+JP",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
 </head>

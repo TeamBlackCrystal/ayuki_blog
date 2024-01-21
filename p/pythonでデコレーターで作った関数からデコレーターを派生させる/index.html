@@ -19,6 +19,7 @@
 1 2 3 4 5 6 7 8 9 10 11 12  class (commands.Cog): def __init__(self, bot): self.bot = bot @commands.group() async def main(): pass @main.command() async def sub(): pass   さて、いいたいことは伝わったでしょうか?ようは commands.group デコレーターをつけた main関数から main.commandデコレーターを作成する方法になります。
 どうやるの？ では完成品からお見せします。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27  class Command: @classmethod def command(cls): def wrapper(func): return func() return wrapper def group(name=None): def wrapper(func): func() return Command return wrapper @group() def test(): print(&amp;#34;test&amp;#34;) @test.">
+<link rel="shortcut icon" href=img/icon/favicon.ico>
 <style>:root{--article-font-family:"Noto Sans JP", var(--base-font-family)}</style>
 <script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css?family=Noto+Sans+JP",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
 </head>
