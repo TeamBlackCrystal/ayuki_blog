@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://blog.akarinext.org/'
 languageCode = 'ja-JP'
 title = "あゆき's BLOG"
 theme = "hugo-theme-stack-starter"
