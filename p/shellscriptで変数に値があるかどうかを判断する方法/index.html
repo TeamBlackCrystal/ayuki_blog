@@ -28,6 +28,8 @@
 変数がある場合 1 2 3 4 5 6  #変数を定義 test=&amp;#34;test&amp;#34; if [[ -n &amp;#34;$test&amp;#34; ]];then echo &amp;#34;変数があるよ!&amp;#34; fi   -nを使うことで変数がない場合真となります。
 1つで確認する方法 ifの使い方をある程度知ってる場合は当たり前のような話ですが 一応書いておきます。
 1 2 3 4 5 6 7 8  #変数を定義(elseで動作) test=&amp;#34;test&amp;#34; if [[ -z &amp;#34;$test&amp;#34; ]];then echo &amp;#34;変数がないよ!&amp;#34; else echo &amp;#34;変数があるよ!&amp;#34; fi   -zで変数がない場合真となるため、elseを使うことで変数がある場合の動作を作ることができます。">
+<style>:root{--article-font-family:"Noto Sans JP", var(--base-font-family)}</style>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css?family=Noto+Sans+JP",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
 </head>
 <body class=article-page>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>

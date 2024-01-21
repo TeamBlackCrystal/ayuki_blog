@@ -22,6 +22,8 @@
 環境  ArchLinux python 3.8.5  一般的な文字列の置き換え 特定の文字列を全て置き換える 1 2 3 4  text = &amp;#39;ゆぴだよー!&amp;#39; print(text.replace(&amp;#39;ゆぴ&amp;#39;, &amp;#39;yupix&amp;#39;)) # 出力結果: yupixだよー!   しかし、このままでは「ゆぴ」という単語があるたびに「yupix」に置き換えられてしまいます。 そこで使用するのが第三引数のcountです
 指定した数だけ特定の文字列を置き換える 1 2 3 4  text = &amp;#39;あるところにゆぴという青年がいました。ゆぴはパソコンゲームが大好きです！そんなところにあきがやってきて、ゆぴにこう言いました[一緒にゲームを作ってみないかい?]&amp;#39; print(text.replace(&amp;#39;ゆぴ&amp;#39;, &amp;#39;yupix&amp;#39;, 2)) # 出力結果: あるところにyupixという青年がいました。yupixはパソコンゲームが大好きです！そんなところにあきがやってきて、ゆぴにこう言いました[一緒にゲームを作ってみないかい?]   今回は 2 回指定した為、最初の方に見つかった「ゆぴ」が 2 つ「yupix」に置き換えられました。
 複数の文字列を置き換える 1 2 3 4  text = &amp;#39;ゆぴ&amp;amp;あきだよー!&amp;#39; print(text.replace(&amp;#39;ゆぴ&amp;#39;, &amp;#39;hoge&amp;#39;).replace(&amp;#39;あき&amp;#39;, &amp;#39;age&amp;#39;)) # 出力結果: hoge&amp;amp;ageだよー!   このように「ゆぴ」と「あき」をそれぞれ指定した単語に置き換えることに成功しました。">
+<style>:root{--article-font-family:"Noto Sans JP", var(--base-font-family)}</style>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css?family=Noto+Sans+JP",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
 </head>
 <body class=article-page>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>

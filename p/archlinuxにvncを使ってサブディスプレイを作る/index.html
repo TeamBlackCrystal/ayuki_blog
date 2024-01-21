@@ -22,6 +22,8 @@
  tigervnc（公式パッケージ） x2vnc-no-xinerama（AUR）  1 2  sudo pacman -S tigervnc yay -S x2vnc-no-xinerama   サーバー側の準備 1 2 3 4  $ vncserver :1 You will require a password to access your desktops. Password: ****** Verify: ******   Android　側の準備 クライアント側では Android でVNC Viewer - Remote Desktopを今回は使用します。 その他にも私の環境ではVNC Viewerでの動作も確認しています。
 マウスの行き来の準備 ここで使用するパスワードはさきほどサーバーの準備で設定したパスワードを入力します
 1 2 3  $ x2vnc -shared -west localhost:1 x2vnc: VNC server supports protocol version 3.">
+<style>:root{--article-font-family:"Noto Sans JP", var(--base-font-family)}</style>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css?family=Noto+Sans+JP",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
 </head>
 <body class=article-page>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>

@@ -25,6 +25,8 @@
 このように書かれているわけですが、引用したymlにもある!!js/regexpという部分がsafeloadを使うという明言です、そして最初にも言った通り、safeloadはjs-yamlの更新で デフォルトで使用するようになったわけですつまり、これは既にjs-yamlでは存在しないtagになったわけです、そしてエラーでは存在しないtagだという事を示唆しています。 なので!!js/regexpを削除し、以下のようにすると正常に動作します。
 1 2 3 4 5 6 7  routes:- pattern:/hm.baidu.com/strategy:networkOnly- pattern:/.*\.(js|css|jpg|jpeg|png|gif)$/strategy:cacheFirst- pattern:/\//strategy:networkFirst  これらの点を変更し、依存関係を更新したforkを作成したので是非使ってみてください。 hexo-pwa
 最後に hexoはとても軽量で、便利な物ですが、plugin等の多くは更新されていない事が多いです。他にもwordpressの用に多機能なpluginは少なく、 自分で作成するなどしないと使えない機能等があります。なので好き嫌いが分かれそうですが、好きという方で助かったという方がいれば幸いです。">
+<style>:root{--article-font-family:"Noto Sans JP", var(--base-font-family)}</style>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css?family=Noto+Sans+JP",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
 </head>
 <body class=article-page>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>

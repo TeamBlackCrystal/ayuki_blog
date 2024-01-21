@@ -34,6 +34,8 @@
 1 2 3  git clone git://code.qt.io/qt/qt5.git #リポジトリ内に移動 cd qt5   このままでもいいのですが、ときが進みqt6が出たときに問題が発生しそうなので、しっかりとcheckoutしましょう。
 1  git checkout v5.15.0   このままだと、準備が完璧ではないので、仕上げに次のものを実行します。
 1 2 3 4 5 6  perl init-repository --module-subset=qtbase #エラーが出たら &amp;#34;-f&amp;#34; をつけましょう。 #~/work直下に移動 cd .">
+<style>:root{--article-font-family:"Noto Sans JP", var(--base-font-family)}</style>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css?family=Noto+Sans+JP",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
 </head>
 <body class=article-page>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
