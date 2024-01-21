@@ -6,3 +6,11 @@ theme = "hugo-theme-stack-starter"
 [params.Sidebar]
     subtitle = "A STUDENT WITH IDEALS AND BELIEFS."
     avatar.src = "img/logo.webp"
+
+[params.Custom.Authors.yupix]
+    name = "yupix"
+    icon = "yupix.webp"
+
+[params.Custom.Authors.aki]
+    name = "aki"
+    icon = "aki.webp"
