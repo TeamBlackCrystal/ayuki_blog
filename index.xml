@@ -13,7 +13,7 @@
 &lt;p>Hugo にはあまり周辺ライブラリがあるという認識はありませんが、その分本体の完成度が高いということだと考えています。Hexoを使い始めたころは更新が止まってるものは全部自分で保守すればいいと考えていたのですが、やはり時間が経つにつれてDependabotを処理するのも苦痛に感じるようになってしまったので、それから解放されるというのも嬉しいところです。&lt;/p>
 &lt;h2 id="最後に">最後に&lt;/h2>
 &lt;p>環境は前より良くなったので、その環境を頑張って&amp;hellip;活かしていきたいと思っています。&lt;br>
-&lt;del>ゆぴさんの今後のご活躍にご期待ください&lt;/del>&lt;/p></description></item><item><title>Nest.jsでSWCを使う</title><link>https://blog.akarinext.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</guid><description>&lt;h1 id="初めに">初めに&lt;/h1>
+&lt;del>ゆぴさんの今後のご活躍にご期待ください&lt;/del>&lt;/p></description></item><item><title>Archives</title><link>https://blog.akarinext.org/archives/</link><pubDate>Sun, 21 Jan 2024 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/archives/</guid><description/></item><item><title>Nest.jsでSWCを使う</title><link>https://blog.akarinext.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/nest.js%E3%81%A7swc%E3%82%92%E4%BD%BF%E3%81%86/</guid><description>&lt;h1 id="初めに">初めに&lt;/h1>
 &lt;p>この記事ではbuild, devでSWCを使うようにするという記事となっています。また、この記事ではパッケージ管理にpnpmを用いていますが、npm等をご利用の場合はpnpmをnpm等といった具合に置き換えてください。&lt;/p>
 &lt;h2 id="依存関係を追加する">依存関係を追加する&lt;/h2>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -2464,4 +2464,4 @@ UbuntuやArch Linuxを主な開発環境として使ってます。
 >TeamOrangeServer&lt;/a>や、&lt;a class="link" href="https://github.com/TeamPimcServer" target="_blank" rel="noopener"
 >TeamPimcServer&lt;/a>が主なGitHubでの活動地帯です。
 &lt;a class="link" href="https://discord.gg/gsjcMQe" target="_blank" rel="noopener"
->Discord(AKARINEXT)&lt;/a>&lt;/p></description></item></channel></rss>
+>Discord(AKARINEXT)&lt;/a>&lt;/p></description></item><item><title>Search</title><link>https://blog.akarinext.org/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/search/</guid><description/></item></channel></rss>
