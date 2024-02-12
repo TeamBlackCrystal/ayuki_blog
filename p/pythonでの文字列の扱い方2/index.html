@@ -7,7 +7,7 @@
 複数の文字列を置き換える 1 2 3 4  text = &amp;#39;ゆぴ&amp;amp;あきだよー!&amp;#39; print(text.replace(&amp;#39;ゆぴ&amp;#39;, &amp;#39;hoge&amp;#39;).replace(&amp;#39;あき&amp;#39;, &amp;#39;age&amp;#39;)) # 出力結果: hoge&amp;amp;ageだよー!   このように「ゆぴ」と「あき」をそれぞれ指定した単語に置き換えることに成功しました。">
 <title>pythonでの文字列の扱い方2</title>
 <link rel=canonical href=https://blog.akarinext.org/p/python%E3%81%A7%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B92/>
-<link rel=stylesheet href=/scss/style.min.53b6b38e200073e53b5c15bcd2da39409e76434f4244657045daeb5d3122cd14.css><meta property="og:title" content="pythonでの文字列の扱い方2">
+<link rel=stylesheet href=/scss/style.min.4d7e7c6c1ad674c25b022429ea1e095a2306fd90efba726f52c8c56c07d9de4f.css><meta property="og:title" content="pythonでの文字列の扱い方2">
 <meta property="og:description" content="まずはじめに 前回のpython での文字列の扱い方の続きとなります。前回同様、ネットの拾い知識で python を触り始めたので、その際によく使うようなことを書いていきます。 初歩的なことだと思いますが、温かい目で見ていただけると幸いです。※間違っていたらごめんなさい
 今回は主に文字列の置き換えに関することを紹介します。 正規表現に関してはまだ自信がないため、しばらくしたら追加します(´・ω・｀)
 環境  ArchLinux python 3.8.5  一般的な文字列の置き換え 特定の文字列を全て置き換える 1 2 3 4  text = &amp;#39;ゆぴだよー!&amp;#39; print(text.replace(&amp;#39;ゆぴ&amp;#39;, &amp;#39;yupix&amp;#39;)) # 出力結果: yupixだよー!   しかし、このままでは「ゆぴ」という単語があるたびに「yupix」に置き換えられてしまいます。 そこで使用するのが第三引数のcountです
