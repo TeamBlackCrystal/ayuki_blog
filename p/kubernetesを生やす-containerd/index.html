@@ -1,0 +1,758 @@
+<!doctype html><html lang=ja-jp dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Kubernetesを生やす (containerd) 久々にやってみたくなったので
+環境  Ubuntu 22.04 Kubernetes 1.28.2 Cilium 1.15.0  ネットワーク    hostname ip     k8s-master 192.168.1.80   k8s-worker01 192.168.1.81     コンテナは10.200.0.0/16とする  構築 更新する .notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#FFBC61;--warning-content:#FFF4E0;--error-title:#FF6461;--error-content:#FFE0E0;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#98E568;--tip-content:#F0FFE0}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#FFBC61;--warning-content:#FFF4E0;--error-title:#FF6461;--error-content:#FFE0E0;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#98E568;--tip-content:#F0FFE0}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:10px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:9px 9px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.error .notice-title{background:var(--error-title)}.notice.error{background:var(--error-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative} メモ
+すべてのNodeで実行する必要があります。
+ 1  sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y   swapをしばく メモ">
+<title>Kubernetesを生やす (containerd)</title>
+<link rel=canonical href=https://blog.akarinext.org/p/kubernetes%E3%82%92%E7%94%9F%E3%82%84%E3%81%99-containerd/>
+<link rel=stylesheet href=/scss/style.min.4d7e7c6c1ad674c25b022429ea1e095a2306fd90efba726f52c8c56c07d9de4f.css><meta property="og:title" content="Kubernetesを生やす (containerd)">
+<meta property="og:description" content="Kubernetesを生やす (containerd) 久々にやってみたくなったので
+環境  Ubuntu 22.04 Kubernetes 1.28.2 Cilium 1.15.0  ネットワーク    hostname ip     k8s-master 192.168.1.80   k8s-worker01 192.168.1.81     コンテナは10.200.0.0/16とする  構築 更新する .notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#FFBC61;--warning-content:#FFF4E0;--error-title:#FF6461;--error-content:#FFE0E0;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#98E568;--tip-content:#F0FFE0}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#FFBC61;--warning-content:#FFF4E0;--error-title:#FF6461;--error-content:#FFE0E0;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#98E568;--tip-content:#F0FFE0}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:10px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:9px 9px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.error .notice-title{background:var(--error-title)}.notice.error{background:var(--error-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative} メモ
+すべてのNodeで実行する必要があります。
+ 1  sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y   swapをしばく メモ">
+<meta property="og:url" content="https://blog.akarinext.org/p/kubernetes%E3%82%92%E7%94%9F%E3%82%84%E3%81%99-containerd/">
+<meta property="og:site_name" content="あゆき's BLOG">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:published_time" content="2024-02-12T16:22:43+09:00"><meta property="article:modified_time" content="2024-02-12T16:22:43+09:00">
+<meta name=twitter:title content="Kubernetesを生やす (containerd)">
+<meta name=twitter:description content="Kubernetesを生やす (containerd) 久々にやってみたくなったので
+環境  Ubuntu 22.04 Kubernetes 1.28.2 Cilium 1.15.0  ネットワーク    hostname ip     k8s-master 192.168.1.80   k8s-worker01 192.168.1.81     コンテナは10.200.0.0/16とする  構築 更新する .notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#FFBC61;--warning-content:#FFF4E0;--error-title:#FF6461;--error-content:#FFE0E0;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#98E568;--tip-content:#F0FFE0}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#FFBC61;--warning-content:#FFF4E0;--error-title:#FF6461;--error-content:#FFE0E0;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#98E568;--tip-content:#F0FFE0}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:10px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:9px 9px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.error .notice-title{background:var(--error-title)}.notice.error{background:var(--error-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative} メモ
+すべてのNodeで実行する必要があります。
+ 1  sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y   swapをしばく メモ">
+<link rel="shortcut icon" href=img/icon/favicon.ico>
+<style>:root{--article-font-family:"Noto Sans JP", var(--base-font-family)}</style>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css?family=Noto+Sans+JP",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=メニューを開く・閉じる>
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<figure class=site-avatar>
+<a href=/>
+<img src=/img/logo_huf10592dd2822538256e070550f453dcf_3270_300x0_resize_q75_h2_box_2.webp width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a>
+</figure>
+<div class=site-meta>
+<h1 class=site-name><a href=/>あゆき's BLOG</a></h1>
+<h2 class=site-description>A STUDENT WITH IDEALS AND BELIEFS.</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/TeamBlackCrystal/ayuki_blog_next target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>ダークモード</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/%E3%83%A1%E3%83%A2/>
+メモ
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/p/kubernetes%E3%82%92%E7%94%9F%E3%82%84%E3%81%99-containerd/>Kubernetesを生やす (containerd)</a>
+</h2>
+</div>
+<footer class=article-time>
+<div>
+<img class=article-author-icon src=/img/icon/aki.webp alt="author icon">
+aki
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2月 12, 2024</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+読了時間: 4分
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<h1 id=kubernetesを生やす-containerd>Kubernetesを生やす (containerd)</h1>
+<p>久々にやってみたくなったので</p>
+<h2 id=環境>環境</h2>
+<ul>
+<li>Ubuntu 22.04</li>
+<li>Kubernetes 1.28.2</li>
+<li>Cilium 1.15.0</li>
+</ul>
+<h3 id=ネットワーク>ネットワーク</h3>
+<div class=table-wrapper><table>
+<thead>
+<tr>
+<th>hostname</th>
+<th>ip</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k8s-master</td>
+<td>192.168.1.80</td>
+</tr>
+<tr>
+<td>k8s-worker01</td>
+<td>192.168.1.81</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>コンテナは<code>10.200.0.0/16</code>とする</li>
+</ul>
+<h2 id=構築>構築</h2>
+<h3 id=更新する>更新する</h3>
+<style type=text/css>.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#FFBC61;--warning-content:#FFF4E0;--error-title:#FF6461;--error-content:#FFE0E0;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#98E568;--tip-content:#F0FFE0}@media(prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#FFBC61;--warning-content:#FFF4E0;--error-title:#FF6461;--error-content:#FFE0E0;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#98E568;--tip-content:#F0FFE0}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:10px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:9px 9px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.error .notice-title{background:var(--error-title)}.notice.error{background:var(--error-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379.0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628.0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628.0l-22.627 22.627c-6.248 6.248-6.248 16.379.0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196.0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627.0 12 5.373 12 12v1e2h12c6.627.0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>すべてのNodeで実行する必要があります。</p></div>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo apt update <span class=o>&amp;&amp;</span> sudo apt upgrade -y
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=swapをしばく>swapをしばく</h3>
+<div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>すべてのNodeで実行する必要があります。</p></div>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo swapoff -a
+</code></pre></td></tr></table>
+</div>
+</div><p>これは一時的なので<code>/etc/fstab</code>にあるswapファイルをコメントアウトして永続化する</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo nano /etc/fstab
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=gd>- /swap.img      none    swap    sw      0       0
+</span><span class=gd></span><span class=gi>+ #/swap.img      none    swap    sw      0       0
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id=ipフォワーディングの有効化>ipフォワーディングの有効化</h3>
+<div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>すべてのNodeで実行する必要があります。</p></div>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># カーネルモジュール</span>
+cat <span class=s>&lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+</span><span class=s>overlay
+</span><span class=s>br_netfilter
+</span><span class=s>EOF</span>
+sudo modprobe overlay
+sudo modprobe br_netfilter
+<span class=c1># カーネルパラメーター</span>
+cat <span class=s>&lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+</span><span class=s>net.bridge.bridge-nf-call-iptables  = 1
+</span><span class=s>net.bridge.bridge-nf-call-ip6tables = 1
+</span><span class=s>net.ipv4.ip_forward                 = 1
+</span><span class=s>EOF</span>
+sudo sysctl --system
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=確認する>確認する</h3>
+<div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>すべてのNodeで実行する必要があります。</p></div>
+<ul>
+<li>カーネルモジュール</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>lsmod <span class=p>|</span> grep br_netfilter
+lsmod <span class=p>|</span> grep overlay
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-text data-lang=text>br_netfilter           32768  0
+bridge                413696  1 br_netfilter
+overlay               196608  18
+</code></pre></td></tr></table>
+</div>
+</div><p>3つの出力があることを確認する</p>
+<ul>
+<li>カーネルパラメーター</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-text data-lang=text>net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward = 1
+</code></pre></td></tr></table>
+</div>
+</div><p>すべて1なことを確認する</p>
+<ul>
+<li>swapの無効化</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>free -h
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-text data-lang=text>               total        used        free      shared  buff/cache   available
+Mem:           7.7Gi       912Mi       4.2Gi       6.0Mi       2.6Gi       6.6Gi
+Swap:             0B          0B          0B
+</code></pre></td></tr></table>
+</div>
+</div><p>swapの行がすべて0なことを確認する</p>
+<h3 id=containerdを準備する>containerdを準備する</h3>
+<div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>すべてのNodeで実行する必要があります。</p></div>
+<p>なんか公式リポジトリのほうがdockerのリポジトリより新しいですが、今回はdockerリポジトリを使います。<del>それで動いちゃったんだもん</del></p>
+<ul>
+<li>インストール</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># 鍵</span>
+sudo install -m <span class=m>0755</span> -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+<span class=c1># リポジトリ</span>
+<span class=nb>echo</span> <span class=se>\
+</span><span class=se></span>  <span class=s2>&#34;deb [arch=</span><span class=k>$(</span>dpkg --print-architecture<span class=k>)</span><span class=s2> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+</span><span class=s2>  </span><span class=k>$(</span>. /etc/os-release <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$VERSION_CODENAME</span><span class=s2>&#34;</span><span class=k>)</span><span class=s2> stable&#34;</span> <span class=p>|</span> <span class=se>\
+</span><span class=se></span>  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+sudo apt-get update
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo apt install -y containerd.io
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>コンフィグを生成して編集</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>containerd config default <span class=p>|</span> sudo tee /etc/containerd/config.toml
+sudo sed -i <span class=s1>&#39;s/SystemdCgroup = false/SystemdCgroup = true/g&#39;</span> /etc/containerd/config.toml
+sudo sed -i <span class=s1>&#39;s#sandbox_image = &#34;registry.k8s.io/pause:3.6&#34;#sandbox_image = &#34;registry.k8s.io/pause:3.9&#34;#g&#39;</span> /etc/containerd/config.toml
+sudo systemctl restart containerd <span class=o>&amp;&amp;</span> systemctl status containerd
+</code></pre></td></tr></table>
+</div>
+</div><div class="notice error">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#error-notice"/></svg></span>警告</p><p>絶対に<code>systemd_cgroup</code>を有効化しないこと！</p>
+<p>このエラーが出て進まなくなります。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-text data-lang=text>[init] Using Kubernetes version: v1.26.1
+[preflight] Running pre-flight checks
+error execution phase preflight: [preflight] Some fatal errors occurred:
+        [ERROR CRI]: container runtime is not running: output: time=&#34;2023-02-04T07:30:18Z&#34; level=fatal msg=&#34;validate service connection: CRI v1 runtime API is not implemented for endpoint \&#34;unix:///var/run/containerd/containerd.sock\&#34;: rpc error: code = Unimplemented desc = unknown service runtime.v1.RuntimeService&#34;
+, error: exit status 1
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+</code></pre></td></tr></table>
+</div>
+</div><p>消えてしまったのでエラー文は引用 <a href=https://qiita.com/Kigou-No1/items/8fe68c826dc3dbe76fb4>https://qiita.com/Kigou-No1/items/8fe68c826dc3dbe76fb4</a></p></div>
+<h3 id=kube-を準備する>kube* を準備する</h3>
+<div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>すべてのNodeで実行する必要があります。</p></div>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># 鍵</span>
+curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg <span class=p>|</span> sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+<span class=c1># リポジトリ</span>
+<span class=nb>echo</span> <span class=s2>&#34;deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main&#34;</span> <span class=p>|</span> sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo apt-get install -y kubeadm kubectl kubelet
+</code></pre></td></tr></table>
+</div>
+</div><p>自動的に更新されると厄介なのでcontainerdごとholdしておきます</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo apt-mark hold kubeadm kubectl kubelet containerd.io
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=コントロールプレーンを生やす>コントロールプレーンを生やす</h3>
+<div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>CPで実行する必要があります。</p></div>
+<p>ここまで来たらやっと本体を作れます。昔masterって呼ばれてたやつですね。
+ここでは長ったらしいので、<code>contro plane</code>の頭文字を取って<code>CP</code>と呼ぶことにします。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo kubeadm init --apiserver-advertise-address<span class=o>=</span>192.168.1.80 --pod-network-cidr<span class=o>=</span>10.200.0.0/16 --upload-certs
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=workerを生やす>workerを生やす</h3>
+<div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>Workerで実行する必要があります。</p></div>
+<p>好きなだけ生やしてください。
+initしたときに出てきた下みたいなコマンドを実行するだけです。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo kubeadm join 192.168.1.80:6443 --token <span class=o>{</span>token<span class=o>}</span> <span class=se>\ </span>
+    --discovery-token-ca-cert-hash sha256:<span class=o>{</span>hash<span class=o>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=ciliumをインストールする>Ciliumをインストールする</h3>
+<div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>CPで実行する必要があります。</p></div>
+<h4 id=cliをインストール>cliをインストール</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nv>CILIUM_CLI_VERSION</span><span class=o>=</span><span class=k>$(</span>curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt<span class=k>)</span>
+<span class=nv>CLI_ARCH</span><span class=o>=</span>amd64
+<span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=k>$(</span>uname -m<span class=k>)</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;aarch64&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span> <span class=nv>CLI_ARCH</span><span class=o>=</span>arm64<span class=p>;</span> <span class=k>fi</span>
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/<span class=si>${</span><span class=nv>CILIUM_CLI_VERSION</span><span class=si>}</span>/cilium-linux-<span class=si>${</span><span class=nv>CLI_ARCH</span><span class=si>}</span>.tar.gz<span class=o>{</span>,.sha256sum<span class=o>}</span>
+sha256sum --check cilium-linux-<span class=si>${</span><span class=nv>CLI_ARCH</span><span class=si>}</span>.tar.gz.sha256sum
+sudo tar xzvfC cilium-linux-<span class=si>${</span><span class=nv>CLI_ARCH</span><span class=si>}</span>.tar.gz /usr/local/bin
+rm cilium-linux-<span class=si>${</span><span class=nv>CLI_ARCH</span><span class=si>}</span>.tar.gz<span class=o>{</span>,.sha256sum<span class=o>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=インストール>インストール</h4>
+<div class="notice warning">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#warning-notice"/></svg></span>注意</p><div class="notice note">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>メモ</p><p>clangとllvmのインストールはすべてのNodeで実行する必要があります。</p></div>
+<p>clangを入れておくこと！</p>
+<p>無限にNotReadyで待つことになります。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo apt install -y clang
+</code></pre></td></tr></table>
+</div>
+</div></div>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>cilium install --version 1.15.0
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id=環境構築ができたか確認する>環境構築ができたか確認する</h3>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>kubectl get nodes
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-text data-lang=text>NAME           STATUS   ROLES           AGE   VERSION
+k8s-master     Ready    control-plane   14h   v1.28.2
+k8s-worker01   Ready    &lt;none&gt;          14h   v1.28.2
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>cilium status
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-text data-lang=text>    /¯¯\
+ /¯¯\__/¯¯\    Cilium:             OK
+ \__/¯¯\__/    Operator:           OK
+ /¯¯\__/¯¯\    Envoy DaemonSet:    disabled (using embedded mode)
+ \__/¯¯\__/    Hubble Relay:       disabled
+    \__/       ClusterMesh:        disabled
+
+Deployment             cilium-operator    Desired: 1, Ready: 1/1, Available: 1/1
+DaemonSet              cilium             Desired: 2, Ready: 2/2, Available: 2/2
+Containers:            cilium-operator    Running: 1
+                       cilium             Running: 2
+Cluster Pods:          2/2 managed by Cilium
+Helm chart version:    1.14.6
+Image versions         cilium             quay.io/cilium/cilium:v1.14.6@sha256:37a49f1abb333279a9b802ee8a21c61cde9dd9138b5ac55f77bdfca733ba852a: 2
+                       cilium-operator    quay.io/cilium/operator-generic:v1.14.6@sha256:2f0bf8fb8362c7379f3bf95036b90ad5b67378ed05cd8eb0410c1afc13423848: 1
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=最後に>最後に</h2>
+<p>久々にやってみたけど、すごい手順が多くて大変だった。</p>
+<p>自分の作ったk8sの中では多分一番まともだと思う</p>
+<p>この後にストレージセットアップ(<a class=link href="https://www.server-world.info/query?os=Ubuntu_20.04&p=kubernetes&f=5" target=_blank rel=noopener>例</a>)の必要があったり、まだやることがある・・・</p>
+<h2 id=参照文献>参照文献</h2>
+<ul>
+<li><a class=link href=https://zenn.dev/tochiman/articles/0cf100f428e81a target=_blank rel=noopener>https://zenn.dev/tochiman/articles/0cf100f428e81a</a></li>
+<li><a class=link href=https://zenn.dev/murasame29/articles/ee5868123c1e33 target=_blank rel=noopener>https://zenn.dev/murasame29/articles/ee5868123c1e33</a></li>
+<li><a class=link href=https://qiita.com/ydclab_P002/items/0227a029d0bb236a126f target=_blank rel=noopener>https://qiita.com/ydclab_P002/items/0227a029d0bb236a126f</a></li>
+<li><a class=link href=https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/ target=_blank rel=noopener>https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/</a></li>
+</ul>
+<h2 id=おまけ>おまけ</h2>
+<h3 id=ダッシュボードを動かす>ダッシュボードを動かす</h3>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>dashboard-adminuser.yamlを作り、以下の内容を記載</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=c># from https://qiita.com/itoi10/items/e5b7d1ca2a588108d4b2</span><span class=w>
+</span><span class=w></span><span class=c># Creating a Service Account</span><span class=w>
+</span><span class=w></span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ServiceAccount</span><span class=w>
+</span><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
+</span><span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=l>kubernetes-dashboard</span><span class=w>
+</span><span class=w></span><span class=nn>---</span><span class=w>
+</span><span class=w></span><span class=c># Creating a ClusterRoleBinding (管理者権限を付与)</span><span class=w>
+</span><span class=w></span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>rbac.authorization.k8s.io/v1</span><span class=w>
+</span><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ClusterRoleBinding</span><span class=w>
+</span><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
+</span><span class=w></span><span class=nt>roleRef</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>apiGroup</span><span class=p>:</span><span class=w> </span><span class=l>rbac.authorization.k8s.io</span><span class=w>
+</span><span class=w>  </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ClusterRole</span><span class=w>
+</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>cluster-admin</span><span class=w>
+</span><span class=w></span><span class=nt>subjects</span><span class=p>:</span><span class=w>
+</span><span class=w></span>- <span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ServiceAccount</span><span class=w>
+</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
+</span><span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=l>kubernetes-dashboard</span><span class=w>
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>トークンを取得する</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>kubectl -n kubernetes-dashboard create token admin-user
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>開きたいマシンでkubectlをセットアップして以下コマンドでproxy</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>kubectl proxy
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=コンテナ外の同じセグメントからアクセスできるように>コンテナ外の同じセグメントからアクセスできるように</h4>
+<ul>
+<li>以下のコマンドでコンフィグ編集を開始する</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>kubectl -n kubernetes-dashboard edit svc kubernetes-dashboard
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><a class=link href=https://sky-joker.tech/2019/04/21/kubernetes%E3%81%AE%E3%82%BF%E3%82%99%E3%83%83%E3%82%B7%E3%83%A5%E3%83%9B%E3%82%99%E3%83%BC%E3%83%88%E3%82%99%E3%82%92%E5%A4%96%E9%83%A8%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99/ target=_blank rel=noopener>ここ</a>を参考に編集</li>
+</ul>
+<h3 id=ciliumのhubbleを有効化>CiliumのHubbleを有効化</h3>
+<p>この画像のようなものが見れます</p>
+<p><img src=/p/kubernetes%E3%82%92%E7%94%9F%E3%82%84%E3%81%99-containerd/img2.png width=1957 height=730 srcset="/p/kubernetes%E3%82%92%E7%94%9F%E3%82%84%E3%81%99-containerd/img2_hu7c44afe995d6de10b251cb6cd12f3c23_70094_480x0_resize_box_3.png 480w, /p/kubernetes%E3%82%92%E7%94%9F%E3%82%84%E3%81%99-containerd/img2_hu7c44afe995d6de10b251cb6cd12f3c23_70094_1024x0_resize_box_3.png 1024w" loading=lazy alt=構成図的なやつ class=gallery-image data-flex-grow=268 data-flex-basis=643px></p>
+<ul>
+<li>有効化</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>cilium hubble <span class=nb>enable</span> --ui
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>開きたいマシンで以下のコマンドを実行する</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>cilium hubble ui
+</code></pre></td></tr></table>
+</div>
+</div><div class="notice tip">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"/></svg></span>ヒント</p><p>windowsの場合は以下のコマンドでcliをインストール</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=n>winget</span> <span class=n>install</span> <span class=n>Cilium</span><span class=p>.</span><span class=n>CiliumCLI</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>kubectlが動くようにセットアップしておく必要があります</p></div>
+</section>
+<footer class=article-footer>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>関連するコンテンツ</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/p/python%E3%81%A7%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E9%96%A2%E6%95%B0%E3%81%8B%E3%82%89%E3%83%87%E3%82%B3%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E6%B4%BE%E7%94%9F%E3%81%95%E3%81%9B%E3%82%8B/>
+<div class=article-details>
+<h2 class=article-title>Pythonでデコレーターで作った関数からデコレーターを派生させる</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2024 あゆき's BLOG
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+テーマ <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.21.0>Stack</a></b> は <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> によって設計されています。
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
