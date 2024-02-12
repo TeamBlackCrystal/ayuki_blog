@@ -32,7 +32,9 @@ author = "aki"
 sudo apt update && sudo apt upgrade -y
 ```
 
-todo:all
+{{< notice note >}}
+すべてのNodeで実行する必要があります。
+{{< /notice >}}
 
 ### swapをしばく
 
@@ -51,7 +53,9 @@ sudo nano /etc/fstab
 + #/swap.img      none    swap    sw      0       0
 ```
 
-todo:all
+{{< notice note >}}
+すべてのNodeで実行する必要があります。
+{{< /notice >}}
 
 ### ipフォワーディングの有効化
 
@@ -72,7 +76,9 @@ EOF
 sudo sysctl --system
 ```
 
-todo:all
+{{< notice note >}}
+すべてのNodeで実行する必要があります。
+{{< /notice >}}
 
 ### 確認する
 
@@ -119,7 +125,9 @@ Swap:             0B          0B          0B
 
 swapの行がすべて0なことを確認する
 
-todo:all
+{{< notice note >}}
+すべてのNodeで実行する必要があります。
+{{< /notice >}}
 
 ### containerdを準備する
 
@@ -153,9 +161,9 @@ sudo sed -i 's#sandbox_image = "registry.k8s.io/pause:3.6"#sandbox_image = "regi
 sudo systemctl restart containerd && systemctl status containerd
 ```
 
-todo:red
-**注意**
+{{< notice error >}}
 絶対に`systemd_cgroup`を有効化しないこと！
+
 このエラーが出て進まなくなります。
 ```text
 [init] Using Kubernetes version: v1.26.1
@@ -168,8 +176,11 @@ To see the stack trace of this error execute with --v=5 or higher
 ```
 
 消えてしまったのでエラー文は引用 <https://qiita.com/Kigou-No1/items/8fe68c826dc3dbe76fb4>
+{{< /notice >}}
 
-todo:all
+{{< notice note >}}
+すべてのNodeで実行する必要があります。
+{{< /notice >}}
 
 ### kube* を準備する
 
@@ -191,7 +202,9 @@ sudo apt-get install -y kubeadm kubectl kubelet
 sudo apt-mark hold kubeadm kubectl kubelet containerd.io
 ```
 
-todo:all
+{{< notice note >}}
+すべてのNodeで実行する必要があります。
+{{< /notice >}}
 
 ### コントロールプレーンを生やす
 
@@ -202,7 +215,9 @@ todo:all
 sudo kubeadm init --apiserver-advertise-address=192.168.1.80 --pod-network-cidr=10.200.0.0/16 --upload-certs
 ```
 
-todo:cp
+{{< notice note >}}
+CPで実行する必要があります。
+{{< /notice >}}
 
 ### workerを生やす
 
@@ -214,7 +229,9 @@ sudo kubeadm join 192.168.1.80:6443 --token {token} \
     --discovery-token-ca-cert-hash sha256:{hash}
 ```
 
-todo:wk
+{{< notice note >}}
+Workerで実行する必要があります。
+{{< /notice >}}
 
 ### Ciliumをインストールする
 
@@ -232,13 +249,16 @@ rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
 
 #### インストール
 
-todo:warn
+{{< notice warning >}}
 clangを入れておくこと！
+
 無限にNotReadyで待つことになります。
 
 ```bash
 sudo apt install -y clang
 ```
+
+{{< /notice >}}
 
 ```bash
 cilium install --version 1.15.0
@@ -246,7 +266,9 @@ cilium install --version 1.15.0
 
 ~~未検証ですが、wingetでcliを入れたwindowsからでもできるかも？~~
 
-todo:cp
+{{< notice note >}}
+CPで実行する必要があります。
+{{< /notice >}}
 
 ### 環境構築ができたか確認する
 
@@ -370,10 +392,11 @@ cilium hubble enable --ui
 ```bash
 cilium hubble ui
 ```
-
-todo:tips
+{{< notice tip >}}
 windowsの場合は以下のコマンドでcliをインストール
 
 ```powershell
 winget install Cilium.CiliumCLI
 ```
+
+{{< /notice >}}
