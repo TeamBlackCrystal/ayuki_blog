@@ -37,3 +37,29 @@ python helper.py new <post name>
 ```
 
 記事内の `draft = true` を `false` に変更すると表示されるようになります
+
+## 構文
+
+```
+{{< notice error >}}
+This is a warning notice. Be warned!
+{{< /notice >}}
+
+
+{{< notice info >}}
+This is a warning notice. Be warned!
+{{< /notice >}}
+
+{{< notice tip >}}
+This is a warning notice. Be warned!
+{{< /notice >}}
+
+{{< notice note >}}
+This is a warning notice. Be warned!
+{{< /notice >}}
+
+
+{{< notice warning >}}
+This is a warning notice. Be warned!
+{{< /notice >}}
+```
