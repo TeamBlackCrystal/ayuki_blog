@@ -1,3 +1,6 @@
 [submodule "themes/hugo-theme-stack-starter"]
 	path = themes/hugo-theme-stack-starter
 	url = https://github.com/TeamBlackCrystal/hugo-theme-stack.git
+[submodule "themes/hugo-notice"]
+	path = themes/hugo-notice
+	url = https://github.com/TeamBlackCrystal/hugo-notice.git
