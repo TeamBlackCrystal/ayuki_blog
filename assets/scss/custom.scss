@@ -1,3 +1,5 @@
+$blog-card-size: 120px;
+
 .blog-card {
   display: flex;
   gap: 1rem;
@@ -6,34 +8,74 @@
   background-color: var(--card-background);
   width: 100%;
   max-width: 100%;
-  height: 100px;
-  max-height: 100px;
+  height: $blog-card-size;
+  max-height: $blog-card-size;
 
 }
 .blog-card-thumb {
   border-radius: var(--card-border-radius) 0 0 var(--card-border-radius);
   background-position: center;
   background-size: cover;
-  flex: 0 0 100px;
+  flex: 0 0 $blog-card-size;
 }
 
 .blog-card-content {
+  text-decoration: none !important;
   min-width: 0; /* これ無いと ellipsis が正常に動作しない */
   padding: 0.5rem;
   height: 100%;
   & .blog-card-title {
-    color: var(--card-text-color-main);
+    color: var(--card-text-color-main) !important;
     font-size: 1.5rem;
     font-weight: bold;
+    max-height: 3.05em;
+  }
+  & .blog-card-description {
+    color: var(--card-text-color-secondary) !important;
+  }
+
+  & .blog-card-domain {
+    gap: 0.5rem;
+    display: flex;
+    height: min-content;
+    font-size: 14px;
+    color: var(--card-text-color-tertiary);
+    align-items: center;
+  }
+
+  & .blog-card-description, .blog-card-domain {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  & .blog-card-description {
-    color: var(--card-text-color-secondary);
-    white-space: nowrap;
+
+  & .blog-card-title {
+
     overflow: hidden;
+    display: -webkit-box;
     text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    line-height: 1.5;
+  }
+}
+
+.blog-card-link {
+  user-select: none;
+
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  } 
+
+  & > .blog-card {
+    transition: 0.4s;
+  }
+
+  &:hover > .blog-card {
+    background-color: rgba(146, 205, 250, 0.158);
+    transition: 0.4s;
   }
 }
 
