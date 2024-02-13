@@ -1,0 +1,41 @@
+.blog-card {
+  display: flex;
+  gap: 1rem;
+  border: rgb(190, 190, 190) 1px solid;
+  border-radius: var(--card-border-radius);
+  background-color: var(--card-background);
+  width: 100%;
+  max-width: 100%;
+  height: 100px;
+  max-height: 100px;
+
+}
+.blog-card-thumb {
+  border-radius: var(--card-border-radius) 0 0 var(--card-border-radius);
+  background-position: center;
+  background-size: cover;
+  flex: 0 0 100px;
+}
+
+.blog-card-content {
+  min-width: 0; /* これ無いと ellipsis が正常に動作しない */
+  padding: 0.5rem;
+  & .blog-card-title {
+    color: var(--card-text-color-main);
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  & .blog-card-description {
+    color: var(--card-text-color-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+p {
+  margin: 0px;
+}

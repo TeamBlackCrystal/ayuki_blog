@@ -1,0 +1,18 @@
+{{ $url := ( .Get 0) }}
+{{ $function := print "https://summary.teamblackcrystal.com/?" (querify "url" $url )}}
+{{ $og := getJSON $function }}
+
+{{ $parsed_url := urls.Parse $url }}
+
+
+<div class="blog-card">
+    <div class="blog-card-thumb" style="background-image: url('{{ $og.thumbnail }}')"></div>
+    <div class="blog-card-content">
+        <div class="blog-card-title">{{ $og.title }}</div>
+        <p class="blog-card-description">
+            {{ $og.description }}
+        </p>
+        <a href="{{ $og.url }}" target="_blank" rel="noopener noreferrer">{{ $parsed_url.Host }}</a>
+        </p2>
+    </div>
+</div>
