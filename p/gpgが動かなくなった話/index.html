@@ -8,7 +8,7 @@
 参考 https://stackoverflow.com/questions/36810467/git-commit-signing-failed-secret-key-not-available">
 <title>gpgが動かなくなった話</title>
 <link rel=canonical href=https://blog.akarinext.org/p/gpg%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E8%A9%B1/>
-<link rel=stylesheet href=/scss/style.min.4926800943ebedd13210d41eb6ee6b9ff3072447ba5090f6552174edf14ebe25.css><meta property="og:title" content="gpgが動かなくなった話">
+<link rel=stylesheet href=/scss/style.min.70d3459f3c83833c4d5ee1620da712baa90391e87655aa2a90111ae9980d1fa5.css><meta property="og:title" content="gpgが動かなくなった話">
 <meta property="og:description" content="前置き 久々にWindows10 Insidersになってみたら、いろいろとアプリとの相性が悪く、ブルスク吐きまくるわ、更新したらブルスク吐いて起動できなくなって結局巻き戻すわでキリがなかったので、クリーンインストールして、環境を作り直して、いざ開発に取り掛かろうと 思いGitのGPG署名を有効にしようとしたところで今回の出来事は起きています（（
 何が起きたの? 以下のようにシークレットキーが使用できないといった感じのエラーが出ました。
 1 2 3 4  gpg: skipped &amp;#34;*******&amp;#34;: secret key not available gpg: signing failed: secret key not available error: gpg failed to sign the data fatal: failed to write commit object   解決策 まあ、これはいたって単純で、gpgがどこにいるのか認識できていないので、以下のようにコマンドを打つと修正されます。

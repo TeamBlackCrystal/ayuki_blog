@@ -7,7 +7,7 @@
 1 2 3  $ x2vnc -shared -west localhost:1 x2vnc: VNC server supports protocol version 3.">
 <title>ArchLinuxにVNCを使ってサブディスプレイを作る</title>
 <link rel=canonical href=https://blog.akarinext.org/p/archlinux%E3%81%ABvnc%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%92%E4%BD%9C%E3%82%8B/>
-<link rel=stylesheet href=/scss/style.min.4926800943ebedd13210d41eb6ee6b9ff3072447ba5090f6552174edf14ebe25.css><meta property="og:title" content="ArchLinuxにVNCを使ってサブディスプレイを作る">
+<link rel=stylesheet href=/scss/style.min.70d3459f3c83833c4d5ee1620da712baa90391e87655aa2a90111ae9980d1fa5.css><meta property="og:title" content="ArchLinuxにVNCを使ってサブディスプレイを作る">
 <meta property="og:description" content="まずはじめに Ubuntu などのメジャーなディストリビューションでは多くの記事がすでに出回っています。 そこで、ArchLinux だとパッケージが変わっていたり個人的によく忘れてしまうので備忘録として残しておきます。
 やりかた パッケージのインストール 以下の 2 つのパッケージが必要です。
  tigervnc（公式パッケージ） x2vnc-no-xinerama（AUR）  1 2  sudo pacman -S tigervnc yay -S x2vnc-no-xinerama   サーバー側の準備 1 2 3 4  $ vncserver :1 You will require a password to access your desktops. Password: ****** Verify: ******   Android　側の準備 クライアント側では Android でVNC Viewer - Remote Desktopを今回は使用します。 その他にも私の環境ではVNC Viewerでの動作も確認しています。
