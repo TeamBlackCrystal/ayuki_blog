@@ -8,7 +8,7 @@ Mi.pyの主な特徴  Discord.pyライクな文法 taskなどの定期実行に�
 実際に使ってみる 1  pip install mi.py   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22  from mi.ext.commands import Bot from mi.note import Note from mi.router import Router uri = &amp;#39;ws://localhost:3300/streaming&amp;#39; token = &amp;#39;&amp;#39; class MyBot(Bot): def __init__(self): super().">
 <title>MisskeyのBotをPythonで開発できるライブラリを公開しました</title>
 <link rel=canonical href=https://blog.akarinext.org/p/misskey%E3%81%AEbot%E3%82%92python%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/>
-<link rel=stylesheet href=/scss/style.min.02b671b991aea2b140c84b4a941c3745769980f06183c4024c71aef237e8ae54.css><meta property="og:title" content="MisskeyのBotをPythonで開発できるライブラリを公開しました">
+<link rel=stylesheet href=/scss/style.min.bdd01377e5de1f99c2da4c338b71064dd1a53bb19cda07d83daa6a4c306994b8.css><meta property="og:title" content="MisskeyのBotをPythonで開発できるライブラリを公開しました">
 <meta property="og:description" content="はじめに Misskeyって何?って人もいると思うのでまずMisskeyのご紹介から
 MisskeyはActivityPubというプロトコルを用いて作成された分散型SNSです。特徴として誰でもサーバーを作成し自分自身で運営することができます。 義類のアプリではMastodonと言われるものもあります。今回はそんな分散型SNSのMisskeyでPythonを用いて開発ができるBotFrameWorkを開発したのでご紹介します。
 Misskey.pyってのがあるけど何が違うの? はい、Misskey.pyというライブラリが実はすでに存在します。ですが、これはあくまでWebSocketを用いない方法を使っており,これでBotを作るには自分でWebSocketの接続部分 や帰ってきた情報を処理するパーサーを作成しないといけません。正直な話一度作ってしまえばいいだけですが、どうせやるなら使いまわしたいですよね。

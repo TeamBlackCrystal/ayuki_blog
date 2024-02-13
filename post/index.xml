@@ -872,14 +872,15 @@ pnpm add -D @swc/cli @swc/core @swc/register chokidar
 &lt;/div>
 &lt;/div>&lt;h2 id="参考にさせていただいた記事">参考にさせていただいた記事&lt;/h2>
 &lt;div class="blog-card">
-&lt;div class="blog-card-thumb" style="background-image: url('https://res.cloudinary.com/zenn/image/upload/s--x59HQAej--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:NestJS%25E3%2581%25AE%25E3%2583%2593%25E3%2583%25AB%25E3%2583%2589%25E3%2582%2592swc%25E3%2581%25A7%25E9%25AB%2598%25E9%2580%259F%25E5%258C%2596%25E3%2581%2597%25E3%2581%259F%25E8%25A9%25B1%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:koki%2520yasuda%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3plbm4tdXNlci11cGxvYWQvYXZhdGFyLzFjMThmNWZhNTYuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png')">&lt;/div>
+&lt;div
+class="blog-card-thumb"
+style="background-image: url('https://res.cloudinary.com/zenn/image/upload/s--x59HQAej--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:NestJS%25E3%2581%25AE%25E3%2583%2593%25E3%2583%25AB%25E3%2583%2589%25E3%2582%2592swc%25E3%2581%25A7%25E9%25AB%2598%25E9%2580%259F%25E5%258C%2596%25E3%2581%2597%25E3%2581%259F%25E8%25A9%25B1%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:koki%2520yasuda%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3plbm4tdXNlci11cGxvYWQvYXZhdGFyLzFjMThmNWZhNTYuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png')"
+>&lt;/div>
 &lt;div class="blog-card-content">
-&lt;div class="blog-card-title">NestJSのビルドをswcで高速化した話&lt;/div>
-&lt;p class="blog-card-description">
-&lt;pre>&lt;code> &amp;lt;/p&amp;gt;
-&amp;lt;a href=&amp;quot;https://zenn.dev/cohky/articles/use-swc-performance&amp;quot; target=&amp;quot;_blank&amp;quot; rel=&amp;quot;noopener noreferrer&amp;quot;&amp;gt;zenn.dev&amp;lt;/a&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/code>&lt;/pre>
+&lt;div class="blog-card-title">NestJSのビルドをswcで高速化した話&lt;/div>&lt;a href="https://zenn.dev/cohky/articles/use-swc-performance" target="_blank" rel="noopener noreferrer">
+zenn.dev
+&lt;/a>
+&lt;/div>
 &lt;/div></description></item><item><title>あけましておめでとうございます</title><link>https://blog.akarinext.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</link><pubDate>Fri, 13 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/%E3%81%82%E3%81%91%E3%81%BE%E3%81%97%E3%81%A6%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%BE%E3%81%99/</guid><description>&lt;h1 id="挨拶">挨拶&lt;/h1>
 &lt;p>大分遅れてしまいましたが、あけましておめでとうございます！
 今年は昨年より良い記事を書けるよう精進するので、今年もよろしくお願いします！&lt;/p></description></item><item><title>Ayuskey v6 Changelog</title><link>https://blog.akarinext.org/p/ayuskey-v6-changelog/</link><pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.akarinext.org/p/ayuskey-v6-changelog/</guid><description>&lt;h1 id="はじめに">はじめに&lt;/h1>
