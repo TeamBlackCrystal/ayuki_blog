@@ -10,7 +10,7 @@
 参考  Win 8/8.1編: サインアウト時などに詳細メッセージを表示する 詳細な状態メッセージを表示する  ">
 <title>Windowsの起動時とかの詳細メッセージを表示する</title>
 <link rel=canonical href=https://blog.akarinext.org/p/windows%E3%81%AE%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%A8%E3%81%8B%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/>
-<link rel=stylesheet href=/scss/style.min.445f8cc578e57d364ebaa6a8b66a6fbf10851aab57ae31c360cb3e7fa3bb0035.css><meta property="og:title" content="Windowsの起動時とかの詳細メッセージを表示する">
+<link rel=stylesheet href=/scss/style.min.4926800943ebedd13210d41eb6ee6b9ff3072447ba5090f6552174edf14ebe25.css><meta property="og:title" content="Windowsの起動時とかの詳細メッセージを表示する">
 <meta property="og:description" content="はじめに お久しぶりです。前回の記事から8ヶ月ぶりですね。
 最近久しぶりにWindows ServerのVMを触ったら起動時とかの詳細メッセージを表示したくなったので調べてみました。 次にWindows入れるときには絶対に忘れていそうなので、忘れてもいいようにメモしておきます。
 環境  Windows11 (win2k以降)  やり方 かんたん 1 2 3 4  Windows Registry Editor Version 5.00 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System] &amp;#34;VerboseStatus&amp;#34;=dword:00000001   上のをわかりやすい名前(例: VerboseStatus.reg)で保存します。 その後ダブルクリックまたは、右クリック &amp;gt; 結合でレジストリエディターに許可を与えます。
