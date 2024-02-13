@@ -7,7 +7,7 @@
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22  import asyncio from mi import Note from mi.ext import commands from mi.router import Router class MyBot(commands.Bot): def __init__(self, cmd_prefix: str): super().__init__(cmd_prefix) async def on_ready(self, ws): print(f&amp;#39;{self.i.username}&amp;#39; に接続しました) await Router(ws).">
 <title>PythonでMisskeyのBotFrameWorkを作ってみた</title>
 <link rel=canonical href=https://blog.akarinext.org/p/python%E3%81%A7misskey%E3%81%AEbotframework%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/>
-<link rel=stylesheet href=/scss/style.min.4d7e7c6c1ad674c25b022429ea1e095a2306fd90efba726f52c8c56c07d9de4f.css><meta property="og:title" content="PythonでMisskeyのBotFrameWorkを作ってみた">
+<link rel=stylesheet href=/scss/style.min.02b671b991aea2b140c84b4a941c3745769980f06183c4024c71aef237e8ae54.css><meta property="og:title" content="PythonでMisskeyのBotFrameWorkを作ってみた">
 <meta property="og:description" content="これは Misskey Advent Calendar 21日目の記事です。
 はじめに PythonでMisskeyのBotを作って見る際に第一に選択肢に出てくるのが、 YuzuRyo61さんのMisskey.py です。ですが、私はWebSocketを受信してリアルタイムにタイムラインや通知の情報を取得したかったため、このBotFrameWorkを作ってみました。
 使い方 まず、今回作成したライブラリ Mi.pyをインストールします

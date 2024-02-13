@@ -8,7 +8,7 @@
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40  import type { LoaderFunction } from &amp;#34;@remix-run/node&amp;#34;; // or &amp;#34;@remix-run/cloudflare&amp;#34; import { json } from &amp;#34;@remix-run/node&amp;#34;; // or &amp;#34;@remix-run/cloudflare&amp;#34; import { useLoaderData } from &amp;#34;@remix-run/react&amp;#34;; import { db } from &amp;#34;~/db.">
 <title>Remixの流儀</title>
 <link rel=canonical href=https://blog.akarinext.org/p/remix%E3%81%AE%E6%B5%81%E5%84%80/>
-<link rel=stylesheet href=/scss/style.min.4d7e7c6c1ad674c25b022429ea1e095a2306fd90efba726f52c8c56c07d9de4f.css><meta property="og:title" content="Remixの流儀">
+<link rel=stylesheet href=/scss/style.min.02b671b991aea2b140c84b4a941c3745769980f06183c4024c71aef237e8ae54.css><meta property="og:title" content="Remixの流儀">
 <meta property="og:description" content="概要 この記事では結構新しめなReactベースのフレームワークであるRemixについてご紹介します。
 初めに Remixってなんだよ！って人のために少しだけご紹介します。Remixはサーバーサイドレンダリング（SSR）の最近よく聞くSPAとは少し違ったアプローチをとっているフレームワークです。 Remixの特徴は以下のような点にあります。 コンポーネントでエラーが出ても、そのコンポーネントのみがエラーを出すこれにより、一部のコンポーネントがエラーを出してもページ全体がエラーで汚染されることが無くなり、原因が分かりやすくなっています。 SSRなのでOGPなどが容易に設定できます。これに関しては後述しますが、取得したデータをもとにOGPを設定できて非常に便利です。 他にも多くの機能がありますが、ここから先はあなたご自身の手でお試しください！では記事をどうぞ！
 データの取得 Remixには LoaderFunction という物があります。例として以下のように書くことができます。今回は例としてPrismaを用いたデータの取得を行ってみます。
