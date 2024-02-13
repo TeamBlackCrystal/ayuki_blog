@@ -1,7 +1,8 @@
 +++
 title = 'Kubernetesを生やす (containerd)'
 date = 2024-02-12T16:22:43+09:00
-draft = true
+draft = false
+categories = 'メモ'
 author = "aki"
 +++
 
@@ -28,15 +29,19 @@ author = "aki"
 
 ### 更新する
 
-```bash
-sudo apt update && sudo apt upgrade -y
-```
-
 {{< notice note >}}
 すべてのNodeで実行する必要があります。
 {{< /notice >}}
 
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
 ### swapをしばく
+
+{{< notice note >}}
+すべてのNodeで実行する必要があります。
+{{< /notice >}}
 
 ```bash
 sudo swapoff -a
@@ -53,11 +58,11 @@ sudo nano /etc/fstab
 + #/swap.img      none    swap    sw      0       0
 ```
 
+### ipフォワーディングの有効化
+
 {{< notice note >}}
 すべてのNodeで実行する必要があります。
 {{< /notice >}}
-
-### ipフォワーディングの有効化
 
 ```bash
 # カーネルモジュール
@@ -76,11 +81,11 @@ EOF
 sudo sysctl --system
 ```
 
+### 確認する
+
 {{< notice note >}}
 すべてのNodeで実行する必要があります。
 {{< /notice >}}
-
-### 確認する
 
 - カーネルモジュール
 
@@ -125,11 +130,11 @@ Swap:             0B          0B          0B
 
 swapの行がすべて0なことを確認する
 
+### containerdを準備する
+
 {{< notice note >}}
 すべてのNodeで実行する必要があります。
 {{< /notice >}}
-
-### containerdを準備する
 
 なんか公式リポジトリのほうがdockerのリポジトリより新しいですが、今回はdockerリポジトリを使います。~~それで動いちゃったんだもん~~
 
@@ -178,11 +183,11 @@ To see the stack trace of this error execute with --v=5 or higher
 消えてしまったのでエラー文は引用 <https://qiita.com/Kigou-No1/items/8fe68c826dc3dbe76fb4>
 {{< /notice >}}
 
+### kube* を準備する
+
 {{< notice note >}}
 すべてのNodeで実行する必要があります。
 {{< /notice >}}
-
-### kube* を準備する
 
 ```bash
 # 鍵
@@ -202,11 +207,11 @@ sudo apt-get install -y kubeadm kubectl kubelet
 sudo apt-mark hold kubeadm kubectl kubelet containerd.io
 ```
 
-{{< notice note >}}
-すべてのNodeで実行する必要があります。
-{{< /notice >}}
-
 ### コントロールプレーンを生やす
+
+{{< notice note >}}
+CPで実行する必要があります。
+{{< /notice >}}
 
 ここまで来たらやっと本体を作れます。昔masterって呼ばれてたやつですね。
 ここでは長ったらしいので、`contro plane`の頭文字を取って`CP`と呼ぶことにします。
@@ -215,11 +220,11 @@ sudo apt-mark hold kubeadm kubectl kubelet containerd.io
 sudo kubeadm init --apiserver-advertise-address=192.168.1.80 --pod-network-cidr=10.200.0.0/16 --upload-certs
 ```
 
-{{< notice note >}}
-CPで実行する必要があります。
-{{< /notice >}}
-
 ### workerを生やす
+
+{{< notice note >}}
+Workerで実行する必要があります。
+{{< /notice >}}
 
 好きなだけ生やしてください。
 initしたときに出てきた下みたいなコマンドを実行するだけです。
@@ -229,11 +234,11 @@ sudo kubeadm join 192.168.1.80:6443 --token {token} \
     --discovery-token-ca-cert-hash sha256:{hash}
 ```
 
-{{< notice note >}}
-Workerで実行する必要があります。
-{{< /notice >}}
-
 ### Ciliumをインストールする
+
+{{< notice note >}}
+CPで実行する必要があります。
+{{< /notice >}}
 
 #### cliをインストール
 
@@ -250,6 +255,10 @@ rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
 #### インストール
 
 {{< notice warning >}}
+{{< notice note >}}
+clangとllvmのインストールはすべてのNodeで実行する必要があります。
+{{< /notice >}}
+
 clangを入れておくこと！
 
 無限にNotReadyで待つことになります。
@@ -264,11 +273,7 @@ sudo apt install -y clang
 cilium install --version 1.15.0
 ```
 
-~~未検証ですが、wingetでcliを入れたwindowsからでもできるかも？~~
-
-{{< notice note >}}
-CPで実行する必要があります。
-{{< /notice >}}
+<!-- ~~未検証ですが、wingetでcliを入れたwindowsからでもできるかも？~~ -->
 
 ### 環境構築ができたか確認する
 
@@ -398,5 +403,7 @@ windowsの場合は以下のコマンドでcliをインストール
 ```powershell
 winget install Cilium.CiliumCLI
 ```
+
+kubectlが動くようにセットアップしておく必要があります
 
 {{< /notice >}}
