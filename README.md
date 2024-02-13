@@ -40,6 +40,8 @@ python helper.py new <post name>
 
 ## 構文
 
+### noticeに関する構文
+
 ```
 {{< notice error >}}
 This is a warning notice. Be warned!
@@ -63,3 +65,14 @@ This is a warning notice. Be warned!
 This is a warning notice. Be warned!
 {{< /notice >}}
 ```
+
+### ブログカード
+
+ogp等の取得は独自の専用urlを使用しています。
+許可なく本ブログ以外で使用されていることが確認された場合はブロック等を行います。
+
+```
+{{% blogcard "https://nr.akarinext.org/@yupix" %}}
+```
+
+![blogcard example](<_docs/blogcard.png>)
