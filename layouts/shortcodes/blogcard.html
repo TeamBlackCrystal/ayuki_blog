@@ -10,9 +10,8 @@
     <div class="blog-card-content">
         <div class="blog-card-title">{{ $og.title }}</div>
         <p class="blog-card-description">
-            {{ $og.description }}
+            {{ replace ($og.description | plainify)  "\n"  "" }}
         </p>
         <a href="{{ $og.url }}" target="_blank" rel="noopener noreferrer">{{ $parsed_url.Host }}</a>
-        </p2>
     </div>
 </div>
