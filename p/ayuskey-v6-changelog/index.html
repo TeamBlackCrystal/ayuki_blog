@@ -6,7 +6,7 @@
  channels/follow エンドポイントで既にfollowしてる物をfollowしようとするとdbのエラーが直接帰ってきてしまう #362 メンション時にアバターの比率が異なるとアバターのデザインが崩れる #164 メンション時アバターが取得できない #163 モバイル時にRenoteするとボーダーがうまく表示されない #31 アプリケーションの認証時、ログインしていないとテーマが白すぎる TeamBlackCrystal/misskey#477 リモートユーザーでも可能であれば誕生日と場所を表示 noteの検索が正常に動作しない  セキュリティー 依存関係が更新されました。脆弱性が修正されている場合があります。">
 <title>Ayuskey v6 Changelog</title>
 <link rel=canonical href=https://blog.akarinext.org/p/ayuskey-v6-changelog/>
-<link rel=stylesheet href=/scss/style.min.bdd01377e5de1f99c2da4c338b71064dd1a53bb19cda07d83daa6a4c306994b8.css><meta property="og:title" content="Ayuskey v6 Changelog">
+<link rel=stylesheet href=/scss/style.min.445f8cc578e57d364ebaa6a8b66a6fbf10851aab57ae31c360cb3e7fa3bb0035.css><meta property="og:title" content="Ayuskey v6 Changelog">
 <meta property="og:description" content="はじめに Ayuskeyって何？って方は{% post_link 2020-12-21-misskey-advent-calendar-2020-ayuskey こちら %}の記事を先にお読みください。
 注意事項 6.0.0以下のバージョンから更新する際はマイグレーションが必要です。
 機能の追加  引っ越し先をユーザーページに表示するように 投稿ページのURLで埋め込みプレイヤーを提供するように Bull Dashboard を組み込み、ジョブキューの確認や操作を行えるように welcome ページでcwが設定されている場合は 「もっと見る」ボタンを出すように TeamBlackCrystal/misskey#1813 blurをoffにする設定を追加しました toolsにアプリケーションを作るためのサンプルを追加 #30 ハイライトがない際は無いと表示する #120 パスワードリマインダー(パスワードリセット)  破壊的変更  node 12, 14をドロップしました。16または18に移行してください  変更点  pnpmに変更 リバーシのグラデーションを変更 #71 メニューのアイコンの位置を統一 #68 renoteした際のHeaderの位置を変える #33 emojilist を更新 クエリの最適化 docker で node@18 を使用します 既存のファイルにsensitiveフラグが飛んできたときの挙動 CORSを調整 ビルド時の出力を調整  非推奨  Elasticsearchやsonicを利用した検索  これらを使用している場合は検索の修正は提供されていません    修正 デザインに関する修正が多いです
