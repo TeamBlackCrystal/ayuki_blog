@@ -172,4 +172,4 @@ hmr.reload();
 
 ## 参考にさせていただいた記事
 
-https://zenn.dev/cohky/articles/use-swc-performance
+{{% blogcard "https://zenn.dev/cohky/articles/use-swc-performance" %}}
