@@ -20,6 +20,7 @@
 .blog-card-content {
   min-width: 0; /* これ無いと ellipsis が正常に動作しない */
   padding: 0.5rem;
+  height: 100%;
   & .blog-card-title {
     color: var(--card-text-color-main);
     font-size: 1.5rem;
