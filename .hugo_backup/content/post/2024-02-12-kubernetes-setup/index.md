@@ -1,10 +1,10 @@
-+++
-title = 'Kubernetesを生やす (containerd)'
-date = 2024-02-12T16:22:43+09:00
-draft = false
-categories = 'メモ'
-author = "aki"
-+++
+---
+title: "Kubernetesを生やす (containerd)"
+date: 2024-02-12T16:22:43+09:00
+draft: false
+categories: ["メモ"]
+author: "aki"
+---
 
 # Kubernetesを生やす (containerd)
 
@@ -273,7 +273,7 @@ sudo apt install -y clang
 cilium install --version 1.15.0
 ```
 
-<!-- ~~未検証ですが、wingetでcliを入れたwindowsからでもできるかも？~~ -->
+
 
 ### 環境構築ができたか確認する
 
@@ -384,7 +384,6 @@ kubectl -n kubernetes-dashboard edit svc kubernetes-dashboard
 
 この画像のようなものが見れます
 
-![構成図的なやつ](img2.png)
 
 - 有効化
 

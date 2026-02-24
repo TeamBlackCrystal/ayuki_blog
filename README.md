@@ -1,78 +1,62 @@
-# あゆき's BLOG
+# Astro Starter Kit: Blog
 
-@yupix と @sousuke0422 による共同ブログです。
-このブログは Hugo を使用しています。 テーマは [hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack) を一部変更した上で使用しています。 
-実際に使用している[テンプレート](https://github.com/TeamBlackCrystal/hugo-theme-stack)
-
-## 動かし方・ビルド
-
-Hugoのインストール(scoop を使うことを想定しています)
-
-```bash
-# Windows
-scoop install hugo-extended
+```sh
+pnpm create astro@latest -- --template blog
 ```
 
-ローカル用のサーバーを起動する
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-```bash
-hugo server
+Features:
+
+- ✅ Minimal styling (make it your own!)
+- ✅ 100/100 Lighthouse performance
+- ✅ SEO-friendly with canonical URLs and OpenGraph data
+- ✅ Sitemap support
+- ✅ RSS Feed support
+- ✅ Markdown & MDX support
+
+## 🚀 Project Structure
+
+Inside of your Astro project, you'll see the following folders and files:
+
+```text
+├── public/
+├── src/
+│   ├── components/
+│   ├── content/
+│   ├── layouts/
+│   └── pages/
+├── astro.config.mjs
+├── README.md
+├── package.json
+└── tsconfig.json
 ```
 
-お試しビルドの方法
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-```bash
-hugo
-```
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-実行後に生成された `public` ディレクトリがビルド成果
+The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
 
-## 記事の追加方法
+Any static assets, like images, can be placed in the `public/` directory.
 
-> [!NOTE]
-> 記事の名前には英数記号のみがサポートされています。日本語はどうなるか分かりません。
+## 🧞 Commands
 
-```bash
-python helper.py new <post name>
-```
+All commands are run from the root of the project, from a terminal:
 
-記事内の `draft = true` を `false` に変更すると表示されるようになります
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `pnpm install`             | Installs dependencies                            |
+| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
+| `pnpm build`           | Build your production site to `./dist/`          |
+| `pnpm preview`         | Preview your build locally, before deploying     |
+| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
-## 構文
+## 👀 Want to learn more?
 
-### noticeに関する構文
+Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
-```
-{{< notice error >}}
-This is a warning notice. Be warned!
-{{< /notice >}}
+## Credit
 
-
-{{< notice info >}}
-This is a warning notice. Be warned!
-{{< /notice >}}
-
-{{< notice tip >}}
-This is a warning notice. Be warned!
-{{< /notice >}}
-
-{{< notice note >}}
-This is a warning notice. Be warned!
-{{< /notice >}}
-
-
-{{< notice warning >}}
-This is a warning notice. Be warned!
-{{< /notice >}}
-```
-
-### ブログカード
-
-ogp等の取得は独自の専用urlを使用しています。
-許可なく本ブログ以外で使用されていることが確認された場合はブロック等を行います。
-
-```
-{{% blogcard "https://nr.akarinext.org/@yupix" %}}
-```
-
-![blogcard example](<_docs/blogcard.png>)
+This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).

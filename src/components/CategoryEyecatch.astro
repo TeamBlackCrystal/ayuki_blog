@@ -1,0 +1,148 @@
+---
+import {
+    Code,
+    Coffee,
+    PenTool,
+    TerminalSquare,
+    Cpu,
+    Gamepad2,
+    Library,
+    Dna,
+    Lightbulb,
+    FolderOpen,
+} from "lucide-astro";
+
+interface Props {
+    categoryName?: string;
+}
+
+const { categoryName = "" } = Astro.props;
+
+// Determine icon and color based on category
+const getCategoryDetails = (name: string) => {
+    const lower = name.toLowerCase();
+
+    if (
+        lower.includes("tech") ||
+        lower.includes("エンジニア") ||
+        lower.includes("プログラミング")
+    ) {
+        return { Icon: TerminalSquare, colorClass: "color-blue" };
+    }
+    if (
+        lower.includes("code") ||
+        lower.includes("開発") ||
+        lower.includes("web") ||
+        lower.includes("ast")
+    ) {
+        return { Icon: Code, colorClass: "color-indigo" };
+    }
+    if (
+        lower.includes("design") ||
+        lower.includes("デザイン") ||
+        lower.includes("ui")
+    ) {
+        return { Icon: PenTool, colorClass: "color-pink" };
+    }
+    if (lower.includes("game") || lower.includes("ゲーム")) {
+        return { Icon: Gamepad2, colorClass: "color-purple" };
+    }
+    if (lower.includes("ai") || lower.includes("machine learning")) {
+        return { Icon: Cpu, colorClass: "color-emerald" };
+    }
+    if (lower.includes("science") || lower.includes("科学")) {
+        return { Icon: Dna, colorClass: "color-cyan" };
+    }
+    if (
+        lower.includes("life") ||
+        lower.includes("日常") ||
+        lower.includes("diary") ||
+        lower.includes("blog")
+    ) {
+        return { Icon: Coffee, colorClass: "color-orange" };
+    }
+    if (lower.includes("study") || lower.includes("勉強")) {
+        return { Icon: Library, colorClass: "color-amber" };
+    }
+    if (lower.includes("idea") || lower.includes("アイデア")) {
+        return { Icon: Lightbulb, colorClass: "color-yellow" };
+    }
+
+    // Fallback
+    return { Icon: FolderOpen, colorClass: "color-gray" };
+};
+
+const { Icon, colorClass } = getCategoryDetails(categoryName);
+---
+
+<div class={`fallback-eyecatch ${colorClass}`}>
+    <Icon class="fallback-icon" size={64} strokeWidth={1.5} />
+    {categoryName && <span class="fallback-text">{categoryName}</span>}
+</div>
+
+<style>
+    .fallback-eyecatch {
+        width: 100%;
+        aspect-ratio: 2 / 1;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+        border: 2px dashed currentColor;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+    }
+    .fallback-icon {
+        opacity: 0.8;
+    }
+    .fallback-text {
+        font-weight: 700;
+        font-size: 1.2rem;
+        opacity: 0.9;
+        letter-spacing: 0.05em;
+    }
+
+    .color-blue {
+        background-color: rgba(59, 130, 246, 0.1);
+        color: rgb(59, 130, 246);
+    }
+    .color-indigo {
+        background-color: rgba(99, 102, 241, 0.1);
+        color: rgb(99, 102, 241);
+    }
+    .color-pink {
+        background-color: rgba(236, 72, 153, 0.1);
+        color: rgb(236, 72, 153);
+    }
+    .color-purple {
+        background-color: rgba(168, 85, 247, 0.1);
+        color: rgb(168, 85, 247);
+    }
+    .color-emerald {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: rgb(16, 185, 129);
+    }
+    .color-cyan {
+        background-color: rgba(6, 182, 212, 0.1);
+        color: rgb(6, 182, 212);
+    }
+    .color-orange {
+        background-color: rgba(249, 115, 22, 0.1);
+        color: rgb(249, 115, 22);
+    }
+    .color-amber {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: rgb(245, 158, 11);
+    }
+    .color-yellow {
+        background-color: rgba(234, 179, 8, 0.1);
+        color: rgb(234, 179, 8);
+    }
+    .color-gray {
+        background-color: rgba(107, 114, 128, 0.1);
+        color: rgb(156, 163, 175);
+    }
+</style>

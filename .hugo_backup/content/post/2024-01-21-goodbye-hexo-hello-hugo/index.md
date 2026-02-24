@@ -1,9 +1,9 @@
-+++
-title = 'Goodbye Hexo Hello Hugo'
-date = 2024-01-21T22:12:28+09:00
-draft = false
-author = "yupix"
-+++
+---
+title: "Goodbye Hexo Hello Hugo"
+date: 2024-01-21T22:12:28+09:00
+draft: false
+author: "yupix"
+---
 
 # はじめに
 

@@ -1,0 +1,29 @@
+---
+import BlogPost from "../../layouts/BlogPost.astro";
+import { processHtml } from "../../lib/highlight";
+import { getBlogs, type Blog } from "../../lib/microcms";
+
+export async function getStaticPaths() {
+	const response = await getBlogs({ limit: 100 });
+	return response.contents.map((post: Blog) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = Blog;
+
+const post = Astro.props;
+const highlightedContent = await processHtml(post.content);
+---
+
+<BlogPost
+	title={post.title}
+	description={post.title}
+	pubDate={new Date(post.publishedAt)}
+	updatedDate={post.revisedAt ? new Date(post.revisedAt) : undefined}
+	author={post.author}
+	heroImage={post.eyecatch?.url}
+	categoryName={post.category?.name}
+>
+	<div set:html={highlightedContent} />
+</BlogPost>

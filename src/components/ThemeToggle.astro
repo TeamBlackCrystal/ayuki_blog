@@ -1,0 +1,76 @@
+---
+import { Sun, Moon } from "lucide-astro";
+---
+
+<button id="theme-toggle" aria-label="Toggle theme">
+    <Sun class="icon-sun" size={20} />
+    <Moon class="icon-moon" size={20} />
+</button>
+
+<style>
+    #theme-toggle {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #theme-toggle:hover {
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+    }
+
+    .icon-sun {
+        display: none;
+    }
+    .icon-moon {
+        display: block;
+    }
+
+    :global([data-theme="dark"]) .icon-sun {
+        display: block;
+    }
+    :global([data-theme="dark"]) .icon-moon {
+        display: none;
+    }
+
+    /* System dark mode fallback */
+    @media (prefers-color-scheme: dark) {
+        :global(:root:not([data-theme="light"])) .icon-sun {
+            display: block;
+        }
+        :global(:root:not([data-theme="light"])) .icon-moon {
+            display: none;
+        }
+    }
+</style>
+
+<script is:inline>
+    const themeToggle = document.getElementById("theme-toggle");
+
+    function handleToggleClick() {
+        const element = document.documentElement;
+        const isDark =
+            element.getAttribute("data-theme") === "dark" ||
+            (!element.hasAttribute("data-theme") &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+        if (isDark) {
+            element.setAttribute("data-theme", "light");
+            localStorage.setItem("theme", "light");
+        } else {
+            element.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
+        }
+    }
+
+    themeToggle?.addEventListener("click", handleToggleClick);
+</script>

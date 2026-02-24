@@ -1,0 +1,29 @@
+{
+  "name": "beneficial-raspberry",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "migrate": "tsx scripts/migrate.ts"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.17.1",
+    "cheerio": "^1.2.0",
+    "lucide-astro": "^0.556.0",
+    "microcms-js-sdk": "^3.3.0",
+    "sharp": "^0.34.3",
+    "shiki": "^3.22.0"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.3",
+    "tsx": "^4.21.0"
+  }
+}
