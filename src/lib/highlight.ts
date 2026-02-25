@@ -69,6 +69,68 @@ export const processHtml = async (html: string) => {
 
     const promises: Promise<void>[] = [];
 
+    async function fetchOGP(url: string) {
+        try {
+            const urlObj = new URL(url);
+            const res = await fetch(url, { headers: { "User-Agent": "bot" }, signal: AbortSignal.timeout(5000) });
+            if (!res.ok) return null;
+            const html = await res.text();
+            const _$ = cheerio.load(html);
+            const title = _$('meta[property="og:title"]').attr('content') || _$('title').text() || url;
+            const description = _$('meta[property="og:description"]').attr('content') || _$('meta[name="description"]').attr('content') || '';
+            let image = _$('meta[property="og:image"]').attr('content') || '';
+
+            if (image && !image.startsWith('http')) {
+                image = new URL(image, urlObj.origin).toString();
+            }
+
+            const siteName = _$('meta[property="og:site_name"]').attr('content') || urlObj.hostname;
+            const favicon = `https://www.google.com/s2/favicons?domain=${urlObj.hostname}&sz=32`;
+
+            return { title, description, image, siteName, url, favicon };
+        } catch (e) {
+            console.error("Failed to fetch OGP for", url, e);
+            return null;
+        }
+    }
+
+    $("a").each((_, a) => {
+        const $a = $(a);
+        const href = $a.attr("href");
+        let text = $a.text().trim();
+
+        // Remove trailing slashes for comparison logic, as sometimes URLs displayed in text drop them
+        const normalize = (u: string) => u.replace(/\/$/, "");
+
+        if (href && (normalize(href) === normalize(text) || text.startsWith("http"))) {
+            promises.push((async () => {
+                const ogp = await fetchOGP(href);
+                if (ogp) {
+                    const cardHtml = `
+                        <a href="${ogp.url}" target="_blank" rel="noopener noreferrer" class="not-prose flex border border-border rounded-xl overflow-hidden bg-bg-primary hover:bg-bg-tertiary transition-colors !no-underline group h-[120px] max-h-[120px] my-6 shadow-sm hover:shadow-md">
+                            <span class="flex-1 p-3 md:p-4 flex flex-col justify-between overflow-hidden">
+                                <span class="block">
+                                    <span class="font-bold text-text-primary text-sm md:text-base line-clamp-1 mb-1 tracking-tight block">${ogp.title}</span>
+                                    <span class="text-xs md:text-sm text-text-secondary line-clamp-2 leading-relaxed block">${ogp.description}</span>
+                                </span>
+                                <span class="flex items-center gap-2 mt-2">
+                                    <img src="${ogp.favicon}" alt="" class="w-4 h-4 rounded-sm shadow-none !m-0 inline-block" />
+                                    <span class="text-xs font-medium text-text-tertiary truncate leading-none">${ogp.siteName}</span>
+                                </span>
+                            </span>
+                            ${ogp.image ? `
+                            <span class="w-[120px] md:w-[240px] h-full shrink-0 border-l border-border relative block">
+                                <img src="${ogp.image}" alt="" class="w-full h-full object-cover !m-0 !rounded-none absolute inset-0 block" />
+                            </span>
+                            ` : ''}
+                        </a>
+                        `;
+                    $a.replaceWith(cardHtml);
+                }
+            })());
+        }
+    });
+
     $("pre code").each((_, element) => {
         const $element = $(element);
         const className = $element.attr("class") || "";
