@@ -1,0 +1,128 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import CategoryEyecatch from "../components/CategoryEyecatch.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { getBlogs } from "../lib/microcms";
+import { ArrowRight, Zap, Code, Layout, Moon, Palette } from "lucide-astro";
+import { Image } from "astro:assets";
+import { AUTHORS } from "../data/authors";
+
+const response = await getBlogs({ limit: 3 });
+const recentPosts = response.contents;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="max-w-[1000px] mx-auto px-6 flex flex-col gap-24">
+			<section class="text-center pt-32 pb-16 flex flex-col items-center relative animate-fade-in
+				before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 
+				before:w-[600px] before:h-[600px] before:rounded-full before:-z-10 before:pointer-events-none
+				before:bg-[radial-gradient(circle,var(--color-accent-subtle)_0%,transparent_70%)]">
+				<div class="inline-flex items-center px-4 py-2 rounded-full bg-bg-primary text-text-secondary font-medium text-sm mb-8 border border-border backdrop-blur-md shadow-sm">
+					Joint Tech & Life Blog
+				</div>
+				<h1 class="text-4xl md:text-[4.5rem] font-extrabold leading-[1.1] mb-6 mt-0 max-w-[800px] tracking-[-0.04em] text-text-primary">
+					<span class="text-text-primary relative after:content-[''] after:absolute after:bottom-[0.1em] after:left-0 after:right-0 after:h-[0.25em] after:bg-accent-subtle after:-z-10 after:-skew-x-[10deg]">ayuki's</span> blog
+				</h1>
+				<p class="text-xl text-text-secondary max-w-[600px] mx-auto mb-12 leading-relaxed">
+					Code, design, and our creative journeys on the web.
+				</p>
+				<div class="flex gap-4 justify-center flex-wrap">
+					<a href="/blog" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium no-underline transition-all duration-200 text-base backdrop-blur-sm bg-text-primary text-bg-primary shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(0,0,0,0.15)] hover:opacity-90">
+						Explore Articles <ArrowRight class="icon" size={20} />
+					</a>
+				</div>
+			</section>
+
+			<section class="features-section">
+				<div class="text-center mb-12">
+					<h2 class="text-4xl mb-2 border-none p-0">Authors</h2>
+					<p class="text-text-secondary text-lg">このブログを書いている人たち</p>
+				</div>
+				<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-8 max-w-[800px] mx-auto">
+					<div class="bg-bg-secondary/40 backdrop-blur-xl border border-border rounded-[20px] p-10 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm text-center flex flex-col items-center hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md hover:border-text-secondary">
+						<div class="w-20 h-20 rounded-full mb-6 overflow-hidden border-2 border-border bg-bg-tertiary">
+							<Image
+								src={AUTHORS.yupix.icon}
+								alt="yupix"
+								width={80}
+								height={80}
+								class="w-full h-full object-cover rounded-none m-0 shadow-none border-none"
+							/>
+						</div>
+						<h3 class="text-2xl m-0 mb-4">yupix</h3>
+						<p class="m-0 text-text-secondary text-base leading-relaxed">
+							エンジニア。Webフロントエンドなどを触っています。最近はUI/UXやデザインにも興味あり。
+						</p>
+					</div>
+					<div class="bg-bg-secondary/40 backdrop-blur-xl border border-border rounded-[20px] p-10 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm text-center flex flex-col items-center hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md hover:border-text-secondary">
+						<div class="w-20 h-20 rounded-full mb-6 overflow-hidden border-2 border-border bg-bg-tertiary">
+							<Image
+								src={AUTHORS.aki.icon}
+								alt="aki"
+								width={80}
+								height={80}
+								class="w-full h-full object-cover rounded-none m-0 shadow-none border-none"
+							/>
+						</div>
+						<h3 class="text-2xl m-0 mb-4">aki</h3>
+						<p class="m-0 text-text-secondary text-base leading-relaxed">
+							エンジニア。バックエンドやインフラを中心に。新しい技術を試すのが好きです。
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="recent-posts-section">
+				<div class="flex justify-between items-end text-left border-b border-border pb-4 mb-12">
+					<h2 class="text-4xl m-0 border-none p-0">Recent Posts</h2>
+					<a href="/blog" class="flex items-center gap-1 text-text-secondary no-underline font-medium transition-colors duration-200 hover:text-text-primary">
+						View all <ArrowRight size={16} />
+					</a>
+				</div>
+				<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 mb-16">
+					{
+						recentPosts.map((post) => (
+							<a href={`/blog/${post.id}/`} class="group flex flex-col !no-underline rounded-[20px] bg-bg-secondary/40 backdrop-blur-xl border border-border overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md hover:border-text-secondary">
+								<div class="w-full aspect-[2/1] overflow-hidden border-b border-border">
+									{post.eyecatch?.url ? (
+										<img src={post.eyecatch.url} alt="" class="w-full h-full object-cover rounded-none m-0 border-none transition-transform duration-500 ease-in-out group-hover:scale-105 shadow-none" />
+									) : (
+										<!-- Tailwind classes need to be applied in the CategoryEyecatch component directly if it sets dimensions, but adding wrappers just in case -->
+										<div class="[&>div]:w-full [&>div]:h-full [&>div]:object-cover [&>div]:rounded-none [&>div]:m-0 [&>div]:border-none [&>div]:transition-transform [&>div]:duration-500 [&>div]:ease-in-out group-hover:[&>div]:scale-105 w-full h-full">
+											<CategoryEyecatch
+												categoryName={
+													post.category?.name || "Topic"
+												}
+											/>
+										</div>
+									)}
+								</div>
+								<div class="p-6 flex flex-col gap-2">
+									<p class="m-0 text-sm text-text-tertiary font-mono tracking-[0.05em]">
+										<FormattedDate
+											date={new Date(post.publishedAt)}
+											type="published"
+										/>
+									</p>
+									<h3 class="m-0 text-xl text-text-primary leading-[1.4] transition-colors duration-200 group-hover:text-accent-hover">
+										{post.title}
+									</h3>
+								</div>
+							</a>
+						))
+					}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

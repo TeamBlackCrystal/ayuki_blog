@@ -1,0 +1,281 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@theme {
+	--color-bg-primary: var(--bg-primary);
+	--color-bg-secondary: var(--bg-secondary);
+	--color-bg-tertiary: var(--bg-tertiary);
+
+	--color-text-primary: var(--text-primary);
+	--color-text-secondary: var(--text-secondary);
+	--color-text-tertiary: var(--text-tertiary);
+
+	--color-accent: var(--accent-color);
+	--color-accent-hover: var(--accent-hover);
+	--color-accent-subtle: var(--accent-subtle);
+
+	--color-border: var(--border-color);
+
+	--font-sans: var(--font-sans-custom);
+	--font-mono: var(--font-mono-custom);
+
+	--shadow-sm: var(--shadow-sm-custom);
+	--shadow-md: var(--shadow-md-custom);
+	--shadow-lg: var(--shadow-lg-custom);
+
+	--animate-fade-in: fadeIn 0.4s ease-out forwards;
+}
+
+:root {
+	/* Core Palette - Light */
+	--bg-primary: #ffffff;
+	--bg-secondary: #f8fafc;
+	--bg-secondary-rgb: 248, 250, 252;
+	--bg-tertiary: #f1f5f9;
+
+	/* Text Colors */
+	--text-primary: #0f172a;
+	--text-secondary: #475569;
+	--text-tertiary: #64748b;
+
+	/* Accent Colors */
+	--accent-color: #4f46e5;
+	--accent-hover: #4338ca;
+	--accent-subtle: rgba(79, 70, 229, 0.08);
+
+	/* Border & Shadows */
+	--border-color: #e2e8f0;
+	--shadow-sm-custom: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-md-custom: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--shadow-lg-custom: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+	/* UI Specific */
+	--header-bg: rgba(255, 255, 255, 0.85);
+
+	/* Typography */
+	--font-sans-custom: 'Inter', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+	--font-mono-custom: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root[data-theme='dark'] {
+	--bg-primary: #0a0a0b;
+	--bg-secondary: #121214;
+	--bg-secondary-rgb: 18, 18, 20;
+	--bg-tertiary: #1a1a1e;
+
+	--text-primary: #f8fafc;
+	--text-secondary: #94a3b8;
+	--text-tertiary: #64748b;
+
+	--accent-color: #6366f1;
+	--accent-hover: #818cf8;
+	--accent-subtle: rgba(99, 102, 241, 0.15);
+
+	--border-color: #27272a;
+	--shadow-sm-custom: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+	--shadow-md-custom: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.5);
+	--shadow-lg-custom: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+
+	--header-bg: rgba(10, 10, 11, 0.85);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--bg-primary: #0a0a0b;
+		--bg-secondary: #121214;
+		--bg-secondary-rgb: 18, 18, 20;
+		--bg-tertiary: #1a1a1e;
+
+		--text-primary: #f8fafc;
+		--text-secondary: #94a3b8;
+		--text-tertiary: #64748b;
+
+		--accent-color: #6366f1;
+		--accent-hover: #818cf8;
+		--accent-subtle: rgba(99, 102, 241, 0.15);
+
+		--border-color: #27272a;
+		--shadow-sm-custom: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+		--shadow-md-custom: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.5);
+		--shadow-lg-custom: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+
+		--header-bg: rgba(10, 10, 11, 0.85);
+	}
+}
+
+@layer base {
+	html {
+		@apply bg-bg-primary text-text-primary font-sans scroll-smooth antialiased;
+	}
+
+	body {
+		@apply flex flex-col min-h-screen text-base leading-[1.8] tracking-[0.03em] break-words;
+	}
+
+	main {
+		@apply w-full max-w-[800px] mx-auto py-12 px-6 flex-1;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply text-text-primary font-bold leading-[1.4] mt-10 mb-5 tracking-[0.02em];
+	}
+
+	h1 {
+		@apply text-[2.5rem];
+	}
+
+	h2 {
+		@apply text-[2rem] border-b border-border pb-2;
+	}
+
+	h3 {
+		@apply text-[1.5rem];
+	}
+
+	h4 {
+		@apply text-[1.25rem];
+	}
+
+	p {
+		@apply mt-0 mb-7 text-text-secondary leading-[1.8];
+	}
+
+	a {
+		@apply text-text-primary underline decoration-border underline-offset-4 transition-all duration-200;
+	}
+
+	a:hover {
+		@apply text-accent-hover decoration-accent-hover;
+	}
+
+	strong,
+	b {
+		@apply font-semibold text-text-primary;
+	}
+
+	code {
+		@apply font-mono text-[0.875em] bg-bg-tertiary text-accent-hover px-[0.4em] py-[0.2em] rounded border border-border;
+	}
+
+	pre {
+		@apply border border-border rounded-lg p-5 overflow-x-auto mb-6 shadow-sm leading-normal;
+	}
+
+	pre code {
+		@apply bg-transparent p-0 border-none text-inherit text-[0.9em] leading-[1.6];
+	}
+
+	pre code .line {
+		@apply inline;
+	}
+
+	blockquote {
+		@apply m-0 mb-6 py-2 px-4 pl-6 border-l-4 border-l-accent bg-accent-subtle rounded-r-lg text-text-secondary italic;
+	}
+
+	ul {
+		@apply mt-0 mb-6 pl-6 text-text-secondary list-disc;
+	}
+
+	ol {
+		@apply mt-0 mb-6 pl-6 text-text-secondary list-decimal;
+	}
+
+	li {
+		@apply mb-2;
+	}
+
+	table {
+		@apply w-full border-collapse mb-6 text-[0.95em];
+	}
+
+	th,
+	td {
+		@apply py-3 px-4 border-b border-border text-left;
+	}
+
+	th {
+		@apply font-semibold text-text-primary bg-bg-secondary;
+	}
+
+	img {
+		@apply max-w-full h-auto rounded-lg shadow-md;
+	}
+
+	hr {
+		@apply border-none h-px bg-border my-8;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@layer components {
+	.notice {
+		@apply flex gap-4 p-5 my-6 rounded-xl border border-transparent;
+	}
+
+	.notice-info,
+	.notice-note {
+		@apply bg-blue-500/10 border-blue-500/20;
+	}
+
+	.notice-info .notice-icon-wrapper,
+	.notice-note .notice-icon-wrapper {
+		@apply text-blue-500;
+	}
+
+	.notice-tip {
+		@apply bg-emerald-500/10 border-emerald-500/20;
+	}
+
+	.notice-tip .notice-icon-wrapper {
+		@apply text-emerald-500;
+	}
+
+	.notice-warning {
+		@apply bg-amber-500/10 border-amber-500/20;
+	}
+
+	.notice-warning .notice-icon-wrapper {
+		@apply text-amber-500;
+	}
+
+	.notice-error {
+		@apply bg-red-500/10 border-red-500/20;
+	}
+
+	.notice-error .notice-icon-wrapper {
+		@apply text-red-500;
+	}
+
+	.notice-icon-wrapper {
+		@apply shrink-0 mt-0.5;
+	}
+
+	.notice-content {
+		@apply flex-1 min-w-0;
+	}
+
+	.notice-content>*:first-child {
+		@apply mt-0;
+	}
+
+	.notice-content>*:last-child {
+		@apply mb-0;
+	}
+}

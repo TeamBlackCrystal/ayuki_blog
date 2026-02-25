@@ -1,0 +1,35 @@
+---
+import { SITE_TITLE } from "../consts";
+import HeaderLink from "./HeaderLink.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header
+	class="m-0 py-4 px-6 sticky top-0 z-[100] bg-header-bg backdrop-blur-md border-b border-border"
+>
+	<nav
+		class="flex flex-col sm:flex-row items-center justify-between max-w-[800px] mx-auto sm:gap-0 gap-4"
+	>
+		<h2
+			class="m-0 text-xl font-sans font-bold tracking-[-0.02em] border-none p-0"
+		>
+			<a
+				href="/"
+				class="!no-underline text-text-primary active:text-text-primary"
+				>{SITE_TITLE}</a
+			>
+		</h2>
+		<div
+			class="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-start"
+		>
+			<div
+				class="flex gap-2 [&>a]:inline-block [&>a]:px-4 [&>a]:py-2 [&>a]:text-text-secondary [&>a]:!no-underline [&>a]:rounded-md [&>a]:text-[0.95rem] [&>a]:font-medium [&>a]:transition-all [&>a]:duration-200 hover:[&>a]:text-text-primary hover:[&>a]:bg-bg-secondary [&>a.active]:bg-bg-secondary [&>a.active]:text-text-primary [&>a.active]:shadow-[inset_0_0_0_1px_var(--color-border)]"
+			>
+				<HeaderLink href="/">Home</HeaderLink>
+				<HeaderLink href="/blog">Blog</HeaderLink>
+				<HeaderLink href="/about">About</HeaderLink>
+			</div>
+			<ThemeToggle />
+		</div>
+	</nav>
+</header>
