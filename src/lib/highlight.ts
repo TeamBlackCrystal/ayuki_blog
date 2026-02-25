@@ -94,6 +94,28 @@ export const processHtml = async (html: string) => {
         }
     }
 
+    function getEmbedHtml(url: string): string | null {
+        // YouTube
+        const ytMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+        if (ytMatch && ytMatch[1]) {
+            return `<span class="not-prose aspect-video w-full my-6 block relative"><iframe src="https://www.youtube-nocookie.com/embed/${ytMatch[1]}" class="absolute inset-0 w-full h-full rounded-xl shadow-sm border border-border bg-bg-secondary" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></span>`;
+        }
+
+        // Spotify
+        const spotifyMatch = url.match(/spotify\.com\/(track|album|playlist|episode|show)\/([a-zA-Z0-9]+)/i);
+        if (spotifyMatch) {
+            return `<span class="not-prose w-full my-6 block"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/${spotifyMatch[1]}/${spotifyMatch[2]}" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></span>`;
+        }
+
+        // Vimeo
+        const vimeoMatch = url.match(/vimeo\.com\/(?:.*#|.*\/videos\/)?([0-9]+)/i);
+        if (vimeoMatch && vimeoMatch[1]) {
+            return `<span class="not-prose aspect-video w-full my-6 block relative"><iframe src="https://player.vimeo.com/video/${vimeoMatch[1]}" class="absolute inset-0 w-full h-full rounded-xl shadow-sm border border-border bg-bg-secondary" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></span>`;
+        }
+
+        return null;
+    }
+
     $("a").each((_, a) => {
         const $a = $(a);
         const href = $a.attr("href");
@@ -104,10 +126,16 @@ export const processHtml = async (html: string) => {
 
         if (href && (normalize(href) === normalize(text) || text.startsWith("http"))) {
             promises.push((async () => {
+                const embedHtml = getEmbedHtml(href);
+                if (embedHtml) {
+                    $a.replaceWith(embedHtml);
+                    return;
+                }
+
                 const ogp = await fetchOGP(href);
                 if (ogp) {
                     const cardHtml = `
-                        <a href="${ogp.url}" target="_blank" rel="noopener noreferrer" class="not-prose flex border border-border rounded-xl overflow-hidden bg-bg-primary hover:bg-bg-tertiary transition-colors !no-underline group h-[120px] max-h-[120px] my-6 shadow-sm hover:shadow-md">
+                        <a href="${ogp.url}" target="_blank" rel="noopener noreferrer" class="not-prose flex border border-border rounded-xl overflow-hidden bg-bg-primary hover:bg-bg-tertiary transition-colors !no-underline group h-[120px] max-h-[120px] my-6 shadow-sm hover:shadow-md block">
                             <span class="flex-1 p-3 md:p-4 flex flex-col justify-between overflow-hidden">
                                 <span class="block">
                                     <span class="font-bold text-text-primary text-sm md:text-base line-clamp-1 mb-1 tracking-tight block">${ogp.title}</span>
