@@ -61,16 +61,18 @@ const {
 				>
 					<div class="mb-10 text-center">
 						<div
-							class="text-text-tertiary text-sm font-mono uppercase tracking-[0.05em] font-medium"
+							class="flex items-center justify-center gap-4 text-text-tertiary text-sm font-mono tracking-[0.05em] font-medium"
 						>
-							<FormattedDate date={pubDate} />
+							<FormattedDate date={pubDate} type="published" />
 							{
-								updatedDate && (
-									<div class="italic mt-2">
-										Last updated on{" "}
-										<FormattedDate date={updatedDate} />
-									</div>
-								)
+								updatedDate &&
+									updatedDate.toLocaleDateString("ja-JP") !==
+										pubDate.toLocaleDateString("ja-JP") && (
+										<FormattedDate
+											date={updatedDate}
+											type="updated"
+										/>
+									)
 							}
 						</div>
 						<h1

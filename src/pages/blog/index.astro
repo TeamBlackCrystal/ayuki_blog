@@ -59,13 +59,14 @@ const posts = response.contents;
 												{post.title}
 											</h4>
 											<div class="flex items-center gap-2 md:gap-4 m-0 text-text-secondary text-sm flex-wrap mt-2">
-												<span class="font-mono uppercase tracking-[0.05em] text-text-tertiary">
+												<span class="font-mono tracking-[0.05em] text-text-tertiary">
 													<FormattedDate
 														date={
 															new Date(
 																post.publishedAt,
 															)
 														}
+														type="published"
 													/>
 												</span>
 												{post.author &&
