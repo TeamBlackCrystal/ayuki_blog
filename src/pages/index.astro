@@ -21,53 +21,60 @@ const recentPosts = response.contents;
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section class="hero-section animate-fade-in">
-				<div class="hero-badge">Joint Tech & Life Blog</div>
-				<h1>
-					<span class="gradient-text">ayuki's</span> blog
+		<main class="max-w-[1000px] mx-auto px-6 flex flex-col gap-24">
+			<section class="text-center pt-32 pb-16 flex flex-col items-center relative animate-fade-in
+				before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 
+				before:w-[600px] before:h-[600px] before:rounded-full before:-z-10 before:pointer-events-none
+				before:bg-[radial-gradient(circle,var(--color-accent-subtle)_0%,transparent_70%)]">
+				<div class="inline-flex items-center px-4 py-2 rounded-full bg-bg-primary text-text-secondary font-medium text-sm mb-8 border border-border backdrop-blur-md shadow-sm">
+					Joint Tech & Life Blog
+				</div>
+				<h1 class="text-4xl md:text-[4.5rem] font-extrabold leading-[1.1] mb-6 mt-0 max-w-[800px] tracking-[-0.04em] text-text-primary">
+					<span class="text-text-primary relative after:content-[''] after:absolute after:bottom-[0.1em] after:left-0 after:right-0 after:h-[0.25em] after:bg-accent-subtle after:-z-10 after:-skew-x-[10deg]">ayuki's</span> blog
 				</h1>
-				<p class="subtitle">
+				<p class="text-xl text-text-secondary max-w-[600px] mx-auto mb-12 leading-relaxed">
 					Code, design, and our creative journeys on the web.
 				</p>
-				<div class="hero-cta">
-					<a href="/blog" class="button button-primary">
+				<div class="flex gap-4 justify-center flex-wrap">
+					<a href="/blog" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium no-underline transition-all duration-200 text-base backdrop-blur-sm bg-text-primary text-bg-primary shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(0,0,0,0.15)] hover:opacity-90">
 						Explore Articles <ArrowRight class="icon" size={20} />
 					</a>
 				</div>
 			</section>
 
 			<section class="features-section">
-				<div class="section-header">
-					<h2>Authors</h2>
-					<p>このブログを書いている人たち</p>
+				<div class="text-center mb-12">
+					<h2 class="text-4xl mb-2 border-none p-0">Authors</h2>
+					<p class="text-text-secondary text-lg">このブログを書いている人たち</p>
 				</div>
-				<div class="authors-grid">
-					<div class="author-card">
-						<div class="author-icon">
+				<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-8 max-w-[800px] mx-auto">
+					<div class="bg-bg-secondary/40 backdrop-blur-xl border border-border rounded-[20px] p-10 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm text-center flex flex-col items-center hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md hover:border-text-secondary">
+						<div class="w-20 h-20 rounded-full mb-6 overflow-hidden border-2 border-border bg-bg-tertiary">
 							<Image
 								src={AUTHORS.yupix.icon}
 								alt="yupix"
 								width={80}
 								height={80}
+								class="w-full h-full object-cover rounded-none m-0 shadow-none border-none"
 							/>
 						</div>
-						<h3>yupix</h3>
-						<p>
+						<h3 class="text-2xl m-0 mb-4">yupix</h3>
+						<p class="m-0 text-text-secondary text-base leading-relaxed">
 							エンジニア。Webフロントエンドなどを触っています。最近はUI/UXやデザインにも興味あり。
 						</p>
 					</div>
-					<div class="author-card">
-						<div class="author-icon">
+					<div class="bg-bg-secondary/40 backdrop-blur-xl border border-border rounded-[20px] p-10 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm text-center flex flex-col items-center hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md hover:border-text-secondary">
+						<div class="w-20 h-20 rounded-full mb-6 overflow-hidden border-2 border-border bg-bg-tertiary">
 							<Image
 								src={AUTHORS.aki.icon}
 								alt="aki"
 								width={80}
 								height={80}
+								class="w-full h-full object-cover rounded-none m-0 shadow-none border-none"
 							/>
 						</div>
-						<h3>aki</h3>
-						<p>
+						<h3 class="text-2xl m-0 mb-4">aki</h3>
+						<p class="m-0 text-text-secondary text-base leading-relaxed">
 							エンジニア。バックエンドやインフラを中心に。新しい技術を試すのが好きです。
 						</p>
 					</div>
@@ -75,34 +82,39 @@ const recentPosts = response.contents;
 			</section>
 
 			<section class="recent-posts-section">
-				<div class="section-header flex-header">
-					<h2>Recent Posts</h2>
-					<a href="/blog" class="view-all"
-						>View all <ArrowRight size={16} /></a
-					>
+				<div class="flex justify-between items-end text-left border-b border-border pb-4 mb-12">
+					<h2 class="text-4xl m-0 border-none p-0">Recent Posts</h2>
+					<a href="/blog" class="flex items-center gap-1 text-text-secondary no-underline font-medium transition-colors duration-200 hover:text-text-primary">
+						View all <ArrowRight size={16} />
+					</a>
 				</div>
-				<div class="posts-grid">
+				<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 mb-16">
 					{
 						recentPosts.map((post) => (
-							<a href={`/blog/${post.id}/`} class="post-card">
-								<div class="post-image">
+							<a href={`/blog/${post.id}/`} class="group flex flex-col !no-underline rounded-[20px] bg-bg-secondary/40 backdrop-blur-xl border border-border overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md hover:border-text-secondary">
+								<div class="w-full aspect-[2/1] overflow-hidden border-b border-border">
 									{post.eyecatch?.url ? (
-										<img src={post.eyecatch.url} alt="" />
+										<img src={post.eyecatch.url} alt="" class="w-full h-full object-cover rounded-none m-0 border-none transition-transform duration-500 ease-in-out group-hover:scale-105 shadow-none" />
 									) : (
-										<CategoryEyecatch
-											categoryName={
-												post.category?.name || "Topic"
-											}
-										/>
+										<!-- Tailwind classes need to be applied in the CategoryEyecatch component directly if it sets dimensions, but adding wrappers just in case -->
+										<div class="[&>div]:w-full [&>div]:h-full [&>div]:object-cover [&>div]:rounded-none [&>div]:m-0 [&>div]:border-none [&>div]:transition-transform [&>div]:duration-500 [&>div]:ease-in-out group-hover:[&>div]:scale-105 w-full h-full">
+											<CategoryEyecatch
+												categoryName={
+													post.category?.name || "Topic"
+												}
+											/>
+										</div>
 									)}
 								</div>
-								<div class="post-content">
-									<p class="date">
+								<div class="p-6 flex flex-col gap-2">
+									<p class="m-0 text-sm text-text-tertiary font-mono uppercase tracking-[0.05em]">
 										<FormattedDate
 											date={new Date(post.publishedAt)}
 										/>
 									</p>
-									<h3>{post.title}</h3>
+									<h3 class="m-0 text-xl text-text-primary leading-[1.4] transition-colors duration-200 group-hover:text-accent-hover">
+										{post.title}
+									</h3>
 								</div>
 							</a>
 						))
@@ -111,336 +123,5 @@ const recentPosts = response.contents;
 			</section>
 		</main>
 		<Footer />
-		<style>
-			main {
-				max-width: 1000px;
-				padding: 0 1.5rem;
-				display: flex;
-				flex-direction: column;
-				gap: 6rem;
-			}
-
-			/* Hero Section */
-			.hero-section {
-				text-align: center;
-				padding: 8rem 0 4rem;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				position: relative;
-			}
-
-			.hero-section::before {
-				content: "";
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				width: 600px;
-				height: 600px;
-				background: radial-gradient(
-					circle,
-					var(--accent-subtle) 0%,
-					transparent 70%
-				);
-				z-index: -1;
-				pointer-events: none;
-			}
-
-			.hero-badge {
-				display: inline-flex;
-				align-items: center;
-				padding: 0.5rem 1rem;
-				border-radius: 999px;
-				background-color: var(--bg-primary);
-				color: var(--text-secondary);
-				font-weight: 500;
-				font-size: 0.875rem;
-				margin-bottom: 2rem;
-				border: 1px solid var(--border-color);
-				backdrop-filter: blur(12px);
-				box-shadow: var(--shadow-sm);
-			}
-
-			h1 {
-				font-size: 4.5rem;
-				font-weight: 800;
-				line-height: 1.1;
-				margin-bottom: 1.5rem;
-				margin-top: 0;
-				max-width: 800px;
-				letter-spacing: -0.04em;
-				color: var(--text-primary);
-			}
-
-			.gradient-text {
-				color: var(--text-primary);
-				position: relative;
-			}
-
-			.gradient-text::after {
-				content: "";
-				position: absolute;
-				bottom: 0.1em;
-				left: 0;
-				right: 0;
-				height: 0.25em;
-				background-color: var(--accent-subtle);
-				z-index: -1;
-				transform: skew(-10deg);
-			}
-
-			.subtitle {
-				font-size: 1.25rem;
-				color: var(--text-secondary);
-				max-width: 600px;
-				margin: 0 auto 3rem;
-				line-height: 1.6;
-			}
-
-			.hero-cta {
-				display: flex;
-				gap: 1rem;
-				justify-content: center;
-				flex-wrap: wrap;
-			}
-
-			.button {
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				gap: 0.5rem;
-				padding: 0.875rem 1.75rem;
-				border-radius: 999px;
-				font-weight: 500;
-				text-decoration: none !important;
-				transition: all 0.2s ease;
-				font-size: 1rem;
-				backdrop-filter: blur(8px);
-			}
-
-			.button-primary {
-				background-color: var(--text-primary);
-				color: var(--bg-primary);
-				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-			}
-
-			.button-primary:hover {
-				transform: translateY(-2px);
-				box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-				opacity: 0.9;
-			}
-
-			.button-secondary {
-				background-color: transparent;
-				color: var(--text-primary);
-				border: 1px solid var(--border-color);
-			}
-
-			.button-secondary:hover {
-				background-color: var(--accent-subtle);
-			}
-
-			/* Section Headers */
-			.section-header {
-				margin-bottom: 3rem;
-				text-align: center;
-			}
-
-			.section-header h2 {
-				font-size: 2.25rem;
-				margin-bottom: 0.5rem;
-				border: none;
-				padding: 0;
-			}
-
-			.section-header p {
-				color: var(--text-secondary);
-				font-size: 1.125rem;
-			}
-
-			.flex-header {
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-end;
-				text-align: left;
-				border-bottom: 1px solid var(--border-color);
-				padding-bottom: 1rem;
-			}
-
-			.flex-header h2 {
-				margin: 0;
-			}
-
-			.view-all {
-				display: flex;
-				align-items: center;
-				gap: 0.25rem;
-				color: var(--text-secondary);
-				text-decoration: none;
-				font-weight: 500;
-				transition: color 0.2s ease;
-			}
-
-			.view-all:hover {
-				color: var(--text-primary);
-			}
-
-			/* Authors Grid */
-			.authors-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-				gap: 2rem;
-				max-width: 800px;
-				margin: 0 auto;
-			}
-
-			.author-card {
-				background-color: rgba(
-					var(--bg-secondary-rgb, 255, 255, 255),
-					0.4
-				);
-				backdrop-filter: blur(16px);
-				border: 1px solid var(--border-color);
-				border-radius: 20px;
-				padding: 2.5rem 2rem;
-				transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-				box-shadow: var(--shadow-sm);
-				text-align: center;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-			}
-
-			.author-card:hover {
-				transform: translateY(-4px) scale(1.02);
-				box-shadow: var(--shadow-md);
-				border-color: var(--text-secondary);
-			}
-
-			.author-icon {
-				width: 5rem;
-				height: 5rem;
-				border-radius: 50%;
-				margin-bottom: 1.5rem;
-				overflow: hidden;
-				border: 2px solid var(--border-color);
-				background-color: var(--bg-tertiary);
-			}
-
-			.author-icon img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-
-			.author-card h3 {
-				font-size: 1.5rem;
-				margin: 0 0 1rem 0;
-			}
-
-			.author-card p {
-				margin: 0;
-				color: var(--text-secondary);
-				font-size: 1rem;
-				line-height: 1.6;
-			}
-
-			/* Posts Grid */
-			.posts-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				gap: 2rem;
-				margin-bottom: 4rem;
-			}
-
-			.post-card {
-				display: flex;
-				flex-direction: column;
-				text-decoration: none !important;
-				border-radius: 20px;
-				background-color: rgba(
-					var(--bg-secondary-rgb, 255, 255, 255),
-					0.4
-				);
-				backdrop-filter: blur(16px);
-				border: 1px solid var(--border-color);
-				overflow: hidden;
-				transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-			}
-
-			.post-card:hover {
-				transform: translateY(-4px) scale(1.02);
-				box-shadow: var(--shadow-md);
-				border-color: var(--text-secondary);
-			}
-
-			.post-image {
-				width: 100%;
-				aspect-ratio: 2 / 1;
-				overflow: hidden;
-				border-bottom: 1px solid var(--border-color);
-			}
-
-			.post-image img,
-			.post-image :global(.fallback-eyecatch) {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				border-radius: 0;
-				margin: 0;
-				border: none;
-				transition: transform 0.5s ease;
-			}
-
-			.post-card:hover .post-image img,
-			.post-card:hover .post-image :global(.fallback-eyecatch) {
-				transform: scale(1.05);
-			}
-
-			.post-content {
-				padding: 1.5rem;
-				display: flex;
-				flex-direction: column;
-				gap: 0.5rem;
-			}
-
-			.post-content .date {
-				margin: 0;
-				font-size: 0.875rem;
-				color: var(--text-tertiary);
-				font-family: var(--font-mono);
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
-			}
-
-			.post-content h3 {
-				margin: 0;
-				font-size: 1.25rem;
-				color: var(--text-primary);
-				line-height: 1.4;
-				transition: color 0.2s ease;
-			}
-
-			.post-card:hover .post-content h3 {
-				color: var(--accent-hover);
-			}
-
-			@media (max-width: 768px) {
-				h1 {
-					font-size: 2.5rem;
-				}
-				main {
-					gap: 4rem;
-				}
-				.hero-section {
-					padding: 4rem 0 0;
-				}
-				.features-grid,
-				.posts-grid {
-					grid-template-columns: 1fr;
-				}
-			}
-		</style>
 	</body>
 </html>

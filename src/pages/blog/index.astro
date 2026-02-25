@@ -17,195 +17,49 @@ const posts = response.contents;
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			.blog-list {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			.blog-list li {
-				width: 100%;
-			}
-			.blog-list li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			/* Apply special styles to the first list item */
-			.blog-list li:first-child {
-				grid-column: 1 / -1;
-				margin-bottom: 2rem;
-			}
-
-			/* First item card logic */
-			.blog-list li:first-child .post-card-inner {
-				display: flex;
-				flex-direction: column;
-			}
-
-			@media (min-width: 768px) {
-				.blog-list li:first-child .post-card-inner {
-					flex-direction: row;
-					align-items: center;
-				}
-				.blog-list li:first-child .post-image {
-					flex: 1;
-					margin-bottom: 0;
-				}
-				.blog-list li:first-child .post-content {
-					flex: 1;
-					padding-left: 2rem;
-				}
-				.blog-list li:first-child .title {
-					font-size: 2.5rem;
-				}
-			}
-
-			.post-card {
-				display: block;
-				border-radius: 20px;
-				background-color: rgba(
-					var(--bg-secondary-rgb, 255, 255, 255),
-					0.4
-				);
-				backdrop-filter: blur(16px);
-				border: 1px solid var(--border-color);
-				overflow: hidden;
-				transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-				height: 100%;
-			}
-			.post-card:hover {
-				transform: translateY(-4px) scale(1.02);
-				box-shadow: var(--shadow-md);
-				border-color: var(--text-secondary);
-			}
-
-			.post-image {
-				width: 100%;
-				aspect-ratio: 2 / 1;
-				overflow: hidden;
-				border-bottom: 1px solid var(--border-color);
-				margin-bottom: 0;
-				display: block;
-			}
-			.post-image img,
-			.post-image :global(.fallback-eyecatch) {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				border-radius: 0;
-				margin: 0;
-				border: none;
-				transition: transform 0.5s ease;
-			}
-
-			.post-card:hover .post-image img,
-			.post-card:hover .post-image :global(.fallback-eyecatch) {
-				transform: scale(1.05);
-			}
-
-			.post-content {
-				padding: 1.5rem;
-				display: flex;
-				flex-direction: column;
-				gap: 0.5rem;
-			}
-
-			.title {
-				margin: 0;
-				color: var(--text-primary);
-				line-height: 1.3;
-				font-weight: 700;
-				font-size: 1.25rem;
-				transition: color 0.2s ease;
-			}
-			.post-card:hover .title {
-				color: var(--accent-hover);
-			}
-
-			.meta {
-				display: flex;
-				align-items: center;
-				gap: 1rem;
-				margin: 0;
-				color: var(--text-secondary);
-				font-size: 0.875rem;
-				flex-wrap: wrap;
-			}
-
-			.date {
-				font-family: var(--font-mono);
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
-				color: var(--text-tertiary);
-			}
-
-			.author-info {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-				color: var(--text-secondary);
-				font-weight: 500;
-			}
-			.author-avatar {
-				border-radius: 50%;
-				border: 1px solid var(--border-color);
-			}
-
-			@media (max-width: 720px) {
-				.blog-list {
-					grid-template-columns: 1fr;
-					gap: 1.5rem;
-				}
-				.blog-list li {
-					text-align: left;
-				}
-				.blog-list li:first-child {
-					margin-bottom: 0;
-					text-align: left;
-				}
-				.blog-list li:first-child .title {
-					font-size: 1.5rem;
-				}
-				.meta {
-					gap: 0.5rem;
-				}
-			}
-		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<section>
-				<ul class="blog-list">
+				<ul
+					class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 list-none m-0 p-0 [&>li]:w-full [&>li_*]:no-underline [&>li_*]:transition-all [&>li_*]:duration-200 [&>li:first-child]:col-span-1 md:[&>li:first-child]:col-span-full [&>li:first-child]:mb-0 md:[&>li:first-child]:mb-8"
+				>
 					{
 						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`} class="post-card">
-									<div class="post-card-inner">
-										<div class="post-image">
+							<li class="group/item">
+								<a
+									href={`/blog/${post.id}/`}
+									class="group block rounded-[20px] bg-bg-secondary/40 backdrop-blur-xl border border-border overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] h-full hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md hover:border-text-secondary"
+								>
+									<div class="flex flex-col md:group-first/item:flex-row md:group-first/item:items-center h-full">
+										<div class="w-full aspect-[2/1] overflow-hidden border-b md:group-first/item:border-b-0 md:group-first/item:border-r border-border mb-0 flex-1">
 											{post.eyecatch?.url ? (
 												<img
 													width={720}
 													height={360}
 													src={post.eyecatch.url}
 													alt=""
+													class="w-full h-full object-cover rounded-none m-0 border-none transition-transform duration-500 ease-in-out group-hover:scale-105"
 												/>
 											) : (
-												<CategoryEyecatch
-													categoryName={
-														post.category?.name ||
-														"Topic"
-													}
-												/>
+												<div class="w-full h-full [&>div]:w-full [&>div]:h-full [&>div]:object-cover [&>div]:rounded-none [&>div]:m-0 [&>div]:border-none [&>div]:transition-transform [&>div]:duration-500 [&>div]:ease-in-out group-hover:[&>div]:scale-105">
+													<CategoryEyecatch
+														categoryName={
+															post.category
+																?.name ||
+															"Topic"
+														}
+													/>
+												</div>
 											)}
 										</div>
-										<div class="post-content">
-											<h4 class="title">{post.title}</h4>
-											<div class="meta">
-												<span class="date">
+										<div class="p-6 flex flex-col gap-2 flex-1 md:group-first/item:pl-8">
+											<h4 class="m-0 text-text-primary leading-[1.3] font-bold text-xl md:group-first/item:text-4xl transition-colors duration-200 group-hover:text-accent-hover">
+												{post.title}
+											</h4>
+											<div class="flex items-center gap-2 md:gap-4 m-0 text-text-secondary text-sm flex-wrap mt-2">
+												<span class="font-mono uppercase tracking-[0.05em] text-text-tertiary">
 													<FormattedDate
 														date={
 															new Date(
@@ -216,7 +70,7 @@ const posts = response.contents;
 												</span>
 												{post.author &&
 												AUTHORS[post.author] ? (
-													<span class="author-info">
+													<span class="inline-flex items-center gap-2 text-text-secondary font-medium">
 														<Image
 															src={
 																AUTHORS[
@@ -230,7 +84,7 @@ const posts = response.contents;
 															}
 															width={24}
 															height={24}
-															class="author-avatar"
+															class="rounded-full border border-border shadow-none m-0"
 														/>
 														{
 															AUTHORS[post.author]
@@ -239,7 +93,7 @@ const posts = response.contents;
 													</span>
 												) : (
 													post.author && (
-														<span class="author-info">
+														<span class="inline-flex items-center gap-2 text-text-secondary font-medium">
 															✍️ {post.author}
 														</span>
 													)
